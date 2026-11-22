@@ -7,7 +7,702 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css">
+  <style>
+/* ==========================================================================
+   AEROPRICE - REAL-TIME FLIGHT FARE ESTIMATION
+   Production Consumer SaaS Design System: 60-30-10 Palette, 8pt Grid
+   ========================================================================== */
+
+:root {
+  /* 60% Warm Neutral Canvas */
+  --bg-canvas: #FAF9F6;
+  --bg-card: #FFFFFF;
+  --bg-secondary: #F4F2EC;
+  --bg-subtle: #EBE8E1;
+
+  /* 30% Structural Ink & Typography */
+  --text-primary: #121211;
+  --text-secondary: #4A4947;
+  --text-muted: #73726E;
+  --border-subtle: #E6E3DB;
+  --border-strong: #D3CFCA;
+
+  /* 10% High-Trust Aviation Accent */
+  --accent-primary: #1E3A8A; /* Deep Navy */
+  --accent-hover: #172554;
+  --accent-tint: #EFF6FF;
+  --accent-highlight: #2563EB;
+
+  /* Status Colors */
+  --color-budget: #059669;
+  --color-budget-bg: #ECFDF5;
+  --color-standard: #2563EB;
+  --color-standard-bg: #EFF6FF;
+  --color-premium: #D97706;
+  --color-premium-bg: #FFFBEB;
+  --color-surge: #DC2626;
+  --color-surge-bg: #FEF2F2;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --ease-tactile: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Header Navigation
+   ========================================================================== */
+.app-header {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 14px 0;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-item {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: color var(--duration-fast) var(--ease-tactile);
+}
+
+.nav-item:hover, .nav-item.active {
+  color: var(--accent-primary);
+}
+
+.currency-tag {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-strip {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--bg-canvas) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 36px 0 28px 0;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.hero-heading {
+  font-size: 2.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.035em;
+  margin-bottom: 8px;
+}
+
+.hero-subheading {
+  font-size: 0.96rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Main Content Layout
+   ========================================================================== */
+.main-content {
+  flex: 1;
+  padding: 32px 0 64px 0;
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Workspace Grid (Asymmetrical 60/40 Split) */
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Card Surfaces */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.trip-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+}
+
+/* ==========================================================================
+   Form Components
+   ========================================================================== */
+.fare-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-row.single {
+  grid-template-columns: 1fr;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+input, select {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: border-color var(--duration-fast) var(--ease-tactile),
+              box-shadow var(--duration-fast) var(--ease-tactile);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-highlight);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+/* Route Visualizer Indicator */
+.route-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--border-subtle);
+}
+
+.airport-chip {
+  display: flex;
+  flex-direction: column;
+}
+
+.airport-code {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.airport-city {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.dest-chip {
+  text-align: right;
+}
+
+.route-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-strong);
+  margin: 0 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.route-plane {
+  font-size: 0.85rem;
+  color: var(--accent-primary);
+  background-color: var(--bg-secondary);
+  padding: 0 6px;
+}
+
+/* Duration Strip */
+.duration-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.duration-strip strong {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-tactile),
+              background-color var(--duration-fast) var(--ease-tactile);
+  border: none;
+  min-height: 44px;
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-secondary);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-sm {
+  min-height: 32px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+}
+
+/* ==========================================================================
+   Output Card & Price Display
+   ========================================================================== */
+.price-hero {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.price-lead-label {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.price-hero-content {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 3px;
+}
+
+.price-currency {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.price-figure {
+  font-size: 3.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.price-decimals {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.price-caption {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.badge-subtle {
+  background-color: var(--accent-tint);
+  color: var(--accent-highlight);
+  border: 1px solid #BFDBFE;
+}
+
+.badge-budget {
+  background-color: var(--color-budget-bg);
+  color: var(--color-budget);
+  border: 1px solid #A7F3D0;
+}
+
+.badge-standard {
+  background-color: var(--color-standard-bg);
+  color: var(--color-standard);
+  border: 1px solid #BFDBFE;
+}
+
+.badge-premium {
+  background-color: var(--color-premium-bg);
+  color: var(--color-premium);
+  border: 1px solid #FDE68A;
+}
+
+.badge-surge {
+  background-color: var(--color-surge-bg);
+  color: var(--color-surge);
+  border: 1px solid #FECACA;
+}
+
+/* Breakdown List */
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.86rem;
+}
+
+.item-label {
+  color: var(--text-muted);
+}
+
+.item-val {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.insight-tag {
+  color: var(--color-budget);
+  font-weight: 700;
+}
+
+/* Trust Box */
+.trust-box {
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.trust-icon {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Recent Searches Table
+   ========================================================================== */
+.history-card {
+  margin-top: 6px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.data-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.loading-cell {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 24px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  padding: 22px 0;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.8rem;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo {
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.footer-copy {
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-tactile);
+}
+
+.footer-links a:hover {
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 960px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-heading {
+    font-size: 1.65rem;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+</style>
 </head>
 <body>
   <!-- Navigation Header -->
@@ -246,6 +941,187 @@
     </div>
   </footer>
 
-  <script src="/static/script.js"></script>
+  <script>
+/**
+ * AeroPrice - Real-Time Flight Fare Estimation Client Logic
+ * Powers live route updates, duration computation, and API estimation requests.
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // DOM Elements
+  const fareForm = document.getElementById("fare-form");
+  const sourceSelect = document.getElementById("source");
+  const destinationSelect = document.getElementById("destination");
+  const airlineSelect = document.getElementById("airline");
+  const stopsSelect = document.getElementById("total_stops");
+  const journeyDateInput = document.getElementById("journey_date");
+  const depTimeInput = document.getElementById("dep_time");
+  const arrivalTimeInput = document.getElementById("arrival_time");
+  const btnSubmit = document.getElementById("btn-submit");
+
+  // Route & Duration Indicators
+  const originPreview = document.querySelector(".origin-preview");
+  const destPreview = document.querySelector(".dest-preview");
+  const originName = document.querySelector(".origin-name");
+  const destName = document.querySelector(".dest-name");
+  const durationPreviewText = document.getElementById("duration-preview-text");
+
+  // Output Card Elements
+  const priceDisplay = document.getElementById("price-display");
+  const fareTierBadge = document.getElementById("fare-tier-badge");
+  const priceCaptionText = document.getElementById("price-caption-text");
+  const summaryAirline = document.getElementById("summary-airline");
+  const summaryRoute = document.getElementById("summary-route");
+  const summaryDuration = document.getElementById("summary-duration");
+  const summaryStops = document.getElementById("summary-stops");
+  const summaryInsight = document.getElementById("summary-insight");
+
+  // Airport Metadata Map
+  const airportMeta = {
+    "Banglore": { code: "BLR", name: "Bangalore" },
+    "Delhi": { code: "DEL", name: "Delhi" },
+    "New Delhi": { code: "DEL", name: "Delhi" },
+    "Kolkata": { code: "CCU", name: "Kolkata" },
+    "Chennai": { code: "MAA", name: "Chennai" },
+    "Mumbai": { code: "BOM", name: "Mumbai" },
+    "Cochin": { code: "COK", name: "Cochin" },
+    "Hyderabad": { code: "HYD", name: "Hyderabad" }
+  };
+
+  // Set default journey date to tomorrow
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const yyyy = tomorrow.getFullYear();
+  const mm = String(tomorrow.getMonth() + 1).padStart(2, "0");
+  const dd = String(tomorrow.getDate()).padStart(2, "0");
+  if (journeyDateInput && !journeyDateInput.value) {
+    journeyDateInput.value = `${yyyy}-${mm}-${dd}`;
+  }
+
+  // Update Flight Duration Preview
+  function updateDuration() {
+    const dep = depTimeInput.value;
+    const arr = arrivalTimeInput.value;
+    if (!dep || !arr) return;
+
+    const [depH, depM] = dep.split(":").map(Number);
+    const [arrH, arrM] = arr.split(":").map(Number);
+
+    let diff = (arrH * 60 + arrM) - (depH * 60 + depM);
+    if (diff <= 0) {
+      diff += 24 * 60; // Overnight flight
+    }
+
+    const hours = Math.floor(diff / 60);
+    const mins = diff % 60;
+    durationPreviewText.textContent = `${hours}h ${mins}m`;
+  }
+
+  // Update Route Visualizer
+  function updateRoute() {
+    const src = sourceSelect.value;
+    const dst = destinationSelect.value;
+
+    const srcData = airportMeta[src] || { code: src.substring(0, 3).toUpperCase(), name: src };
+    const dstData = airportMeta[dst] || { code: dst.substring(0, 3).toUpperCase(), name: dst };
+
+    originPreview.textContent = srcData.code;
+    originName.textContent = srcData.name;
+    destPreview.textContent = dstData.code;
+    destName.textContent = dstData.name;
+  }
+
+  // Event Listeners for Live Form Changes
+  sourceSelect.addEventListener("change", updateRoute);
+  destinationSelect.addEventListener("change", updateRoute);
+  depTimeInput.addEventListener("input", updateDuration);
+  arrivalTimeInput.addEventListener("input", updateDuration);
+
+  // Initial Sync
+  updateRoute();
+  updateDuration();
+
+  function getCategoryBadgeClass(category) {
+    switch (category) {
+      case "Budget": return "badge-budget";
+      case "Standard": return "badge-standard";
+      case "Premium": return "badge-premium";
+      case "Surge": return "badge-surge";
+      default: return "badge-standard";
+    }
+  }
+
+  // Form Submit Action
+  fareForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (sourceSelect.value === destinationSelect.value) {
+      alert("Origin and destination cities cannot be identical. Please choose different airports.");
+      return;
+    }
+
+    const payload = {
+      airline: airlineSelect.value,
+      source: sourceSelect.value,
+      destination: destinationSelect.value,
+      journey_date: journeyDateInput.value,
+      dep_time: depTimeInput.value,
+      arrival_time: arrivalTimeInput.value,
+      total_stops: parseInt(stopsSelect.value, 10)
+    };
+
+    const originalText = btnSubmit.querySelector(".btn-text").textContent;
+    btnSubmit.querySelector(".btn-text").textContent = "Calculating Fare...";
+    btnSubmit.disabled = true;
+
+    try {
+      const response = await fetch("/api/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Unable to estimate fare.");
+      }
+
+      const result = await response.json();
+
+      // Update Price Display
+      const fareInt = Math.floor(result.predicted_fare);
+      priceDisplay.textContent = fareInt.toLocaleString("en-IN");
+
+      fareTierBadge.textContent = `${result.fare_category} Fare`;
+      fareTierBadge.className = `badge ${getCategoryBadgeClass(result.fare_category)}`;
+
+      priceCaptionText.textContent = `Expected single passenger fare for ${result.flight_details.airline} (${result.flight_details.stops})`;
+
+      // Update Breakdown Summary
+      summaryAirline.textContent = result.flight_details.airline;
+      summaryRoute.textContent = result.flight_details.route;
+      summaryDuration.textContent = result.flight_details.duration;
+      summaryStops.textContent = result.flight_details.stops;
+
+      // Booking Insight Badge
+      if (result.fare_category === "Budget") {
+        summaryInsight.innerHTML = "<span style='color: var(--color-budget); font-weight:700;'>Great Value &bull; Good time to book</span>";
+      } else if (result.fare_category === "Standard") {
+        summaryInsight.innerHTML = "<span style='color: var(--color-standard); font-weight:700;'>Fair Price &bull; Typical for route</span>";
+      } else {
+        summaryInsight.innerHTML = "<span style='color: var(--color-surge); font-weight:700;'>High Demand &bull; Peak booking window</span>";
+      }
+
+    } catch (err) {
+      alert(`Fare Estimation Error: ${err.message}`);
+    } finally {
+      btnSubmit.querySelector(".btn-text").textContent = originalText;
+      btnSubmit.disabled = false;
+    }
+  });
+});
+
+</script>
 </body>
 </html>
