@@ -46,7 +46,11 @@ INSERT INTO airlines_master (airline_name, carrier_code) VALUES
 ('Multiple carriers', 'MC'),
 ('Vistara', 'UK'),
 ('Air Asia', 'I5'),
-('GoAir', 'G8')
+('GoAir', 'G8'),
+('Multiple carriers Premium economy', 'MC-PE'),
+('Jet Airways Business', '9W-BUS'),
+('Vistara Premium economy', 'UK-PE'),
+('Trujet', '2T')
 ON DUPLICATE KEY UPDATE carrier_code=VALUES(carrier_code);
 
 -- 3. Core Transaction Table: Prediction Logs & Flight Queries
