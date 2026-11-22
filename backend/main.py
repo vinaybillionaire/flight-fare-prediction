@@ -78,11 +78,15 @@ def calculate_duration_mins(dep_time: str, arrival_time: str) -> int:
         return 170 # Standard average domestic duration (2h 50m)
 
 @app.get("/", response_class=HTMLResponse)
+@app.get("/api", response_class=HTMLResponse)
+@app.get("/api/index.py", response_class=HTMLResponse)
 async def serve_home(request: Request):
     """Serves the main Prediction Interface."""
     return templates.TemplateResponse(request=request, name="index.html", context={})
 
 @app.post("/api/predict")
+@app.post("/predict")
+@app.post("/api/index.py/api/predict")
 async def predict_fare(payload: FlightPredictionRequest):
     """
     Step 13: Model Integration
