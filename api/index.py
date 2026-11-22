@@ -18,15 +18,17 @@ async def app(scope, receive, send):
     """
     if scope["type"] == "http":
         headers = dict(scope.get("headers", []))
-        # Vercel sends the client-requested URL in x-matched-path
         matched_path = headers.get(b"x-matched-path")
-        if matched_path:
+        
+        if matched_path and matched_path != b"/api/index.py" and matched_path != b"/api":
             clean_path = matched_path.decode("utf-8")
-            # Strip query params if present in matched path
             if "?" in clean_path:
                 clean_path = clean_path.split("?")[0]
             scope["path"] = clean_path
         elif scope["path"] in ["/api/index.py", "/api", "/api/"]:
-            scope["path"] = "/"
+            if scope.get("method") == "POST":
+                scope["path"] = "/api/predict"
+            else:
+                scope["path"] = "/"
             
     await fastapi_app(scope, receive, send)

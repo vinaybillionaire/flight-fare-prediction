@@ -87,6 +87,9 @@ async def serve_home(request: Request):
 @app.post("/api/predict")
 @app.post("/predict")
 @app.post("/api/index.py/api/predict")
+@app.post("/api/index.py")
+@app.post("/api")
+@app.post("/")
 async def predict_fare(payload: FlightPredictionRequest):
     """
     Step 13: Model Integration
