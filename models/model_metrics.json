@@ -1,0 +1,27 @@
+{
+  "Linear Regression": {
+    "R2_Score": 0.5746,
+    "MAE": 2029.57,
+    "RMSE": 3028.56
+  },
+  "Ridge Regression": {
+    "R2_Score": 0.5743,
+    "MAE": 2029.49,
+    "RMSE": 3029.59
+  },
+  "Decision Tree": {
+    "R2_Score": 0.7575,
+    "MAE": 1223.48,
+    "RMSE": 2286.8
+  },
+  "Random Forest": {
+    "R2_Score": 0.8112,
+    "MAE": 1168.8,
+    "RMSE": 2017.86
+  },
+  "Tuned Random Forest (Final)": {
+    "R2_Score": 0.8177,
+    "MAE": 1131.59,
+    "RMSE": 1982.37
+  }
+}
