@@ -2,11 +2,33 @@
  * FareLens — Interactive Airfare Intelligence Client
  */
 document.addEventListener("DOMContentLoaded", () => {
+  const TOKEN_KEY = "farelens_jwt_token";
+  const USER_KEY = "farelens_user_obj";
+
+  let authToken = localStorage.getItem(TOKEN_KEY) || null;
+  let currentUser = null;
+  try {
+    currentUser = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+  } catch {
+    currentUser = null;
+  }
+
   let catalogData = null;
   let lastPredictionResult = null;
   let lastPayload = null;
 
   const toastEl = document.getElementById("toast");
+  const rolePill = document.getElementById("user-role-pill");
+  const btnOpenAuth = document.getElementById("btn-open-auth");
+  const btnSignout = document.getElementById("btn-signout");
+  const authModal = document.getElementById("auth-modal");
+  const authTabLogin = document.getElementById("auth-tab-login");
+  const authTabRegister = document.getElementById("auth-tab-register");
+  const loginForm = document.getElementById("login-form");
+  const registerForm = document.getElementById("register-form");
+  const historyMineWrap = document.getElementById("history-mine-wrap");
+  const adminControlsSection = document.getElementById("admin-controls-section");
+
   const fareForm = document.getElementById("fare-form");
   const sourceEl = document.getElementById("source");
   const destEl = document.getElementById("destination");
@@ -56,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function apiFetch(url, options = {}) {
     const headers = { ...(options.headers || {}) };
+    if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
     if (options.body && !headers["Content-Type"]) {
       headers["Content-Type"] = "application/json";
     }
@@ -68,6 +91,139 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return data;
   }
+
+  // ---------------------- On-Demand Auth Modal & State ----------------------
+  function openAuthModal() {
+    authModal.classList.add("open");
+    authModal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeAuthModal() {
+    authModal.classList.remove("open");
+    authModal.setAttribute("aria-hidden", "true");
+  }
+
+  function switchAuthTab(mode) {
+    const isLogin = mode === "login";
+    authTabLogin.classList.toggle("active", isLogin);
+    authTabRegister.classList.toggle("active", !isLogin);
+    loginForm.style.display = isLogin ? "flex" : "none";
+    registerForm.style.display = isLogin ? "none" : "flex";
+  }
+
+  function syncAuthUI() {
+    if (currentUser && authToken) {
+      rolePill.style.display = "inline-flex";
+      rolePill.textContent = `${currentUser.full_name} (${currentUser.role.toUpperCase()})`;
+      rolePill.className = currentUser.role === "admin" ? "badge badge-admin" : "badge badge-budget";
+      btnOpenAuth.textContent = "Account";
+      btnSignout.style.display = "inline-flex";
+      historyMineWrap.style.display = "inline-flex";
+      adminControlsSection.style.display = currentUser.role === "admin" ? "grid" : "none";
+    } else {
+      rolePill.style.display = "none";
+      btnOpenAuth.textContent = "Sign In";
+      btnSignout.style.display = "none";
+      historyMineWrap.style.display = "none";
+      document.getElementById("history-mine-only").checked = false;
+      adminControlsSection.style.display = "none";
+    }
+  }
+
+  function setSession(token, user) {
+    authToken = token;
+    currentUser = user;
+    if (token && user) {
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+    }
+    syncAuthUI();
+  }
+
+  btnOpenAuth.addEventListener("click", openAuthModal);
+  document.getElementById("btn-close-auth").addEventListener("click", closeAuthModal);
+  authModal.addEventListener("click", (e) => {
+    if (e.target === authModal) closeAuthModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && authModal.classList.contains("open")) closeAuthModal();
+  });
+
+  authTabLogin.addEventListener("click", () => switchAuthTab("login"));
+  authTabRegister.addEventListener("click", () => switchAuthTab("register"));
+
+  btnSignout.addEventListener("click", () => {
+    setSession(null, null);
+    showToast("Signed out.");
+    loadAlerts();
+    loadHistory();
+    loadDbStudio();
+  });
+
+  document.querySelectorAll(".demo-login-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      try {
+        const res = await apiFetch("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email: btn.dataset.email, password: btn.dataset.pw }),
+        });
+        setSession(res.access_token, res.user);
+        closeAuthModal();
+        showToast(`Signed in as ${res.user.full_name} (${res.user.role})`);
+        loadAlerts();
+        loadHistory();
+        loadDbStudio();
+      } catch (err) {
+        showToast(err.message, true);
+      }
+    });
+  });
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      const res = await apiFetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: document.getElementById("login-email").value,
+          password: document.getElementById("login-password").value,
+        }),
+      });
+      setSession(res.access_token, res.user);
+      closeAuthModal();
+      showToast(`Welcome back, ${res.user.full_name}!`);
+      loadAlerts();
+      loadHistory();
+      loadDbStudio();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
+
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      const res = await apiFetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify({
+          full_name: document.getElementById("reg-name").value,
+          email: document.getElementById("reg-email").value,
+          password: document.getElementById("reg-password").value,
+          role: document.getElementById("reg-role").value,
+        }),
+      });
+      setSession(res.access_token, res.user);
+      closeAuthModal();
+      showToast(`Registered & signed in as ${res.user.role}!`);
+      loadAlerts();
+      loadHistory();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
 
   // ---------------------- Tab Switching ----------------------
   document.querySelectorAll(".tab-btn").forEach((btn) => {
@@ -395,8 +551,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams({ limit: "30" });
     const search = document.getElementById("history-search").value.trim();
     const airline = document.getElementById("history-airline-filter").value;
+    const mine = document.getElementById("history-mine-only").checked;
     if (search) params.set("search", search);
     if (airline) params.set("airline", airline);
+    if (mine) params.set("mine", "true");
 
     const res = await apiFetch(`/api/history?${params.toString()}`);
     const tbody = document.getElementById("history-tbody");
@@ -471,7 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ---------------------- Database & Master Catalog ----------------------
+  // ---------------------- Database, Master Catalog & Optional Admin ----------------------
   async function loadDbStudio() {
     const [dbRes, catRes] = await Promise.all([apiFetch("/api/db-status"), apiFetch("/api/catalog")]);
     document.getElementById("db-engine-badge").textContent = dbRes.db_type;
@@ -502,10 +660,75 @@ document.addEventListener("DOMContentLoaded", () => {
           .map((a) => `<tr><td class="font-mono">${escapeHtml(a.carrier_code)}</td><td>${escapeHtml(a.airline_name)}</td><td>${escapeHtml(a.airline_tier)}</td></tr>`)
           .join("")}</tbody>
       </table>`;
+
+    if (currentUser && currentUser.role === "admin") {
+      try {
+        const usersRes = await apiFetch("/api/admin/users");
+        document.getElementById("admin-users-wrap").innerHTML = `
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
+              <tbody>${usersRes.users
+                .map(
+                  (u) => `
+                  <tr>
+                    <td>${escapeHtml(u.full_name)}</td>
+                    <td class="font-mono">${escapeHtml(u.email)}</td>
+                    <td>
+                      <select class="admin-role-select" data-id="${u.id}">
+                        <option value="traveler" ${u.role === "traveler" ? "selected" : ""}>traveler</option>
+                        <option value="analyst" ${u.role === "analyst" ? "selected" : ""}>analyst</option>
+                        <option value="admin" ${u.role === "admin" ? "selected" : ""}>admin</option>
+                      </select>
+                    </td>
+                    <td><span class="badge ${u.is_active ? "badge-budget" : "badge-surge"}">${u.is_active ? "Active" : "Disabled"}</span></td>
+                  </tr>`
+                )
+                .join("")}</tbody>
+            </table>
+          </div>`;
+
+        document.querySelectorAll(".admin-role-select").forEach((sel) => {
+          sel.addEventListener("change", async () => {
+            try {
+              await apiFetch(`/api/admin/users/${sel.dataset.id}`, {
+                method: "PATCH",
+                body: JSON.stringify({ role: sel.value }),
+              });
+              showToast("User role updated.");
+            } catch (err) {
+              showToast(err.message, true);
+            }
+          });
+        });
+      } catch (err) {
+        document.getElementById("admin-users-wrap").innerHTML = `<p class="card-desc">${escapeHtml(err.message)}</p>`;
+      }
+    }
   }
+
+  document.getElementById("admin-airline-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      await apiFetch("/api/admin/airlines", {
+        method: "POST",
+        body: JSON.stringify({
+          airline_name: document.getElementById("new-airline-name").value,
+          carrier_code: document.getElementById("new-carrier-code").value,
+          airline_tier: document.getElementById("new-airline-tier").value,
+        }),
+      });
+      showToast("Airline added to master table.");
+      document.getElementById("admin-airline-form").reset();
+      loadDbStudio();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
 
   // ---------------------- Initialization ----------------------
   async function init() {
+    syncAuthUI();
     try {
       const catRes = await apiFetch("/api/catalog");
       catalogData = catRes.catalog || {};
