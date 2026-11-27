@@ -4,6 +4,8 @@ Provides full schema-indexed collection parity and CRUD semantics with the
 3NF SQL backend so deployments can persist directly to MongoDB Atlas or local mongod.
 """
 
+import hashlib
+import json
 import os
 from datetime import datetime, timezone
 from types import SimpleNamespace
@@ -12,6 +14,11 @@ from typing import Dict, List, Optional
 import bcrypt
 from pymongo import DESCENDING, MongoClient, ReturnDocument
 from pymongo.errors import DuplicateKeyError
+
+try:
+    import certifi
+except ImportError:
+    certifi = None
 
 
 def _utc_now() -> datetime:
@@ -34,8 +41,19 @@ class MongoStore:
         self.mongo_uri = mongo_uri
         self.db_name = db_name
         self.city_to_iata = city_to_iata
-        self.client = MongoClient(mongo_uri, serverSelectionTimeoutMS=4000)
-        self.client.admin.command("ping")
+        client_kwargs = {
+            "serverSelectionTimeoutMS": 8000,
+            "connectTimeoutMS": 8000,
+            "socketTimeoutMS": 15000,
+        }
+        lowered_uri = mongo_uri.lower()
+        if certifi is not None and (
+            "mongodb+srv://" in lowered_uri or "tls=true" in lowered_uri or "ssl=true" in lowered_uri
+        ):
+            # Vercel's Linux runtime benefits from certifi's bundled CAs for Atlas SRV TLS.
+            client_kwargs["tlsCAFile"] = certifi.where()
+
+        self.client = MongoClient(mongo_uri, **client_kwargs)
         self.db = self.client[db_name]
 
         self.users = self.db["users"]
@@ -46,8 +64,27 @@ class MongoStore:
         self.benchmarks = self.db["model_benchmarks"]
         self.counters = self.db["counters"]
 
-        self._ensure_indexes()
-        self._seed_initial_data(seed_airports, seed_airlines)
+        bootstrap = self.counters.find_one({"_id": "__schema_seeded_v1__"})
+        needs_bootstrap = not (
+            bootstrap
+            and bootstrap.get("seed_airports") == len(seed_airports)
+            and bootstrap.get("seed_airlines") == len(seed_airlines)
+            and self.users.find_one({}, {"_id": 1}) is not None
+        )
+        if needs_bootstrap:
+            self._ensure_indexes()
+            self._seed_initial_data(seed_airports, seed_airlines)
+            self.counters.update_one(
+                {"_id": "__schema_seeded_v1__"},
+                {
+                    "$set": {
+                        "seed_airports": len(seed_airports),
+                        "seed_airlines": len(seed_airlines),
+                        "seeded_at": _utc_now(),
+                    }
+                },
+                upsert=True,
+            )
 
     def _next_seq(self, name: str) -> int:
         doc = self.counters.find_one_and_update(
@@ -152,6 +189,13 @@ class MongoStore:
 
     def sync_model_benchmarks(self, metrics_payload: Dict) -> None:
         models_dict = metrics_payload.get("models", {})
+        sig = hashlib.sha256(
+            json.dumps(metrics_payload, sort_keys=True, default=str).encode("utf-8")
+        ).hexdigest()
+        marker = self.counters.find_one({"_id": "__benchmarks_sig__"})
+        if marker and marker.get("sig") == sig and self.benchmarks.find_one({}, {"_id": 1}) is not None:
+            return
+
         train_samples = int(metrics_payload.get("training_samples", 8369))
         feat_count = int(metrics_payload.get("encoded_feature_count", 167))
         for name, stats in models_dict.items():
@@ -172,6 +216,11 @@ class MongoStore:
                 },
                 upsert=True,
             )
+        self.counters.update_one(
+            {"_id": "__benchmarks_sig__"},
+            {"$set": {"sig": sig, "updated_at": _utc_now()}},
+            upsert=True,
+        )
 
     @staticmethod
     def _user_to_dict(u: Dict) -> Dict:
