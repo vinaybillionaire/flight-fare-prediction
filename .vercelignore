@@ -1,7 +1,0 @@
-.git
-__pycache__
-*.pyc
-.pytest_cache
-data/*.xlsx
-database/flight_fare.db
-*.exe

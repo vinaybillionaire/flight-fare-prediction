@@ -1,69 +1,53 @@
-# Airfare Price Estimation and Fare Pattern Analysis-II
+# FareLens — Airfare Price Estimation & Fare Pattern Analysis-II
+
 **Academic Capstone Project | Group G1716**  
-**Evaluation Date:** December 4th, 2026  
-**Total Marks:** 50 (5 Marks Database Design + 45 Marks Project & Viva)
-
----
-
-## 👥 Team Members (Group G1716)
-- **25BD1A0589** - CHEEKATI VINAY
-- **25BD1A0586** - BOMMINENI LOKESH NARAYANA
-- **25BD1A058F** - DEVARSHETTY KARTHIK DATTA
-- **25BD1A058Q** - KAMBOJI SAI DHANUSH KUMAR
+**Team Members:**
+- **25BD1A0589** — Cheekati Vinay
+- **25BD1A0586** — Bommineni Lokesh Narayana
+- **25BD1A058F** — Devarshetty Karthik Datta
+- **25BD1A058Q** — Kamboji Sai Dhanush Kumar
 
 **Mentor:** Padma Priya T  
-**Tech Stack:** Python 3.14, FastAPI, Scikit-Learn, Random Forest, MySQL / SQLite, HTML5, CSS3, JavaScript
+**Tech Stack:** Python 3.13, FastAPI, Scikit-Learn 1.7.2, SQLAlchemy 2.0 (MySQL / 3NF SQLite), PyJWT, bcrypt, HTML5, CSS3, Vanilla JavaScript
 
 ---
 
-## 🛫 16-Step ML Model Design to URL Generation Flow
-1. **Problem Definition** - Predict airfare in India from route, airline, stops, and schedule.
-2. **Data Collection** - 10,682 verified flight records from Kaggle/MachineHack (`data/Data_Train.csv`).
-3. **Data Preprocessing** - Missing value treatment & city normalization.
-4. **Exploratory Data Analysis (EDA)** - Route, airline, and stop distribution analysis.
-5. **Feature Engineering** - Date decomposition (day, month, weekday), duration in minutes, One-Hot Encoding (28 features).
-6. **Model Selection** - Evaluated Linear Regression, Ridge, Decision Tree, and Random Forest.
-7. **Model Training** - 80/20 train-test split (`models/train_models.py`).
-8. **Model Evaluation** - $R^2 = 81.77\%$, $\text{MAE} = ₹1,131.59$, $\text{RMSE} = ₹1,982.37$.
-9. **Hyperparameter Tuning** - RandomizedSearchCV (`n_estimators=200`, `max_depth=15`, `min_samples_split=2`).
-10. **Model Saving** - Exported to `models/flight_rf_model.pkl` via `joblib`.
-11. **Backend Development** - FastAPI REST endpoints (`backend/main.py`).
-12. **Frontend Development** - Modern Linear-style prediction interface (`frontend/`).
-13. **Model Integration** - Frontend asynchronous fetch wired to `/api/predict`.
-14. **Testing** - Unit & integration test suite (`tests/test_suite.py`).
-15. **Deployment** - Production Uvicorn web server runner (`run.py`).
-16. **URL Generation** - Live access URL: **`http://127.0.0.1:8000`** & Interactive Docs: **`http://127.0.0.1:8000/docs`**.
+## Highlights & Improvements Over Naive Baselines
+1. **90.32% R² Accuracy (Leak-Free Pipeline):** Uses our Kaggle feature workflow (`lokii1929/airfare-prediction` preserving `Route` and `Additional_Info` across 167 encoded features, with 220 duplicate rows removed), upgraded to a strictly **leak-free Scikit-Learn `Pipeline`** fit only on the 80% training split:
+   - **Tuned Random Forest (`n_estimators=250, min_samples_split=3`):** `R² = 0.9032` (`90.32%`), `MAE = ₹619.93`, `RMSE = ₹1,420.35`, `5-Fold CV R² = 0.8974 ± 0.0147`
+   - Benchmarked cleanly against **Linear Regression (71.54%)**, **Ridge Regression (71.52%)**, **SVR RBF Scaled (77.92%)**, **KNN Scaled (81.11%)**, and **Decision Tree (84.99%)**.
+2. **Full-Stack Features Beyond Input-and-Prediction (Zero `-5M` Penalty Risk):**
+   - **JWT Auth & 3 Stakeholder Roles:** `Traveler`, `Analyst`, and `Admin` (`bcrypt` password hashing + `HS256` JWT tokens).
+   - **3rd Normal Form (3NF) Relational Database (6 Tables with Foreign Keys):** `users`, `airports_master`, `airlines_master`, `flight_predictions`, `fare_alerts`, `model_benchmarks`. Synchronized between `database/schema.sql` (MySQL 8.0+) and `database/db.py` (SQLAlchemy ORM + SQLite FK enforcement).
+   - **Full CRUD Operations:** Create/Read/Update/Delete on both **Prediction Audit Logs** (`notes`) and **Price Watchlist Alerts** (`target_price`, `status`, `notes`), plus Admin user-role & airline-catalog CRUD and Analyst CSV export.
+   - **Batch ML Intelligence:** 7-Day Flexible Date Calendar (`POST /api/compare-dates`), Cross-Airline Fare Comparison (`POST /api/compare-airlines`), Tree-Ensemble IQR Confidence Intervals, Feature Importances, EDA Charts, and **2019 Collection-Date & Market Drift Limitations** analysis.
 
 ---
 
-## 🗄️ Database Design (5 Marks Deliverable)
-- **MySQL Script:** Located at `database/schema.sql`.
-- **Relational Design (3NF):**
-  - `airports_master`: IATA codes, cities, states.
-  - `airlines_master`: Carrier names, codes, active flags.
-  - `flight_predictions`: Logs every prediction transaction with source, destination, stops, fare, and timestamp.
-  - `model_benchmarks`: Benchmarking metrics across all 4 algorithms.
-- **Portability:** Auto-fallback to local SQLite (`database/flight_fare.db`) if MySQL is offline, ensuring zero runtime crashes during evaluation.
+## Quick Start
 
----
-
-## ⚡ How to Run the Project
 ```bash
-# 1. Run the Web Application
-python run.py
+# 1. Install dependencies (if needed)
+pip install -r requirements.txt
 
-# 2. Open in Browser
-http://127.0.0.1:8000
+# 2. Train & benchmark all models + export EDA & catalog artifacts
+python3 models/train_models.py
 
-# 3. Run Automated Tests
-python tests/test_suite.py
+# 3. Run automated verification suite (pytest)
+python3 -m pytest -v tests/test_suite.py
 
-# 4. Re-train ML Model (Optional)
-python models/train_models.py
+# 4. Launch FastAPI web application
+python3 run.py
 ```
 
----
+Open **`http://127.0.0.1:8000`** for the application or **`http://127.0.0.1:8000/docs`** for Swagger OpenAPI documentation.
 
-## 📚 Viva Preparation
-Read the full viva defense guide: [`viva/VIVA_QUESTIONS_AND_ANSWERS.md`](viva/VIVA_QUESTIONS_AND_ANSWERS.md)
-Contains answers to 25+ evaluator questions, mathematical formula breakdowns, and code explanations.
+### Demo Stakeholder Accounts
+- **Traveler:** `traveler@farelens.in` / `Traveler@123`
+- **Analyst:** `analyst@farelens.in` / `Analyst@123`
+- **Admin:** `admin@farelens.in` / `Admin@123`
+
+### Live Database Audit Utility
+```bash
+python3 view_database.py --watch
+```

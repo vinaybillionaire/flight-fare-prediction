@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: farelens
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DB_ENGINE
+        value: auto
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        value: flight_fare_db
+      - key: FARELENS_JWT_SECRET
+        generateValue: true

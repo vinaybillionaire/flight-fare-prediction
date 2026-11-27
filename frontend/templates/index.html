@@ -3,1718 +3,643 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AeroPrice &mdash; Real-Time Flight Fare Estimation &amp; Price Intelligence</title>
+  <title>FareLens — Airfare Intelligence &amp; ML Estimation Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style.css">
-  <style>
-/* ==========================================================================
-   AEROPRICE - REAL-TIME FLIGHT FARE ESTIMATION
-   Production Consumer SaaS Design System: 60-30-10 Palette, 8pt Grid
-   ========================================================================== */
-
-:root {
-  /* 60% Warm Neutral Canvas */
-  --bg-canvas: #FAF9F6;
-  --bg-card: #FFFFFF;
-  --bg-secondary: #F4F2EC;
-  --bg-subtle: #EBE8E1;
-
-  /* 30% Structural Ink & Typography */
-  --text-primary: #121211;
-  --text-secondary: #4A4947;
-  --text-muted: #73726E;
-  --border-subtle: #E6E3DB;
-  --border-strong: #D3CFCA;
-
-  /* 10% High-Trust Aviation Accent */
-  --accent-primary: #1E3A8A; /* Deep Navy */
-  --accent-hover: #172554;
-  --accent-tint: #EFF6FF;
-  --accent-highlight: #2563EB;
-
-  /* Status Colors */
-  --color-budget: #059669;
-  --color-budget-bg: #ECFDF5;
-  --color-standard: #2563EB;
-  --color-standard-bg: #EFF6FF;
-  --color-premium: #D97706;
-  --color-premium-bg: #FFFBEB;
-  --color-surge: #DC2626;
-  --color-surge-bg: #FEF2F2;
-
-  /* Typography */
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  /* Transitions */
-  --ease-tactile: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-fast: 150ms;
-  --duration-normal: 220ms;
-}
-
-/* Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-color: var(--bg-canvas);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ==========================================================================
-   Header Navigation
-   ========================================================================== */
-.app-header {
-  background-color: var(--bg-card);
-  border-bottom: 1px solid var(--border-subtle);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  padding: 14px 0;
-}
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.brand-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.brand-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 9px;
-  background-color: var(--accent-primary);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.brand-meta {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-}
-
-.brand-sub {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.currency-tag {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  padding: 4px 10px;
-  border-radius: 6px;
-}
-
-/* ==========================================================================
-   Hero Section
-   ========================================================================== */
-.hero-strip {
-  background: linear-gradient(180deg, #FFFFFF 0%, var(--bg-canvas) 100%);
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 36px 0 28px 0;
-}
-
-.hero-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  text-align: center;
-}
-
-.hero-heading {
-  font-size: 2.15rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.035em;
-  margin-bottom: 8px;
-}
-
-.hero-subheading {
-  font-size: 0.96rem;
-  color: var(--text-muted);
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-/* ==========================================================================
-   Main Content Layout
-   ========================================================================== */
-.main-content {
-  flex: 1;
-  padding: 32px 0 64px 0;
-}
-
-.content-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-/* Workspace Grid (Asymmetrical 60/40 Split) */
-.workspace-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 28px;
-  align-items: start;
-}
-
-/* Card Surfaces */
-.card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 28px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 22px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.card-title {
-  font-size: 1.08rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.card-desc {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 3px;
-}
-
-.trip-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background-color: var(--bg-secondary);
-  color: var(--text-secondary);
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border-subtle);
-}
-
-/* ==========================================================================
-   Form Components
-   ========================================================================== */
-.fare-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.form-row.single {
-  grid-template-columns: 1fr;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-field label {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-input, select {
-  width: 100%;
-  height: 44px;
-  padding: 0 14px;
-  background-color: #FFFFFF;
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  transition: border-color var(--duration-fast) var(--ease-tactile),
-              box-shadow var(--duration-fast) var(--ease-tactile);
-}
-
-input:focus, select:focus {
-  outline: none;
-  border-color: var(--accent-highlight);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-}
-
-.select-wrapper {
-  position: relative;
-}
-
-/* Route Visualizer Indicator */
-.route-preview {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--bg-secondary);
-  border-radius: 8px;
-  padding: 10px 18px;
-  border: 1px solid var(--border-subtle);
-}
-
-/* Transit Hubs Live Indicator */
-.transit-hubs-indicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #FFFFFF;
-  border: 1px dashed var(--accent-highlight);
-  border-radius: 6px;
-  padding: 6px 14px;
-  font-size: 0.78rem;
-  margin-top: -6px;
-}
-
-.transit-label {
-  font-weight: 700;
-  color: var(--accent-primary);
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-}
-
-.transit-path {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  color: var(--accent-highlight);
-}
-
-.airport-chip {
-  display: flex;
-  flex-direction: column;
-}
-
-.airport-code {
-  font-family: var(--font-mono);
-  font-weight: 800;
-  font-size: 1rem;
-  color: var(--text-primary);
-  line-height: 1.1;
-}
-
-.airport-city {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-.dest-chip {
-  text-align: right;
-}
-
-.route-line {
-  flex: 1;
-  height: 1px;
-  background-color: var(--border-strong);
-  margin: 0 24px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.route-plane {
-  font-size: 0.85rem;
-  color: var(--accent-primary);
-  background-color: var(--bg-secondary);
-  padding: 0 6px;
-}
-
-/* Slot Chips & Schedule Windows */
-.slot-chips-label-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 2px;
-}
-
-.field-hint-accent {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--accent-highlight);
-  letter-spacing: 0.02em;
-}
-
-.slot-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 4px;
-}
-
-.slot-chip {
-  background-color: #FFFFFF;
-  border: 1px solid var(--border-subtle);
-  border-radius: 7px;
-  padding: 6px 10px;
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all var(--duration-fast) var(--ease-tactile);
-}
-
-.slot-chip:hover {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-strong);
-  color: var(--text-primary);
-}
-
-.slot-chip.active {
-  background-color: var(--accent-tint);
-  border-color: var(--accent-highlight);
-  color: var(--accent-primary);
-  box-shadow: 0 0 0 1px var(--accent-highlight);
-}
-
-.slot-chip .chip-time {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  background-color: var(--bg-secondary);
-  padding: 1px 5px;
-  border-radius: 4px;
-}
-
-.slot-chip.active .chip-time {
-  color: var(--accent-primary);
-  background-color: #FFFFFF;
-}
-
-/* Duration Strip */
-.duration-strip {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background-color: var(--bg-secondary);
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-}
-
-.duration-strip-main {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.duration-strip strong {
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-}
-
-.duration-strip-sub {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  padding-left: 24px;
-  line-height: 1.35;
-}
-
-.duration-strip-sub strong {
-  font-family: var(--font-sans);
-  color: var(--accent-primary);
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform var(--duration-fast) var(--ease-tactile),
-              background-color var(--duration-fast) var(--ease-tactile);
-  border: none;
-  min-height: 44px;
-}
-
-.btn:active {
-  transform: scale(0.985);
-}
-
-.btn-primary {
-  background-color: var(--accent-primary);
-  color: #FFFFFF;
-}
-
-.btn-primary:hover {
-  background-color: var(--accent-hover);
-}
-
-.btn-block {
-  width: 100%;
-}
-
-/* ==========================================================================
-   Output Card: Empty State (Default on page load)
-   ========================================================================== */
-.empty-state-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 48px 24px;
-  min-height: 420px;
-}
-
-.empty-icon-circle {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  color: var(--accent-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.empty-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-
-.empty-desc {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  max-width: 320px;
-  line-height: 1.55;
-  margin-bottom: 24px;
-}
-
-.empty-hint-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 14px;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-/* ==========================================================================
-   Output Card: Active Result State (Shown after submission)
-   ========================================================================== */
-.result-state-container {
-  animation: fadeIn 0.25s var(--ease-tactile);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.price-hero {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-  margin-bottom: 22px;
-}
-
-.price-lead-label {
-  font-size: 0.74rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  font-weight: 700;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.price-hero-content {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 3px;
-}
-
-.price-currency {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
-.price-figure {
-  font-size: 3.25rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.price-decimals {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
-.price-caption {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  margin-top: 8px;
-}
-
-/* Badges */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-.badge-subtle {
-  background-color: var(--accent-tint);
-  color: var(--accent-highlight);
-  border: 1px solid #BFDBFE;
-}
-
-.badge-budget {
-  background-color: var(--color-budget-bg);
-  color: var(--color-budget);
-  border: 1px solid #A7F3D0;
-}
-
-.badge-standard {
-  background-color: var(--color-standard-bg);
-  color: var(--color-standard);
-  border: 1px solid #BFDBFE;
-}
-
-.badge-premium {
-  background-color: var(--color-premium-bg);
-  color: var(--color-premium);
-  border: 1px solid #FDE68A;
-}
-
-.badge-surge {
-  background-color: var(--color-surge-bg);
-  color: var(--color-surge);
-  border: 1px solid #FECACA;
-}
-
-/* Breakdown List */
-.breakdown-list {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 22px;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.breakdown-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-subtle);
-  font-size: 0.86rem;
-}
-
-.item-label {
-  color: var(--text-muted);
-}
-
-.item-val {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.insight-tag {
-  color: var(--color-budget);
-  font-weight: 700;
-}
-
-/* Price Range Band */
-.price-range-band {
-  margin: 6px 0 4px 0;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-}
-
-.price-range-band strong {
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-weight: 700;
-}
-
-/* ==========================================================================
-   Explainable AI (XAI) & Optimization Panels (Unique Value Proposition)
-   ========================================================================== */
-.decomp-panel, .savings-panel {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 9px;
-  padding: 14px 16px;
-  margin-bottom: 18px;
-}
-
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.panel-title {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-primary);
-}
-
-.panel-tag {
-  font-size: 0.68rem;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  background-color: #FFFFFF;
-  color: var(--accent-highlight);
-  border: 1px solid #BFDBFE;
-  padding: 2px 7px;
-  border-radius: 4px;
-}
-
-.panel-badge-green {
-  font-size: 0.68rem;
-  font-weight: 700;
-  font-family: var(--font-mono);
-  background-color: var(--color-budget-bg);
-  color: var(--color-budget);
-  border: 1px solid #A7F3D0;
-  padding: 2px 7px;
-  border-radius: 4px;
-}
-
-.decomp-list {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.decomp-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.8rem;
-}
-
-.decomp-factor {
-  color: var(--text-secondary);
-}
-
-.decomp-amount {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 0.82rem;
-  color: var(--text-primary);
-}
-
-.decomp-amount.positive {
-  color: var(--color-premium);
-}
-
-.decomp-amount.negative {
-  color: var(--color-budget);
-}
-
-.savings-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.savings-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  line-height: 1.45;
-}
-
-.savings-item::before {
-  content: "•";
-  color: var(--color-budget);
-  font-weight: 800;
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
-/* Trust Box */
-.trust-box {
-  background-color: var(--bg-secondary);
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
-}
-
-.trust-icon {
-  color: var(--accent-primary);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.app-footer {
-  background-color: var(--bg-card);
-  border-top: 1px solid var(--border-subtle);
-  padding: 22px 0;
-  margin-top: auto;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  font-size: 0.8rem;
-}
-
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.footer-logo {
-  font-weight: 800;
-  color: var(--text-primary);
-}
-
-.footer-copy {
-  color: var(--text-muted);
-}
-
-.footer-links {
-  display: flex;
-  gap: 18px;
-}
-
-.footer-links a {
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-tactile);
-}
-
-.footer-links a:hover {
-  color: var(--text-primary);
-}
-
-/* ==========================================================================
-   Responsive Breakpoints
-   ========================================================================== */
-@media (max-width: 960px) {
-  .workspace-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .hero-heading {
-    font-size: 1.65rem;
-  }
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-  </style>
 </head>
 <body>
-  <!-- Navigation Header -->
   <header class="app-header">
-    <div class="header-container">
+    <div class="header-inner">
       <div class="brand-group">
-        <div class="brand-icon">
+        <div class="brand-icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
           </svg>
         </div>
-        <div class="brand-meta">
-          <span class="brand-title">AeroPrice</span>
-          <span class="brand-sub">Flight Fare Intelligence</span>
+        <div>
+          <div class="brand-title">
+            FareLens
+            <span class="badge badge-budget" id="header-r2-badge">R² 90.32%</span>
+          </div>
+          <div class="brand-sub" id="header-db-badge">3NF Relational DB • Group G1716</div>
         </div>
       </div>
-      <nav class="nav-links">
-        <span class="currency-tag">INR (₹)</span>
-      </nav>
+
+      <div class="header-actions">
+        <span class="badge badge-subtle" id="user-role-pill">Guest Mode (Read-Only)</span>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-open-viva">Architecture &amp; Viva</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-open-auth">Sign In / Register</button>
+        <button type="button" class="btn btn-danger btn-sm" id="btn-signout" style="display:none;">Sign Out</button>
+      </div>
     </div>
+
+    <nav class="tabs-bar" aria-label="Workspace Sections">
+      <div class="tabs-inner">
+        <button type="button" class="tab-btn active" data-tab="tab-estimator">Fare Estimator &amp; Comparator</button>
+        <button type="button" class="tab-btn" data-tab="tab-eda">EDA &amp; Market Drift</button>
+        <button type="button" class="tab-btn" data-tab="tab-benchmarks">ML Model Benchmarks</button>
+        <button type="button" class="tab-btn" data-tab="tab-crud">Watchlist &amp; History (CRUD)</button>
+        <button type="button" class="tab-btn" data-tab="tab-admin">Admin &amp; 3NF DB Studio</button>
+      </div>
+    </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero-strip">
-    <div class="hero-inner">
-      <h1 class="hero-heading">Compare &amp; Estimate Domestic Flight Fares</h1>
-      <p class="hero-subheading">Get accurate ticket price estimates based on historical airline pricing patterns, routes, and departure schedules across major Indian airports.</p>
-    </div>
-  </section>
+  <main class="container">
+    <!-- =========================================================
+         TAB 1: FARE ESTIMATOR, CONFIDENCE RANGE & BATCH COMPARE
+         ========================================================= -->
+    <section id="tab-estimator" class="tab-panel active">
+      <div class="hero-banner">
+        <div>
+          <h1>Airfare Price Estimation &amp; Fare Pattern Intelligence</h1>
+          <p>Powered by our leak-free 167-feature Random Forest pipeline preserving exact layover routes and cabin attributes, paired with 7-day flexible date search, carrier comparison, and 3NF relational logging.</p>
+        </div>
+        <div class="hero-kpis">
+          <div class="hero-kpi">
+            <span class="kpi-val" id="hero-r2">90.32%</span>
+            <span class="kpi-lbl">Held-out R²</span>
+          </div>
+          <div class="hero-kpi">
+            <span class="kpi-val" id="hero-mae">₹620</span>
+            <span class="kpi-lbl">Avg MAE</span>
+          </div>
+          <div class="hero-kpi">
+            <span class="kpi-val" id="hero-cv">89.74%</span>
+            <span class="kpi-lbl">5-Fold CV R²</span>
+          </div>
+        </div>
+      </div>
 
-  <!-- Main Application Body -->
-  <main class="main-content">
-    <div class="content-container">
-
-      <!-- Workspace: Form & Prediction Display Split -->
       <div class="workspace-grid">
-        
-        <!-- Flight Search Form Card -->
-        <section class="card form-card">
+        <!-- Left Column: Trip Parameters -->
+        <section class="card">
           <div class="card-header">
             <div>
-              <h2 class="card-title">Flight Journey Details</h2>
-              <p class="card-desc">Select origin, destination, and flight timing to estimate ticket price.</p>
+              <h2 class="card-title">Flight Itinerary &amp; Feature Builder</h2>
+              <p class="card-desc">All 13 raw ML attributes map cleanly through the Scikit-Learn ColumnTransformer pipeline.</p>
             </div>
-            <span class="trip-tag">One-way Flight</span>
+            <span class="badge badge-subtle">167 Encoded Features</span>
           </div>
 
           <form id="fare-form" class="fare-form">
-            <!-- Origin & Destination -->
             <div class="form-row">
               <div class="form-field">
                 <label for="source">From (Origin City)</label>
-                <div class="select-wrapper">
-                  <select id="source" name="source" required>
-                    <option value="" disabled selected>Select Origin Airport</option>
-                    <option value="Banglore">Bangalore (BLR)</option>
-                    <option value="Delhi">Delhi (DEL)</option>
-                    <option value="Kolkata">Kolkata (CCU)</option>
-                    <option value="Chennai">Chennai (MAA)</option>
-                    <option value="Mumbai">Mumbai (BOM)</option>
-                  </select>
-                </div>
+                <select id="source" required>
+                  <option value="Banglore" selected>Bangalore (BLR)</option>
+                  <option value="Delhi">Delhi (DEL)</option>
+                  <option value="Kolkata">Kolkata (CCU)</option>
+                  <option value="Chennai">Chennai (MAA)</option>
+                  <option value="Mumbai">Mumbai (BOM)</option>
+                </select>
               </div>
-
               <div class="form-field">
                 <label for="destination">To (Destination City)</label>
-                <div class="select-wrapper">
-                  <select id="destination" name="destination" required>
-                    <option value="" disabled selected>Select Destination Airport</option>
-                    <option value="Delhi">Delhi (DEL)</option>
-                    <option value="Cochin">Cochin (COK)</option>
-                    <option value="Banglore">Bangalore (BLR)</option>
-                    <option value="Hyderabad">Hyderabad (HYD)</option>
-                    <option value="Kolkata">Kolkata (CCU)</option>
-                  </select>
-                </div>
+                <select id="destination" required>
+                  <option value="Delhi" selected>Delhi (DEL)</option>
+                  <option value="New Delhi">New Delhi (DEL - Peak/Early Season)</option>
+                  <option value="Cochin">Cochin (COK)</option>
+                  <option value="Banglore">Bangalore (BLR)</option>
+                  <option value="Hyderabad">Hyderabad (HYD)</option>
+                  <option value="Kolkata">Kolkata (CCU)</option>
+                </select>
               </div>
             </div>
 
-            <!-- Route Visualizer Line -->
-            <div class="route-preview" id="route-preview-box">
-              <div class="airport-chip origin-chip">
-                <span class="airport-code origin-preview">---</span>
-                <span class="airport-city origin-name">Origin</span>
+            <div class="route-preview">
+              <div>
+                <span class="airport-code origin-preview">BLR</span>
+                <span class="airport-city origin-name">Bangalore</span>
               </div>
-              <div class="route-line" id="route-line-track">
-                <span class="route-plane">✈</span>
-              </div>
-              <div class="airport-chip dest-chip">
-                <span class="airport-code dest-preview">---</span>
-                <span class="airport-city dest-name">Destination</span>
+              <div class="route-line"><span class="route-plane">&#9992;</span></div>
+              <div class="dest-chip">
+                <span class="airport-code dest-preview">DEL</span>
+                <span class="airport-city dest-name">Delhi</span>
               </div>
             </div>
 
-            <!-- Connecting Hubs Live Indicator -->
-            <div class="transit-hubs-indicator" id="transit-hubs-indicator" style="display: none;">
-              <span class="transit-label">Transit Hubs:</span>
-              <span class="transit-path" id="transit-path-text">Direct Non-Stop</span>
-            </div>
-
-            <!-- Airline Carrier & Stops -->
             <div class="form-row">
               <div class="form-field">
-                <label for="airline">Preferred Airline</label>
-                <div class="select-wrapper">
-                  <select id="airline" name="airline" required>
-                    <option value="" disabled selected>Select Airline</option>
-                    <option value="IndiGo">IndiGo</option>
-                    <option value="Air India">Air India</option>
-                    <option value="Jet Airways">Jet Airways</option>
-                    <option value="SpiceJet">SpiceJet</option>
-                    <option value="Multiple carriers">Multiple Carriers</option>
-                    <option value="Vistara">Vistara</option>
-                    <option value="Air Asia">Air Asia</option>
-                    <option value="GoAir">GoAir</option>
-                  </select>
-                </div>
+                <label for="airline">Airline Carrier</label>
+                <select id="airline" required></select>
               </div>
-
               <div class="form-field">
                 <label for="total_stops">Stops</label>
-                <div class="select-wrapper">
-                  <select id="total_stops" name="total_stops" required>
-                    <option value="" disabled selected>Select Stops</option>
-                    <option value="0">Direct (Non-stop)</option>
-                    <option value="1">1 Stop (1 Transit Airport)</option>
-                    <option value="2">2 Stops (2 Transit Airports)</option>
-                    <option value="3">3 Stops (3 Transit Airports)</option>
-                  </select>
-                </div>
+                <select id="total_stops" required>
+                  <option value="0" selected>Direct (Non-stop)</option>
+                  <option value="1">1 Stop</option>
+                  <option value="2">2 Stops</option>
+                  <option value="3">3 Stops</option>
+                  <option value="4">4 Stops</option>
+                </select>
               </div>
             </div>
 
-            <!-- Journey Date -->
-            <div class="form-row single">
-              <div class="form-field">
-                <label for="journey_date">Departure Date</label>
-                <input type="date" id="journey_date" name="journey_date" required>
-              </div>
-            </div>
-
-            <!-- Popular Departure Flight Slots (1-Click Real Flight Schedules) -->
-            <div class="form-field">
-              <div class="slot-chips-label-row">
-                <label>Flight Schedule Windows</label>
-                <span class="field-hint-accent">Select active time slot</span>
-              </div>
-              <div class="slot-chips" id="slot-chips-container">
-                <button type="button" class="slot-chip" data-time="06:00" data-label="Early Morning">
-                  <span class="chip-icon">🌅</span>
-                  <span class="chip-name">Early Morning</span>
-                  <span class="chip-time font-mono">06:00</span>
-                </button>
-                <button type="button" class="slot-chip active" data-time="08:30" data-label="Morning Rush">
-                  <span class="chip-icon">☀️</span>
-                  <span class="chip-name">Morning Rush</span>
-                  <span class="chip-time font-mono">08:30</span>
-                </button>
-                <button type="button" class="slot-chip" data-time="13:15" data-label="Afternoon">
-                  <span class="chip-icon">🌤️</span>
-                  <span class="chip-name">Afternoon</span>
-                  <span class="chip-time font-mono">13:15</span>
-                </button>
-                <button type="button" class="slot-chip" data-time="18:45" data-label="Evening Peak">
-                  <span class="chip-icon">🌆</span>
-                  <span class="chip-name">Evening Peak</span>
-                  <span class="chip-time font-mono">18:45</span>
-                </button>
-                <button type="button" class="slot-chip" data-time="02:00" data-label="Red-Eye">
-                  <span class="chip-icon">🌙</span>
-                  <span class="chip-name">Red-Eye</span>
-                  <span class="chip-time font-mono">02:00</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Departure & Arrival Times -->
             <div class="form-row">
               <div class="form-field">
-                <label for="dep_time">Departure Time</label>
-                <input type="time" id="dep_time" name="dep_time" value="08:30" required>
+                <label for="route_select">Layover Route Path (Kaggle High-Accuracy Feature)</label>
+                <select id="route_select">
+                  <option value="auto">Auto-select typical route</option>
+                </select>
               </div>
-
               <div class="form-field">
-                <div class="slot-chips-label-row">
-                  <label for="arrival_time">Estimated Arrival Time</label>
-                  <span class="field-hint-accent" id="arr-calc-badge">Auto-Calculated</span>
-                </div>
-                <input type="time" id="arrival_time" name="arrival_time" required>
+                <label for="additional_info">Booking / Cabin Info</label>
+                <select id="additional_info">
+                  <option value="No info" selected>No info (Standard)</option>
+                </select>
               </div>
             </div>
 
-            <!-- Calculated Flight Duration -->
-            <div class="duration-strip" id="duration-strip-box" style="display: none;">
-              <div class="duration-strip-main">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Total Itinerary Duration: <strong id="duration-preview-text">--</strong></span>
+            <div class="form-row three">
+              <div class="form-field">
+                <label for="journey_date">Departure Date</label>
+                <input type="date" id="journey_date" required>
               </div>
-              <div class="duration-strip-sub" id="duration-strip-breakdown">
-                <!-- Airborne vs Layover breakdown populated via JS -->
+              <div class="form-field">
+                <label for="dep_time">Departure Time</label>
+                <input type="time" id="dep_time" value="10:00" required>
+              </div>
+              <div class="form-field">
+                <label for="arrival_time">Arrival Time</label>
+                <input type="time" id="arrival_time" value="12:50" required>
               </div>
             </div>
 
-            <!-- Submit CTA Button -->
+            <div class="form-row">
+              <div class="form-field">
+                <label for="inflation_factor">Market Calibration (2019 vs Modern Index)</label>
+                <select id="inflation_factor">
+                  <option value="1.0" selected>1.00x — Historical 2019 Dataset INR</option>
+                  <option value="1.25">1.25x — Inflation &amp; ATF Adjusted (+25%)</option>
+                  <option value="1.35">1.35x — Peak Modern Surge Index (+35%)</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="trip_notes">Trip Note (Saved to DB)</label>
+                <input type="text" id="trip_notes" placeholder="e.g., Semester break trip">
+              </div>
+            </div>
+
+            <div class="duration-strip">
+              <span>Estimated In-Flight Time: <strong id="duration-preview-text">2h 50m</strong></span>
+              <span id="route-hint-text">Auto-matched route</span>
+            </div>
+
             <button type="submit" class="btn btn-primary btn-block" id="btn-submit">
-              <span class="btn-text">Check Estimated Fare</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              Estimate Fare &amp; Run Intelligence
             </button>
           </form>
         </section>
 
-        <!-- Right Column: Fare Estimate Output Card -->
-        <section class="card output-card" id="output-card-section">
-          
-          <!-- Empty State (Shown initially before submission) -->
-          <div class="empty-state-container" id="empty-state-view">
-            <div class="empty-icon-circle">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 6v6l4 2"></path>
-              </svg>
+        <!-- Right Column: Prediction Output -->
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Fare Estimate &amp; Tree Uncertainty</h2>
+              <p class="card-desc">Point estimate plus 25th–75th percentile IQR range across 250 trees.</p>
             </div>
-            <h3 class="empty-title">Ready to Estimate</h3>
-            <p class="empty-desc">
-              Select your origin, destination, preferred airline, and flight timing on the left, then click <strong>"Check Estimated Fare"</strong> to see the predicted price and fare insights.
-            </p>
-            <div class="empty-hint-pill">
-              <span>✈ 10,682 verified flight routes analyzed</span>
+            <span class="badge badge-standard" id="fare-tier-badge">Ready</span>
+          </div>
+
+          <div class="price-hero">
+            <span class="price-lead-label">Estimated Ticket Fare</span>
+            <div class="price-figure-row">
+              <span class="price-currency">₹</span>
+              <span class="price-figure" id="price-display">4,820</span>
+            </div>
+            <div class="price-range-pill" id="price-range-pill">IQR Confidence Band: ₹4,450 – ₹5,210</div>
+            <p class="card-desc" id="price-caption-text" style="margin-top:8px;">Submit an itinerary to run real-time ML inference.</p>
+          </div>
+
+          <div class="breakdown-list">
+            <div class="breakdown-item">
+              <span class="item-label">Carrier</span>
+              <span class="item-val" id="summary-airline">IndiGo</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="item-label">Exact Path</span>
+              <span class="item-val" id="summary-route">BLR → DEL</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="item-label">Duration / Stops</span>
+              <span class="item-val" id="summary-duration">2h 50m • Non-stop</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="item-label">Booking Info</span>
+              <span class="item-val" id="summary-info">No info</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="item-label">Historical 2019 Base</span>
+              <span class="item-val" id="summary-base-fare">₹4,820.00</span>
             </div>
           </div>
 
-          <!-- Active Result State (Revealed ONLY after clicking Check Estimated Fare) -->
-          <div class="result-state-container" id="result-state-view" style="display: none;">
-            <div class="card-header">
-              <div>
-                <h2 class="card-title">Fare Estimate</h2>
-                <p class="card-desc">Estimated ticket price based on selected route &amp; schedule.</p>
-              </div>
-              <span class="badge" id="fare-tier-badge">Standard Fare</span>
-            </div>
+          <div class="drivers-wrap" id="drivers-wrap"></div>
 
-            <!-- Hero Price Display -->
-            <div class="price-hero" id="price-hero-container">
-              <span class="price-lead-label">Expected Ticket Price</span>
-              <div class="price-hero-content">
-                <span class="price-currency">₹</span>
-                <span class="price-figure" id="price-display">0</span>
-                <span class="price-decimals">.00</span>
-              </div>
-              <div class="price-range-band">
-                <span>Estimated Market Range: <strong id="price-range-display">₹0 &mdash; ₹0</strong></span>
-              </div>
-              <p class="price-caption" id="price-caption-text">Per passenger, including standard airline taxes &amp; fuel surcharge</p>
-            </div>
-
-            <!-- Flight Breakdown Details -->
-            <div class="breakdown-list">
-              <div class="breakdown-item">
-                <span class="item-label">Airline</span>
-                <span class="item-val" id="summary-airline">--</span>
-              </div>
-              <div class="breakdown-item">
-                <span class="item-label">Full Route Path</span>
-                <span class="item-val font-mono" id="summary-route">--</span>
-              </div>
-              <div class="breakdown-item" id="summary-transit-row" style="display: none;">
-                <span class="item-label">Transit Layover Airports</span>
-                <span class="item-val font-mono" id="summary-transit-stops" style="color: var(--accent-highlight); font-weight:700;">--</span>
-              </div>
-              <div class="breakdown-item">
-                <span class="item-label">Total Duration</span>
-                <span class="item-val" id="summary-duration">--</span>
-              </div>
-              <div class="breakdown-item">
-                <span class="item-label">Flight Itinerary</span>
-                <span class="item-val" id="summary-stops">--</span>
-              </div>
-            </div>
-
-            <!-- Explainable AI (XAI) Fare Decomposition Panel (Unique Problem Solved) -->
-            <div class="decomp-panel">
-              <div class="panel-header">
-                <span class="panel-title">Transparent Fare Breakdown</span>
-                <span class="panel-tag">Explainable AI</span>
-              </div>
-              <div class="decomp-list" id="decomp-list-container">
-                <!-- Populated dynamically via JS -->
-              </div>
-            </div>
-
-            <!-- Smart Schedule Optimizer Insights -->
-            <div class="savings-panel">
-              <div class="panel-header">
-                <span class="panel-title">Schedule Optimization Insights</span>
-                <span class="panel-badge-green">Smart Radar</span>
-              </div>
-              <ul class="savings-list" id="savings-list-container">
-                <!-- Populated dynamically via JS -->
-              </ul>
-            </div>
-
-            <!-- Consumer Trust Notice -->
-            <div class="trust-box">
-              <div class="trust-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              </div>
-              <div class="trust-text">
-                Estimates are computed from domestic fare patterns across Indian air routes. Actual ticket prices may fluctuate based on seat availability and seasonal booking windows.
-              </div>
-            </div>
-          </div>
-
+          <button type="button" class="btn btn-secondary btn-block" id="btn-save-alert" disabled>
+            Save Route to Price Watchlist (Auth Required)
+          </button>
         </section>
       </div>
 
-    </div>
+      <!-- Lower Row: 7-Day Flexible Dates + Cross-Airline Comparison -->
+      <div class="two-col-grid">
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">7-Day Flexible Date Calendar</h2>
+              <p class="card-desc" id="flex-date-summary">Evaluates ±3 days around your departure date via batch ML inference.</p>
+            </div>
+            <span class="badge badge-budget" id="flex-savings-badge">Savings Tracker</span>
+          </div>
+          <div class="flex-dates-grid" id="flex-dates-grid"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Cross-Airline Fare Comparison</h2>
+              <p class="card-desc">Same route, schedule &amp; stops simulated across 8 airlines in one ML batch.</p>
+            </div>
+          </div>
+          <div class="bar-list" id="airline-compare-bars"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TAB 2: EDA & MARKET DRIFT LIMITATIONS
+         ========================================================= -->
+    <section id="tab-eda" class="tab-panel">
+      <div class="kpi-grid" id="eda-kpis"></div>
+
+      <div class="two-col-grid" style="margin-top:0;">
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Top Feature Importances (Random Forest)</h2>
+              <p class="card-desc">Aggregated across 167 one-hot &amp; numeric inputs from 10,462 flights.</p>
+            </div>
+          </div>
+          <div class="bar-list" id="eda-importances"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Average Ticket Fare by Airline</h2>
+              <p class="card-desc">Historical mean fare in INR across carriers.</p>
+            </div>
+          </div>
+          <div class="bar-list" id="eda-airlines"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Impact of Stops &amp; Departure Window</h2>
+              <p class="card-desc">How layovers and departure hour windows affect average airfare.</p>
+            </div>
+          </div>
+          <div class="bar-list" id="eda-stops"></div>
+          <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+          <div class="bar-list" id="eda-dep-windows"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Seasonality (Month &amp; Weekday)</h2>
+              <p class="card-desc">Monthly pricing shift across March–June 2019 &amp; day-of-week trend.</p>
+            </div>
+          </div>
+          <div class="bar-list" id="eda-months"></div>
+          <hr style="border:none;border-top:1px solid var(--border-subtle);margin:16px 0;">
+          <div class="bar-list" id="eda-weekdays"></div>
+        </section>
+      </div>
+
+      <section class="card" style="margin-top:24px;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Collection Dates &amp; Market-Change Limitations (Problem Statement Analysis)</h2>
+            <p class="card-desc">Why historical 2019 ML models require recalibration before quoting real-time 2026 fares.</p>
+          </div>
+          <span class="badge badge-premium">Mar – Jun 2019 Cutoff</span>
+        </div>
+        <div class="callout-box" style="margin-top:0;">
+          <h4>Key Factors Limiting Direct Current-Price Predictions</h4>
+          <ul id="market-limitations-list"></ul>
+        </div>
+      </section>
+    </section>
+
+    <!-- =========================================================
+         TAB 3: ML MODEL BENCHMARKS
+         ========================================================= -->
+    <section id="tab-benchmarks" class="tab-panel">
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Regression Algorithm Benchmark Suite (Held-Out Validation: 2,093 Records)</h2>
+            <p class="card-desc">All models fit strictly on 8,369 training records inside leak-free Scikit-Learn Pipelines.</p>
+          </div>
+          <span class="badge badge-budget">Winner: Tuned Random Forest (90.32% R²)</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>R² Score</th>
+                <th>MAE (INR)</th>
+                <th>RMSE (INR)</th>
+                <th>MAPE (%)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="benchmarks-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="two-col-grid">
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">R² Variance Explained Comparison</h2>
+              <p class="card-desc">Notice how adding StandardScaler lifted KNN (81.1%) and SVR (77.9%), while Random Forest hit 90.3%.</p>
+            </div>
+          </div>
+          <div class="bar-list" id="benchmark-r2-bars"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Why Our 90.32% Pipeline Outperforms Naive Baselines</h2>
+              <p class="card-desc">Key engineering upgrades over dropping Route &amp; Additional_Info.</p>
+            </div>
+          </div>
+          <ul style="padding-left:18px;font-size:0.86rem;color:var(--text-secondary);display:flex;flex-direction:column;gap:10px;">
+            <li><strong>Zero Data Leakage:</strong> Unlike fitting OneHotEncoder on all rows before splitting, our <code>ColumnTransformer</code> fits strictly inside <code>Pipeline</code> on the 80% training split.</li>
+            <li><strong>Preserves Route &amp; Cabin Signal:</strong> Keeping <code>Route</code> (128+ layover sequences) and <code>Additional_Info</code> (meal/baggage/business class tags) adds +8.5% R² over dropping them.</li>
+            <li><strong>Duplicate Removal:</strong> Dropping 220 duplicate training records prevented inflated tree splits and reduced MAE from ₹1,131 to <strong>₹619.93</strong>.</li>
+            <li><strong>Cross-Validated Tuning:</strong> <code>RandomizedSearchCV</code> selected <code>n_estimators=250</code>, <code>min_samples_split=3</code>, achieving <strong>0.8974 ± 0.0147</strong> 5-fold CV R².</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         TAB 4: WATCHLIST & PREDICTION HISTORY (FULL CRUD)
+         ========================================================= -->
+    <section id="tab-crud" class="tab-panel">
+      <section class="card" style="margin-bottom:24px;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Price Watchlist &amp; Target Fare Alerts (CRUD)</h2>
+            <p class="card-desc">Create from Estimator tab, edit target fare/status inline, or delete anytime.</p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-alerts">Refresh Alerts</button>
+        </div>
+        <div id="alerts-auth-notice" class="callout-box" style="margin-top:0;display:none;">
+          <h4>Sign in as Traveler, Analyst, or Admin to manage personal Watchlist Alerts</h4>
+          <p style="font-size:0.82rem;">Click <strong>Sign In / Register</strong> in the header (1-click demo accounts available).</p>
+        </div>
+        <div class="table-responsive" id="alerts-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Route</th>
+                <th>Airline</th>
+                <th>Date</th>
+                <th>Est. Fare</th>
+                <th>Target Price</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="alerts-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Prediction Audit Log (Search, Edit Notes, Delete, Export)</h2>
+            <p class="card-desc">Backed by normalized 3NF <code>flight_predictions</code> joined with <code>airports_master</code> &amp; <code>airlines_master</code>.</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv" style="display:none;">Export CSV (Analyst/Admin)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-history">Refresh</button>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" id="history-search" placeholder="Search route, date, or note...">
+          <select id="history-airline-filter">
+            <option value="">All Airlines</option>
+          </select>
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;font-weight:600;">
+            <input type="checkbox" id="history-mine-only" style="width:auto;min-height:auto;"> My Logs Only
+          </label>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-filter-history">Apply Filter</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Airline</th>
+                <th>Route Path</th>
+                <th>Date &amp; Stops</th>
+                <th>Predicted Fare</th>
+                <th>Notes</th>
+                <th>CRUD Actions</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <!-- =========================================================
+         TAB 5: ADMIN & 3NF DATABASE STUDIO
+         ========================================================= -->
+    <section id="tab-admin" class="tab-panel">
+      <div class="kpi-grid" id="db-kpi-grid"></div>
+
+      <section class="card" style="margin-bottom:24px;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">3rd Normal Form (3NF) Relational Schema &amp; Foreign Keys</h2>
+            <p class="card-desc">MySQL 8.0+ (`database/schema.sql`) and SQLAlchemy ORM (`database/db.py`) stay 1:1 synchronized.</p>
+          </div>
+          <span class="badge badge-budget" id="db-engine-badge">Checking...</span>
+        </div>
+        <div class="schema-grid">
+          <div class="schema-table-box">
+            <strong>users</strong>
+            PK: <code>id</code><br>
+            Unique: <code>email</code><br>
+            Cols: <code>full_name, password_hash, role, is_active</code>
+          </div>
+          <div class="schema-table-box">
+            <strong>airports_master</strong>
+            PK: <code>airport_code</code><br>
+            Unique: <code>city_name</code><br>
+            Cols: <code>state_name, is_active</code>
+          </div>
+          <div class="schema-table-box">
+            <strong>airlines_master</strong>
+            PK: <code>airline_id</code><br>
+            Unique: <code>airline_name</code><br>
+            Cols: <code>carrier_code, airline_tier</code>
+          </div>
+          <div class="schema-table-box">
+            <strong>flight_predictions</strong>
+            PK: <code>id</code><br>
+            FKs: <code>user_id → users, airline_id → airlines_master, source_code/dest_code → airports_master</code>
+          </div>
+          <div class="schema-table-box">
+            <strong>fare_alerts</strong>
+            PK: <code>id</code><br>
+            FKs: <code>user_id → users (CASCADE), prediction_id → flight_predictions, airline_id, source_code, dest_code</code>
+          </div>
+          <div class="schema-table-box">
+            <strong>model_benchmarks</strong>
+            PK: <code>id</code><br>
+            Unique: <code>model_name</code><br>
+            Cols: <code>r2_score, mae, rmse, cv_r2_mean, is_selected</code>
+          </div>
+        </div>
+      </section>
+
+      <div class="two-col-grid">
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Stakeholder User Management (Admin RBAC)</h2>
+              <p class="card-desc">Requires <strong>Admin</strong> sign-in to list or update user roles.</p>
+            </div>
+          </div>
+          <div id="admin-users-wrap">
+            <p class="card-desc">Sign in as Admin (<code>admin@farelens.in</code>) to view and manage stakeholder accounts.</p>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Airline Master Catalog (Admin CRUD)</h2>
+              <p class="card-desc">Add a carrier to <code>airlines_master</code> or inspect active master rows.</p>
+            </div>
+          </div>
+          <form id="admin-airline-form" class="fare-form" style="margin-bottom:16px;">
+            <div class="form-row three">
+              <input type="text" id="new-airline-name" placeholder="Airline Name (e.g. Akasa Air)" required>
+              <input type="text" id="new-carrier-code" placeholder="IATA (e.g. QP)" required>
+              <input type="text" id="new-airline-tier" value="Low-Cost Carrier" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Add Airline to Master Table (Admin)</button>
+          </form>
+          <div id="catalog-preview" style="max-height:240px;overflow-y:auto;"></div>
+        </section>
+      </div>
+    </section>
   </main>
 
-  <!-- Clean Consumer Footer -->
+  <!-- Auth Modal -->
+  <div class="modal-backdrop" id="auth-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Stakeholder Authentication &amp; Role Access</h3>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-close-auth">Close</button>
+      </div>
+
+      <p class="card-desc">Quick 1-Click Demo Login (for evaluation walkthrough):</p>
+      <div class="demo-role-grid">
+        <button type="button" class="btn btn-secondary btn-sm demo-login-btn" data-email="traveler@farelens.in" data-pw="Traveler@123">Traveler Demo</button>
+        <button type="button" class="btn btn-secondary btn-sm demo-login-btn" data-email="analyst@farelens.in" data-pw="Analyst@123">Analyst Demo</button>
+        <button type="button" class="btn btn-secondary btn-sm demo-login-btn" data-email="admin@farelens.in" data-pw="Admin@123">Admin Demo</button>
+      </div>
+
+      <div class="two-col-grid" style="margin-top:0;">
+        <form id="login-form" class="fare-form">
+          <h4>Sign In</h4>
+          <div class="form-field">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required>
+          </div>
+          <div class="form-field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+
+        <form id="register-form" class="fare-form">
+          <h4>Create New Account</h4>
+          <div class="form-field">
+            <label for="reg-name">Full Name</label>
+            <input type="text" id="reg-name" required>
+          </div>
+          <div class="form-field">
+            <label for="reg-email">Email</label>
+            <input type="email" id="reg-email" required>
+          </div>
+          <div class="form-field">
+            <label for="reg-password">Password (min 6 chars)</label>
+            <input type="password" id="reg-password" minlength="6" required>
+          </div>
+          <div class="form-field">
+            <label for="reg-role">Role</label>
+            <select id="reg-role">
+              <option value="traveler">Traveler (Price Estimator &amp; Alerts)</option>
+              <option value="analyst">Analyst (EDA &amp; Export)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-secondary">Register Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Viva Architecture Modal -->
+  <div class="modal-backdrop" id="viva-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>16-Step ML Architecture &amp; Viva Reference</h3>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-close-viva">Close</button>
+      </div>
+      <div style="font-size:0.85rem;color:var(--text-secondary);display:flex;flex-direction:column;gap:10px;">
+        <p><strong>1. Model Core (Kaggle `lokii1929/airfare-prediction` Upgraded):</strong> 10,683 raw rows &rarr; 1 null dropped &rarr; 220 duplicates removed (10,462 clean rows) &rarr; leak-free <code>ColumnTransformer</code> inside <code>Pipeline</code> (One-Hot Encoded Airline, Source, Destination, Route, Additional_Info + 8 numerical features = 167 features).</p>
+        <p><strong>2. Accuracy &amp; Generalization:</strong> Tuned Random Forest (250 trees, <code>min_samples_split=3</code>) achieves <strong>R² = 90.32%</strong>, <strong>MAE = ₹619.93</strong>, <strong>RMSE = ₹1,420.35</strong>, and <strong>5-Fold CV R² = 89.74%</strong> — beating Linear (71.5%), Ridge (71.5%), SVR (77.9%), KNN (81.1%), and Decision Tree (85.0%).</p>
+        <p><strong>3. Anti-Penalty Full-Stack Capabilities:</strong> JWT Authentication &amp; RBAC (Traveler / Analyst / Admin), 3NF Relational Database (6 tables with enforced FKs), Full CRUD on Predictions &amp; Fare Alerts, 7-Day Date Flexibility Calendar, Cross-Airline Batch Comparison, IQR Tree Confidence Band, and Market Drift Disclaimer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
   <footer class="app-footer">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <span class="footer-logo">AeroPrice</span>
-        <span class="footer-copy">&copy; 2026 AeroPrice Intelligence. All rights reserved.</span>
-      </div>
-      <div class="footer-links">
-        <a href="#terms">Terms of Service</a>
-        <a href="#privacy">Privacy Policy</a>
-        <a href="#support">Support &amp; FAQ</a>
-      </div>
+    <div class="footer-inner">
+      <span><strong>FareLens</strong> &mdash; Group G1716 (Cheekati Vinay, Bommineni Lokesh Narayana, Devarshetty Karthik Datta, Kamboji Sai Dhanush Kumar)</span>
+      <span>FastAPI + Scikit-Learn (90.32% R²) + 3NF SQLAlchemy | <a href="/docs" target="_blank" rel="noopener">Swagger OpenAPI Docs</a></span>
     </div>
   </footer>
 
-  <script>
-/**
- * AeroPrice - Real-Time Flight Fare Estimation Client Logic
- * Handles dynamic route visualizer, transit hub resolution, duration calculation,
- * and state transition from Empty Placeholder to Active Fare Estimate.
- */
-
-document.addEventListener("DOMContentLoaded", () => {
-  // DOM Elements
-  const fareForm = document.getElementById("fare-form");
-  const sourceSelect = document.getElementById("source");
-  const destinationSelect = document.getElementById("destination");
-  const airlineSelect = document.getElementById("airline");
-  const stopsSelect = document.getElementById("total_stops");
-  const journeyDateInput = document.getElementById("journey_date");
-  const depTimeInput = document.getElementById("dep_time");
-  const arrivalTimeInput = document.getElementById("arrival_time");
-  const btnSubmit = document.getElementById("btn-submit");
-
-  // Route & Duration Indicators
-  const originPreview = document.querySelector(".origin-preview");
-  const destPreview = document.querySelector(".dest-preview");
-  const originName = document.querySelector(".origin-name");
-  const destName = document.querySelector(".dest-name");
-  const durationStripBox = document.getElementById("duration-strip-box");
-  const durationPreviewText = document.getElementById("duration-preview-text");
-  const transitHubsIndicator = document.getElementById("transit-hubs-indicator");
-  const transitPathText = document.getElementById("transit-path-text");
-
-  // Output State Containers
-  const emptyStateView = document.getElementById("empty-state-view");
-  const resultStateView = document.getElementById("result-state-view");
-
-  // Result Elements
-  const priceDisplay = document.getElementById("price-display");
-  const priceRangeDisplay = document.getElementById("price-range-display");
-  const fareTierBadge = document.getElementById("fare-tier-badge");
-  const priceCaptionText = document.getElementById("price-caption-text");
-  const summaryAirline = document.getElementById("summary-airline");
-  const summaryRoute = document.getElementById("summary-route");
-  const summaryTransitRow = document.getElementById("summary-transit-row");
-  const summaryTransitStops = document.getElementById("summary-transit-stops");
-  const summaryDuration = document.getElementById("summary-duration");
-  const summaryStops = document.getElementById("summary-stops");
-  const decompListContainer = document.getElementById("decomp-list-container");
-  const savingsListContainer = document.getElementById("savings-list-container");
-
-  // Airport Metadata Map
-  const airportMeta = {
-    "Banglore": { code: "BLR", name: "Bangalore" },
-    "Delhi": { code: "DEL", name: "Delhi" },
-    "New Delhi": { code: "DEL", name: "Delhi" },
-    "Kolkata": { code: "CCU", name: "Kolkata" },
-    "Chennai": { code: "MAA", name: "Chennai" },
-    "Mumbai": { code: "BOM", name: "Mumbai" },
-    "Cochin": { code: "COK", name: "Cochin" },
-    "Hyderabad": { code: "HYD", name: "Hyderabad" }
-  };
-
-  // Intermediate Transit Hub Matrix for Indian Domestic Flights (Supports 1, 2, and 3 stops)
-  const hubMatrix = {
-    "Delhi_Cochin": ["Mumbai (BOM)", "Jaipur (JAI)", "Goa (GOI)"],
-    "Kolkata_Banglore": ["Bhubaneswar (BBI)", "Ranchi (IXR)", "Hyderabad (HYD)"],
-    "Banglore_Delhi": ["Mumbai (BOM)", "Ahmedabad (AMD)", "Jaipur (JAI)"],
-    "Mumbai_Hyderabad": ["Delhi (DEL)", "Chennai (MAA)", "Pune (PNQ)"],
-    "Chennai_Kolkata": ["Hyderabad (HYD)", "Bhubaneswar (BBI)", "Visakhapatnam (VTZ)"],
-    "Chennai_Banglore": ["Hyderabad (HYD)", "Coimbatore (CJB)", "Tirupati (TIR)"],
-    "Chennai_Hyderabad": ["Bangalore (BLR)", "Tirupati (TIR)", "Vijayawada (VGA)"],
-    "Chennai_Delhi": ["Hyderabad (HYD)", "Nagpur (NAG)", "Bhopal (BHO)"],
-    "Chennai_Cochin": ["Bangalore (BLR)", "Coimbatore (CJB)", "Madurai (IXM)"],
-    "Mumbai_Banglore": ["Goa (GOI)", "Hyderabad (HYD)", "Pune (PNQ)"],
-    "Mumbai_Delhi": ["Ahmedabad (AMD)", "Jaipur (JAI)", "Udaipur (UDR)"],
-    "Mumbai_Cochin": ["Goa (GOI)", "Mangalore (IXE)", "Calicut (CCJ)"],
-    "Mumbai_Kolkata": ["Nagpur (NAG)", "Bhubaneswar (BBI)", "Raipur (RPR)"],
-    "Kolkata_Cochin": ["Chennai (MAA)", "Bangalore (BLR)", "Coimbatore (CJB)"],
-    "Delhi_Hyderabad": ["Bhopal (BHO)", "Nagpur (NAG)", "Indore (IDR)"],
-    "Delhi_Kolkata": ["Lucknow (LKO)", "Patna (PAT)", "Varanasi (VNS)"],
-    "Banglore_Cochin": ["Coimbatore (CJB)", "Madurai (IXM)", "Calicut (CCJ)"],
-    "Banglore_Hyderabad": ["Chennai (MAA)", "Tirupati (TIR)", "Vijayawada (VGA)"],
-    "Banglore_Kolkata": ["Hyderabad (HYD)", "Bhubaneswar (BBI)", "Visakhapatnam (VTZ)"],
-    "Delhi_Banglore": ["Mumbai (BOM)", "Hyderabad (HYD)", "Ahmedabad (AMD)"],
-    "Kolkata_Delhi": ["Patna (PAT)", "Lucknow (LKO)", "Varanasi (VNS)"],
-    "Kolkata_Hyderabad": ["Bhubaneswar (BBI)", "Raipur (RPR)", "Visakhapatnam (VTZ)"]
-  };
-
-  // Domestic Indian Air Corridor Standard Flight Times (in minutes)
-  const corridorAirborneMinutes = {
-    "Banglore_Hyderabad": 75,
-    "Hyderabad_Banglore": 75,
-    "Banglore_Delhi": 165,
-    "Delhi_Banglore": 165,
-    "Delhi_Cochin": 195,
-    "Cochin_Delhi": 195,
-    "Kolkata_Banglore": 155,
-    "Banglore_Kolkata": 155,
-    "Mumbai_Hyderabad": 85,
-    "Hyderabad_Mumbai": 85,
-    "Delhi_Kolkata": 135,
-    "Kolkata_Delhi": 135,
-    "Chennai_Kolkata": 140,
-    "Kolkata_Chennai": 140,
-    "Chennai_Banglore": 50,
-    "Banglore_Chennai": 50,
-    "Chennai_Hyderabad": 70,
-    "Hyderabad_Chennai": 70,
-    "Chennai_Delhi": 160,
-    "Delhi_Chennai": 160,
-    "Chennai_Cochin": 75,
-    "Cochin_Chennai": 75,
-    "Mumbai_Banglore": 95,
-    "Banglore_Mumbai": 95,
-    "Mumbai_Delhi": 130,
-    "Delhi_Mumbai": 130,
-    "Mumbai_Cochin": 110,
-    "Cochin_Mumbai": 110,
-    "Mumbai_Kolkata": 155,
-    "Kolkata_Mumbai": 155,
-    "Delhi_Hyderabad": 125,
-    "Hyderabad_Delhi": 125,
-    "Banglore_Cochin": 65,
-    "Cochin_Banglore": 65,
-    "Kolkata_Hyderabad": 125,
-    "Hyderabad_Kolkata": 125,
-    "Kolkata_Cochin": 195,
-    "Cochin_Kolkata": 195
-  };
-
-  function getTransitHubs(src, dst, stops) {
-    if (!src || !dst || stops <= 0) return [];
-    const key = `${src}_${dst}`;
-    const hubs = hubMatrix[key] || ["Mumbai (BOM)", "Delhi (DEL)"];
-    return hubs.slice(0, stops);
-  }
-
-  function getAirborneMinutes(src, dst) {
-    if (!src || !dst) return 130;
-    const key = `${src}_${dst}`;
-    return corridorAirborneMinutes[key] || 130;
-  }
-
-  // Auto-Calculate Realistic Arrival Time based on Route, Timing & Transit Layovers
-  function autoCalculateArrival() {
-    const dep = depTimeInput.value;
-    if (!dep) return;
-
-    const src = sourceSelect.value;
-    const dst = destinationSelect.value;
-    const stops = parseInt(stopsSelect.value || "0", 10);
-
-    const airborneMins = getAirborneMinutes(src, dst);
-
-    // Realistic domestic transit layover ground time
-    let layoverMins = 0;
-    if (stops === 1) {
-      layoverMins = 210; // ~3h 30m standard transit layover
-    } else if (stops === 2) {
-      layoverMins = 420; // ~7h 00m combined layover across 2 transit airports
-    } else if (stops >= 3) {
-      layoverMins = 600; // ~10h 00m extended layover
-    }
-
-    const totalMins = airborneMins + layoverMins;
-
-    const [depH, depM] = dep.split(":").map(Number);
-    const totalDepMins = depH * 60 + depM;
-    const totalArrMins = (totalDepMins + totalMins) % (24 * 60);
-
-    const arrH = Math.floor(totalArrMins / 60);
-    const arrM = totalArrMins % 60;
-
-    arrivalTimeInput.value = `${String(arrH).padStart(2, "0")}:${String(arrM).padStart(2, "0")}`;
-
-    updateDurationDisplay(totalMins, airborneMins, layoverMins, stops);
-  }
-
-  function updateDurationDisplay(totalMins, airborneMins, layoverMins, stops) {
-    const hours = Math.floor(totalMins / 60);
-    const mins = totalMins % 60;
-    durationPreviewText.textContent = `${hours}h ${mins}m`;
-
-    const stripBreakdown = document.getElementById("duration-strip-breakdown");
-    if (stripBreakdown) {
-      const airH = Math.floor(airborneMins / 60);
-      const airM = airborneMins % 60;
-      const airStr = airH > 0 ? `${airH}h ${airM}m` : `${airM}m`;
-
-      if (stops === 0) {
-        stripBreakdown.innerHTML = `<span><strong>Direct Non-stop:</strong> ~${airStr} airborne flying time</span>`;
-      } else {
-        const layH = Math.floor(layoverMins / 60);
-        const layM = layoverMins % 60;
-        const layStr = layM > 0 ? `${layH}h ${layM}m` : `${layH}h`;
-        stripBreakdown.innerHTML = `<span><strong>Itinerary Breakdown:</strong> ~${airStr} flying + ~${layStr} transit layover at intermediate hub(s)</span>`;
-      }
-    }
-
-    if (durationStripBox) durationStripBox.style.display = "flex";
-  }
-
-  // Handle Manual Arrival Time Input with Sanity Guardrails
-  function onManualArrivalChange() {
-    const dep = depTimeInput.value;
-    const arr = arrivalTimeInput.value;
-    if (!dep || !arr) return;
-
-    const [depH, depM] = dep.split(":").map(Number);
-    const [arrH, arrM] = arr.split(":").map(Number);
-
-    let diff = (arrH * 60 + arrM) - (depH * 60 + depM);
-    if (diff <= 0) diff += 24 * 60; // Overnight flight
-
-    const stops = parseInt(stopsSelect.value || "0", 10);
-    const src = sourceSelect.value;
-    const dst = destinationSelect.value;
-    const airborneMins = getAirborneMinutes(src, dst);
-
-    const minThresholds = { 0: 45, 1: 180, 2: 360, 3: 540 };
-    const minRequired = minThresholds[stops] || 45;
-
-    if (diff < minRequired) {
-      const hours = Math.floor(diff / 60);
-      const mins = diff % 60;
-      durationPreviewText.textContent = `${hours}h ${mins}m (Unrealistic)`;
-      const stripBreakdown = document.getElementById("duration-strip-breakdown");
-      if (stripBreakdown) {
-        stripBreakdown.innerHTML = `
-          <span style="color: var(--color-surge); font-weight: 600;">
-            ⚠️ h m is too short for a -stop journey.
-            <button type="button" class="btn-autofix" id="btn-autofix-time">Auto-Fix Schedule</button>
-          </span>
-        `;
-        const autoFixBtn = document.getElementById("btn-autofix-time");
-        if (autoFixBtn) {
-          autoFixBtn.addEventListener("click", () => autoCalculateArrival());
-        }
-      }
-      if (durationStripBox) durationStripBox.style.display = "flex";
-    } else {
-      const layoverMins = Math.max(0, diff - airborneMins);
-      updateDurationDisplay(diff, airborneMins, layoverMins, stops);
-    }
-  }
-
-  // Update Route Visualizer and Transit Hubs
-  function updateRoute() {
-    const src = sourceSelect.value;
-    const dst = destinationSelect.value;
-    const stops = parseInt(stopsSelect.value || "0", 10);
-
-    if (src && airportMeta[src]) {
-      originPreview.textContent = airportMeta[src].code;
-      originName.textContent = airportMeta[src].name;
-    } else {
-      originPreview.textContent = "---";
-      originName.textContent = "Origin";
-    }
-
-    if (dst && airportMeta[dst]) {
-      destPreview.textContent = airportMeta[dst].code;
-      destName.textContent = airportMeta[dst].name;
-    } else {
-      destPreview.textContent = "---";
-      destName.textContent = "Destination";
-    }
-
-    // Display intermediate transit airports live if 1 or 2 stops are chosen
-    if (src && dst && stops > 0) {
-      const hubs = getTransitHubs(src, dst, stops);
-      if (hubs.length > 0 && transitHubsIndicator && transitPathText) {
-        transitPathText.textContent = hubs.join(" \u2794 ");
-        transitHubsIndicator.style.display = "flex";
-      }
-    } else if (transitHubsIndicator) {
-      transitHubsIndicator.style.display = "none";
-    }
-
-    // Auto-calculate realistic arrival whenever route or stops change
-    autoCalculateArrival();
-  }
-
-  // Quick Flight Schedule Slot Chips
-  const slotChips = document.querySelectorAll(".slot-chip");
-  slotChips.forEach(chip => {
-    chip.addEventListener("click", () => {
-      slotChips.forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      depTimeInput.value = chip.dataset.time;
-      autoCalculateArrival();
-    });
-  });
-
-  // Set default departure date to 7 days in future, min date to today
-  if (journeyDateInput) {
-    const today = new Date();
-    const futureDate = new Date();
-    futureDate.setDate(today.getDate() + 7);
-
-    const pad = (n) => String(n).padStart(2, "0");
-    journeyDateInput.min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
-    if (!journeyDateInput.value) {
-      journeyDateInput.value = `${futureDate.getFullYear()}-${pad(futureDate.getMonth() + 1)}-${pad(futureDate.getDate())}`;
-    }
-  }
-
-  // Prevent selecting identical Origin & Destination by dynamically disabling current selection
-  function syncCityDropdowns() {
-    const srcVal = sourceSelect.value;
-    const dstVal = destinationSelect.value;
-
-    Array.from(destinationSelect.options).forEach(opt => {
-      if (opt.value && opt.value === srcVal) {
-        opt.disabled = true;
-      } else {
-        opt.disabled = false;
-      }
-    });
-
-    Array.from(sourceSelect.options).forEach(opt => {
-      if (opt.value && opt.value === dstVal) {
-        opt.disabled = true;
-      } else {
-        opt.disabled = false;
-      }
-    });
-
-    // If currently identical, auto-select a valid alternative
-    if (srcVal && dstVal && srcVal === dstVal) {
-      const validDst = Array.from(destinationSelect.options).find(opt => opt.value && opt.value !== srcVal && !opt.disabled);
-      if (validDst) {
-        destinationSelect.value = validDst.value;
-      }
-    }
-  }
-
-  // Event Listeners for Live Form Changes
-  sourceSelect.addEventListener("change", () => {
-    syncCityDropdowns();
-    updateRoute();
-  });
-  destinationSelect.addEventListener("change", () => {
-    syncCityDropdowns();
-    updateRoute();
-  });
-  stopsSelect.addEventListener("change", updateRoute);
-  depTimeInput.addEventListener("input", autoCalculateArrival);
-  arrivalTimeInput.addEventListener("input", onManualArrivalChange);
-
-  // Initial Sync
-  updateRoute();
-  autoCalculateArrival();
-
-  function getCategoryBadgeClass(category) {
-    switch (category) {
-      case "Budget": return "badge-budget";
-      case "Standard": return "badge-standard";
-      case "Premium": return "badge-premium";
-      case "Surge": return "badge-surge";
-      default: return "badge-standard";
-    }
-  }
-
-  // Form Submit Action
-  fareForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    if (!sourceSelect.value || !destinationSelect.value || !airlineSelect.value || stopsSelect.value === "") {
-      alert("Please complete all flight selection fields.");
-      return;
-    }
-
-    if (sourceSelect.value === destinationSelect.value) {
-      alert("Origin and destination cities cannot be identical. Please select different airports.");
-      return;
-    }
-
-    const payload = {
-      airline: airlineSelect.value,
-      source: sourceSelect.value,
-      destination: destinationSelect.value,
-      journey_date: journeyDateInput.value,
-      dep_time: depTimeInput.value,
-      arrival_time: arrivalTimeInput.value,
-      total_stops: parseInt(stopsSelect.value, 10)
-    };
-
-    const originalText = btnSubmit.querySelector(".btn-text").textContent;
-    btnSubmit.querySelector(".btn-text").textContent = "Calculating Fare...";
-    btnSubmit.disabled = true;
-
-    try {
-      const response = await fetch("/api/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Unable to estimate fare.");
-      }
-
-      const result = await response.json();
-
-      // Transition from Empty State to Active Result
-      if (emptyStateView) emptyStateView.style.display = "none";
-      if (resultStateView) resultStateView.style.display = "block";
-
-      // Update Price Display
-      const fareInt = Math.floor(result.predicted_fare);
-      priceDisplay.textContent = fareInt.toLocaleString("en-IN");
-
-      fareTierBadge.textContent = `${result.fare_category} Fare`;
-      fareTierBadge.className = `badge ${getCategoryBadgeClass(result.fare_category)}`;
-
-      priceCaptionText.textContent = `Expected single passenger fare for ${result.flight_details.airline} (${result.flight_details.stops})`;
-
-      // Update Breakdown Summary
-      summaryAirline.textContent = result.flight_details.airline;
-      summaryRoute.textContent = result.flight_details.route;
-      summaryDuration.textContent = result.flight_details.duration;
-      summaryStops.textContent = result.flight_details.stops;
-
-      // Show intermediate transit hubs if stops > 0
-      if (result.flight_details.transit_hubs && result.flight_details.transit_hubs.length > 0) {
-        summaryTransitStops.textContent = result.flight_details.transit_hubs.join(" \u2022 ");
-        summaryTransitRow.style.display = "flex";
-      } else {
-        summaryTransitRow.style.display = "none";
-      }
-
-      // Update Market Price Range
-      if (priceRangeDisplay && result.fare_range) {
-        priceRangeDisplay.textContent = `${result.fare_range.low} \u2014 ${result.fare_range.high}`;
-      }
-
-      // Render Transparent XAI Fare Decomposition
-      if (decompListContainer && result.fare_decomposition) {
-        decompListContainer.innerHTML = result.fare_decomposition.map(item => {
-          let extraClass = "";
-          if (item.amount.startsWith("-")) extraClass = "negative";
-          else if (item.amount.startsWith("+")) extraClass = "positive";
-          return `
-            <div class="decomp-row">
-              <span class="decomp-factor">${item.factor}</span>
-              <span class="decomp-amount ${extraClass}">${item.amount}</span>
-            </div>
-          `;
-        }).join("");
-      }
-
-      // Render Smart Schedule Optimizer Insights
-      if (savingsListContainer && result.savings_insights) {
-        savingsListContainer.innerHTML = result.savings_insights.map(tip => `
-          <li class="savings-item">${tip}</li>
-        `).join("");
-      }
-
-    } catch (err) {
-      alert(`Fare Estimation Error: ${err.message}`);
-    } finally {
-      btnSubmit.querySelector(".btn-text").textContent = originalText;
-      btnSubmit.disabled = false;
-    }
-  });
-});
-
-  </script>
+  <script src="/static/script.js"></script>
 </body>
 </html>

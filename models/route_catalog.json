@@ -1,0 +1,769 @@
+{
+  "airlines": [
+    "Air Asia",
+    "Air India",
+    "GoAir",
+    "IndiGo",
+    "Jet Airways",
+    "Jet Airways Business",
+    "Multiple carriers",
+    "Multiple carriers Premium economy",
+    "SpiceJet",
+    "Trujet",
+    "Vistara",
+    "Vistara Premium economy"
+  ],
+  "sources": [
+    "Banglore",
+    "Chennai",
+    "Delhi",
+    "Kolkata",
+    "Mumbai"
+  ],
+  "destinations": [
+    "Banglore",
+    "Cochin",
+    "Delhi",
+    "Hyderabad",
+    "Kolkata",
+    "New Delhi"
+  ],
+  "additional_info_options": [
+    "1 Long layover",
+    "1 Short layover",
+    "2 Long layover",
+    "Business class",
+    "Change airports",
+    "In-flight meal not included",
+    "No check-in baggage included",
+    "No info",
+    "Red-eye flight"
+  ],
+  "airport_codes": {
+    "Banglore": {
+      "code": "BLR",
+      "display": "Bangalore",
+      "state": "Karnataka"
+    },
+    "Delhi": {
+      "code": "DEL",
+      "display": "Delhi",
+      "state": "National Capital Region"
+    },
+    "New Delhi": {
+      "code": "DEL",
+      "display": "New Delhi",
+      "state": "National Capital Region"
+    },
+    "Kolkata": {
+      "code": "CCU",
+      "display": "Kolkata",
+      "state": "West Bengal"
+    },
+    "Chennai": {
+      "code": "MAA",
+      "display": "Chennai",
+      "state": "Tamil Nadu"
+    },
+    "Mumbai": {
+      "code": "BOM",
+      "display": "Mumbai",
+      "state": "Maharashtra"
+    },
+    "Cochin": {
+      "code": "COK",
+      "display": "Cochin",
+      "state": "Kerala"
+    },
+    "Hyderabad": {
+      "code": "HYD",
+      "display": "Hyderabad",
+      "state": "Telangana"
+    }
+  },
+  "routes_by_trip": {
+    "Banglore|Delhi|0": [
+      {
+        "route": "BLR \u2192 DEL",
+        "sample_count": 1265,
+        "avg_historical_price": 5144.0
+      }
+    ],
+    "Banglore|New Delhi|0": [
+      {
+        "route": "BLR \u2192 DEL",
+        "sample_count": 271,
+        "avg_historical_price": 7458.0
+      }
+    ],
+    "Banglore|New Delhi|1": [
+      {
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 402,
+        "avg_historical_price": 15723.0
+      },
+      {
+        "route": "BLR \u2192 HYD \u2192 DEL",
+        "sample_count": 37,
+        "avg_historical_price": 6473.0
+      },
+      {
+        "route": "BLR \u2192 MAA \u2192 DEL",
+        "sample_count": 29,
+        "avg_historical_price": 12072.0
+      },
+      {
+        "route": "BLR \u2192 AMD \u2192 DEL",
+        "sample_count": 18,
+        "avg_historical_price": 11134.0
+      },
+      {
+        "route": "BLR \u2192 COK \u2192 DEL",
+        "sample_count": 15,
+        "avg_historical_price": 9139.0
+      },
+      {
+        "route": "BLR \u2192 CCU \u2192 DEL",
+        "sample_count": 11,
+        "avg_historical_price": 12260.0
+      },
+      {
+        "route": "BLR \u2192 VGA \u2192 DEL",
+        "sample_count": 9,
+        "avg_historical_price": 9002.0
+      },
+      {
+        "route": "BLR \u2192 BDQ \u2192 DEL",
+        "sample_count": 8,
+        "avg_historical_price": 11550.0
+      },
+      {
+        "route": "BLR \u2192 GOI \u2192 DEL",
+        "sample_count": 7,
+        "avg_historical_price": 8760.0
+      },
+      {
+        "route": "BLR \u2192 BBI \u2192 DEL",
+        "sample_count": 5,
+        "avg_historical_price": 11486.0
+      },
+      {
+        "route": "BLR \u2192 IDR \u2192 DEL",
+        "sample_count": 5,
+        "avg_historical_price": 7610.0
+      },
+      {
+        "route": "BLR \u2192 PNQ \u2192 DEL",
+        "sample_count": 5,
+        "avg_historical_price": 11888.0
+      },
+      {
+        "route": "BLR \u2192 GAU \u2192 DEL",
+        "sample_count": 3,
+        "avg_historical_price": 12508.0
+      },
+      {
+        "route": "BLR \u2192 LKO \u2192 DEL",
+        "sample_count": 3,
+        "avg_historical_price": 7334.0
+      },
+      {
+        "route": "BLR \u2192 NAG \u2192 DEL",
+        "sample_count": 3,
+        "avg_historical_price": 11313.0
+      },
+      {
+        "route": "BLR \u2192 STV \u2192 DEL",
+        "sample_count": 2,
+        "avg_historical_price": 5746.0
+      }
+    ],
+    "Banglore|New Delhi|2": [
+      {
+        "route": "BLR \u2192 BOM \u2192 BHO \u2192 DEL",
+        "sample_count": 11,
+        "avg_historical_price": 17212.0
+      },
+      {
+        "route": "BLR \u2192 CCU \u2192 GAU \u2192 DEL",
+        "sample_count": 11,
+        "avg_historical_price": 11810.0
+      },
+      {
+        "route": "BLR \u2192 HYD \u2192 VGA \u2192 DEL",
+        "sample_count": 10,
+        "avg_historical_price": 10771.0
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 NAG \u2192 DEL",
+        "sample_count": 9,
+        "avg_historical_price": 14685.0
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 JDH \u2192 DEL",
+        "sample_count": 6,
+        "avg_historical_price": 14846.0
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 IDR \u2192 DEL",
+        "sample_count": 5,
+        "avg_historical_price": 15361.0
+      },
+      {
+        "route": "BLR \u2192 CCU \u2192 BBI \u2192 DEL",
+        "sample_count": 5,
+        "avg_historical_price": 9155.0
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 AMD \u2192 DEL",
+        "sample_count": 4,
+        "avg_historical_price": 14156.0
+      },
+      {
+        "route": "BLR \u2192 VGA \u2192 HYD \u2192 DEL",
+        "sample_count": 4,
+        "avg_historical_price": 9599.0
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 UDR \u2192 DEL",
+        "sample_count": 3,
+        "avg_historical_price": 11938.0
+      },
+      {
+        "route": "BLR \u2192 TRV \u2192 COK \u2192 DEL",
+        "sample_count": 2,
+        "avg_historical_price": 11838.0
+      },
+      {
+        "route": "BLR \u2192 VGA \u2192 VTZ \u2192 DEL",
+        "sample_count": 2,
+        "avg_historical_price": 15361.0
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 IXC \u2192 DEL",
+        "sample_count": 1,
+        "avg_historical_price": 13303.0
+      }
+    ],
+    "Banglore|New Delhi|3": [
+      {
+        "route": "BLR \u2192 BOM \u2192 IDR \u2192 GWL \u2192 DEL",
+        "sample_count": 2,
+        "avg_historical_price": 13387.0
+      },
+      {
+        "route": "BLR \u2192 CCU \u2192 BBI \u2192 HYD \u2192 DEL",
+        "sample_count": 2,
+        "avg_historical_price": 12714.0
+      },
+      {
+        "route": "BLR \u2192 HBX \u2192 BOM \u2192 AMD \u2192 DEL",
+        "sample_count": 1,
+        "avg_historical_price": 10573.0
+      },
+      {
+        "route": "BLR \u2192 HBX \u2192 BOM \u2192 BHO \u2192 DEL",
+        "sample_count": 1,
+        "avg_historical_price": 14195.0
+      },
+      {
+        "route": "BLR \u2192 HBX \u2192 BOM \u2192 NAG \u2192 DEL",
+        "sample_count": 1,
+        "avg_historical_price": 12358.0
+      }
+    ],
+    "Banglore|New Delhi|4": [
+      {
+        "route": "BLR \u2192 CCU \u2192 BBI \u2192 HYD \u2192 VGA \u2192 DEL",
+        "sample_count": 1,
+        "avg_historical_price": 17686.0
+      }
+    ],
+    "Chennai|Kolkata|0": [
+      {
+        "route": "MAA \u2192 CCU",
+        "sample_count": 381,
+        "avg_historical_price": 4790.0
+      }
+    ],
+    "Delhi|Cochin|0": [
+      {
+        "route": "DEL \u2192 COK",
+        "sample_count": 213,
+        "avg_historical_price": 6316.0
+      }
+    ],
+    "Delhi|Cochin|1": [
+      {
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 2376,
+        "avg_historical_price": 10954.0
+      },
+      {
+        "route": "DEL \u2192 HYD \u2192 COK",
+        "sample_count": 326,
+        "avg_historical_price": 7299.0
+      },
+      {
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 232,
+        "avg_historical_price": 7560.0
+      },
+      {
+        "route": "DEL \u2192 MAA \u2192 COK",
+        "sample_count": 146,
+        "avg_historical_price": 7312.0
+      },
+      {
+        "route": "DEL \u2192 PNQ \u2192 COK",
+        "sample_count": 42,
+        "avg_historical_price": 6602.0
+      },
+      {
+        "route": "DEL \u2192 AMD \u2192 COK",
+        "sample_count": 25,
+        "avg_historical_price": 5606.0
+      },
+      {
+        "route": "DEL \u2192 LKO \u2192 COK",
+        "sample_count": 17,
+        "avg_historical_price": 7166.0
+      },
+      {
+        "route": "DEL \u2192 TRV \u2192 COK",
+        "sample_count": 16,
+        "avg_historical_price": 7836.0
+      },
+      {
+        "route": "DEL \u2192 BBI \u2192 COK",
+        "sample_count": 5,
+        "avg_historical_price": 11063.0
+      }
+    ],
+    "Delhi|Cochin|2": [
+      {
+        "route": "DEL \u2192 JAI \u2192 BOM \u2192 COK",
+        "sample_count": 183,
+        "avg_historical_price": 12210.0
+      },
+      {
+        "route": "DEL \u2192 AMD \u2192 BOM \u2192 COK",
+        "sample_count": 144,
+        "avg_historical_price": 12630.0
+      },
+      {
+        "route": "DEL \u2192 IDR \u2192 BOM \u2192 COK",
+        "sample_count": 90,
+        "avg_historical_price": 14038.0
+      },
+      {
+        "route": "DEL \u2192 HYD \u2192 MAA \u2192 COK",
+        "sample_count": 83,
+        "avg_historical_price": 9133.0
+      },
+      {
+        "route": "DEL \u2192 BHO \u2192 BOM \u2192 COK",
+        "sample_count": 48,
+        "avg_historical_price": 14121.0
+      },
+      {
+        "route": "DEL \u2192 HYD \u2192 BOM \u2192 COK",
+        "sample_count": 45,
+        "avg_historical_price": 11725.0
+      },
+      {
+        "route": "DEL \u2192 CCU \u2192 BOM \u2192 COK",
+        "sample_count": 44,
+        "avg_historical_price": 13962.0
+      },
+      {
+        "route": "DEL \u2192 GOI \u2192 BOM \u2192 COK",
+        "sample_count": 44,
+        "avg_historical_price": 11942.0
+      },
+      {
+        "route": "DEL \u2192 NAG \u2192 BOM \u2192 COK",
+        "sample_count": 44,
+        "avg_historical_price": 12171.0
+      },
+      {
+        "route": "DEL \u2192 LKO \u2192 BOM \u2192 COK",
+        "sample_count": 41,
+        "avg_historical_price": 13277.0
+      },
+      {
+        "route": "DEL \u2192 ATQ \u2192 BOM \u2192 COK",
+        "sample_count": 40,
+        "avg_historical_price": 16700.0
+      },
+      {
+        "route": "DEL \u2192 JDH \u2192 BOM \u2192 COK",
+        "sample_count": 37,
+        "avg_historical_price": 16163.0
+      },
+      {
+        "route": "DEL \u2192 BDQ \u2192 BOM \u2192 COK",
+        "sample_count": 27,
+        "avg_historical_price": 12339.0
+      },
+      {
+        "route": "DEL \u2192 UDR \u2192 BOM \u2192 COK",
+        "sample_count": 18,
+        "avg_historical_price": 13859.0
+      },
+      {
+        "route": "DEL \u2192 IXU \u2192 BOM \u2192 COK",
+        "sample_count": 12,
+        "avg_historical_price": 19381.0
+      },
+      {
+        "route": "DEL \u2192 IXC \u2192 BOM \u2192 COK",
+        "sample_count": 11,
+        "avg_historical_price": 12515.0
+      },
+      {
+        "route": "DEL \u2192 MAA \u2192 BOM \u2192 COK",
+        "sample_count": 11,
+        "avg_historical_price": 9162.0
+      },
+      {
+        "route": "DEL \u2192 DED \u2192 BOM \u2192 COK",
+        "sample_count": 2,
+        "avg_historical_price": 19540.0
+      }
+    ],
+    "Delhi|Cochin|3": [
+      {
+        "route": "DEL \u2192 RPR \u2192 NAG \u2192 BOM \u2192 COK",
+        "sample_count": 15,
+        "avg_historical_price": 11022.0
+      },
+      {
+        "route": "DEL \u2192 GWL \u2192 IDR \u2192 BOM \u2192 COK",
+        "sample_count": 8,
+        "avg_historical_price": 17293.0
+      }
+    ],
+    "Kolkata|Banglore|0": [
+      {
+        "route": "CCU \u2192 BLR",
+        "sample_count": 724,
+        "avg_historical_price": 4556.0
+      }
+    ],
+    "Kolkata|Banglore|1": [
+      {
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 979,
+        "avg_historical_price": 11488.0
+      },
+      {
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 565,
+        "avg_historical_price": 10763.0
+      },
+      {
+        "route": "CCU \u2192 MAA \u2192 BLR",
+        "sample_count": 65,
+        "avg_historical_price": 5241.0
+      },
+      {
+        "route": "CCU \u2192 HYD \u2192 BLR",
+        "sample_count": 53,
+        "avg_historical_price": 4910.0
+      },
+      {
+        "route": "CCU \u2192 BBI \u2192 BLR",
+        "sample_count": 50,
+        "avg_historical_price": 6061.0
+      },
+      {
+        "route": "CCU \u2192 GAU \u2192 BLR",
+        "sample_count": 41,
+        "avg_historical_price": 7613.0
+      },
+      {
+        "route": "CCU \u2192 IXB \u2192 BLR",
+        "sample_count": 20,
+        "avg_historical_price": 9275.0
+      },
+      {
+        "route": "CCU \u2192 PNQ \u2192 BLR",
+        "sample_count": 19,
+        "avg_historical_price": 6703.0
+      },
+      {
+        "route": "CCU \u2192 AMD \u2192 BLR",
+        "sample_count": 11,
+        "avg_historical_price": 8383.0
+      },
+      {
+        "route": "CCU \u2192 KNU \u2192 BLR",
+        "sample_count": 10,
+        "avg_historical_price": 8623.0
+      },
+      {
+        "route": "CCU \u2192 PAT \u2192 BLR",
+        "sample_count": 10,
+        "avg_historical_price": 10821.0
+      },
+      {
+        "route": "CCU \u2192 NAG \u2192 BLR",
+        "sample_count": 9,
+        "avg_historical_price": 6279.0
+      },
+      {
+        "route": "CCU \u2192 IXA \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 9413.0
+      },
+      {
+        "route": "CCU \u2192 VTZ \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 6301.0
+      }
+    ],
+    "Kolkata|Banglore|2": [
+      {
+        "route": "CCU \u2192 IXR \u2192 DEL \u2192 BLR",
+        "sample_count": 46,
+        "avg_historical_price": 10969.0
+      },
+      {
+        "route": "CCU \u2192 BBI \u2192 BOM \u2192 BLR",
+        "sample_count": 42,
+        "avg_historical_price": 10457.0
+      },
+      {
+        "route": "CCU \u2192 GAU \u2192 DEL \u2192 BLR",
+        "sample_count": 38,
+        "avg_historical_price": 13892.0
+      },
+      {
+        "route": "CCU \u2192 BOM \u2192 COK \u2192 BLR",
+        "sample_count": 30,
+        "avg_historical_price": 12865.0
+      },
+      {
+        "route": "CCU \u2192 DEL \u2192 COK \u2192 BLR",
+        "sample_count": 29,
+        "avg_historical_price": 13486.0
+      },
+      {
+        "route": "CCU \u2192 DEL \u2192 AMD \u2192 BLR",
+        "sample_count": 21,
+        "avg_historical_price": 13719.0
+      },
+      {
+        "route": "CCU \u2192 BOM \u2192 GOI \u2192 BLR",
+        "sample_count": 13,
+        "avg_historical_price": 11810.0
+      },
+      {
+        "route": "CCU \u2192 JAI \u2192 BOM \u2192 BLR",
+        "sample_count": 13,
+        "avg_historical_price": 10875.0
+      },
+      {
+        "route": "CCU \u2192 VNS \u2192 DEL \u2192 BLR",
+        "sample_count": 10,
+        "avg_historical_price": 15164.0
+      },
+      {
+        "route": "CCU \u2192 BBI \u2192 HYD \u2192 BLR",
+        "sample_count": 9,
+        "avg_historical_price": 5790.0
+      },
+      {
+        "route": "CCU \u2192 BOM \u2192 AMD \u2192 BLR",
+        "sample_count": 9,
+        "avg_historical_price": 14424.0
+      },
+      {
+        "route": "CCU \u2192 BOM \u2192 HBX \u2192 BLR",
+        "sample_count": 6,
+        "avg_historical_price": 10037.0
+      },
+      {
+        "route": "CCU \u2192 IXR \u2192 BBI \u2192 BLR",
+        "sample_count": 6,
+        "avg_historical_price": 7369.0
+      },
+      {
+        "route": "CCU \u2192 JAI \u2192 DEL \u2192 BLR",
+        "sample_count": 6,
+        "avg_historical_price": 12053.0
+      },
+      {
+        "route": "CCU \u2192 BOM \u2192 PNQ \u2192 BLR",
+        "sample_count": 4,
+        "avg_historical_price": 10118.0
+      },
+      {
+        "route": "CCU \u2192 DEL \u2192 VGA \u2192 BLR",
+        "sample_count": 4,
+        "avg_historical_price": 12533.0
+      },
+      {
+        "route": "CCU \u2192 BOM \u2192 TRV \u2192 BLR",
+        "sample_count": 2,
+        "avg_historical_price": 12403.0
+      },
+      {
+        "route": "CCU \u2192 IXB \u2192 DEL \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 15292.0
+      },
+      {
+        "route": "CCU \u2192 IXZ \u2192 MAA \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 11522.0
+      },
+      {
+        "route": "CCU \u2192 RPR \u2192 HYD \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 6103.0
+      }
+    ],
+    "Kolkata|Banglore|3": [
+      {
+        "route": "CCU \u2192 GAU \u2192 IMF \u2192 DEL \u2192 BLR",
+        "sample_count": 5,
+        "avg_historical_price": 13537.0
+      },
+      {
+        "route": "CCU \u2192 DEL \u2192 COK \u2192 TRV \u2192 BLR",
+        "sample_count": 4,
+        "avg_historical_price": 12941.0
+      },
+      {
+        "route": "CCU \u2192 BBI \u2192 IXR \u2192 DEL \u2192 BLR",
+        "sample_count": 2,
+        "avg_historical_price": 12606.0
+      }
+    ],
+    "Mumbai|Hyderabad|0": [
+      {
+        "route": "BOM \u2192 HYD",
+        "sample_count": 621,
+        "avg_historical_price": 3933.0
+      }
+    ],
+    "Mumbai|Hyderabad|1": [
+      {
+        "route": "BOM \u2192 DEL \u2192 HYD",
+        "sample_count": 33,
+        "avg_historical_price": 13380.0
+      },
+      {
+        "route": "BOM \u2192 BLR \u2192 HYD",
+        "sample_count": 3,
+        "avg_historical_price": 9045.0
+      },
+      {
+        "route": "BOM \u2192 MAA \u2192 HYD",
+        "sample_count": 3,
+        "avg_historical_price": 8598.0
+      },
+      {
+        "route": "BOM \u2192 BBI \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 14408.0
+      },
+      {
+        "route": "BOM \u2192 CCU \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 16666.0
+      },
+      {
+        "route": "BOM \u2192 GOI \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 7681.0
+      },
+      {
+        "route": "BOM \u2192 JLR \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 13552.0
+      },
+      {
+        "route": "BOM \u2192 NDC \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 4140.0
+      }
+    ],
+    "Mumbai|Hyderabad|2": [
+      {
+        "route": "BOM \u2192 BHO \u2192 DEL \u2192 HYD",
+        "sample_count": 7,
+        "avg_historical_price": 13162.0
+      },
+      {
+        "route": "BOM \u2192 GOI \u2192 PNQ \u2192 HYD",
+        "sample_count": 6,
+        "avg_historical_price": 17082.0
+      },
+      {
+        "route": "BOM \u2192 AMD \u2192 ISK \u2192 HYD",
+        "sample_count": 4,
+        "avg_historical_price": 11762.0
+      },
+      {
+        "route": "BOM \u2192 JDH \u2192 DEL \u2192 HYD",
+        "sample_count": 3,
+        "avg_historical_price": 23867.0
+      },
+      {
+        "route": "BOM \u2192 BDQ \u2192 DEL \u2192 HYD",
+        "sample_count": 2,
+        "avg_historical_price": 22792.0
+      },
+      {
+        "route": "BOM \u2192 IDR \u2192 DEL \u2192 HYD",
+        "sample_count": 2,
+        "avg_historical_price": 17049.0
+      },
+      {
+        "route": "BOM \u2192 COK \u2192 MAA \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 9678.0
+      },
+      {
+        "route": "BOM \u2192 DED \u2192 DEL \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 24115.0
+      },
+      {
+        "route": "BOM \u2192 JAI \u2192 DEL \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 17926.0
+      },
+      {
+        "route": "BOM \u2192 RPR \u2192 VTZ \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 9736.0
+      },
+      {
+        "route": "BOM \u2192 UDR \u2192 DEL \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 22950.0
+      },
+      {
+        "route": "BOM \u2192 VNS \u2192 DEL \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 23528.0
+      }
+    ],
+    "Mumbai|Hyderabad|3": [
+      {
+        "route": "BOM \u2192 BLR \u2192 CCU \u2192 BBI \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 14260.0
+      },
+      {
+        "route": "BOM \u2192 JDH \u2192 JAI \u2192 DEL \u2192 HYD",
+        "sample_count": 1,
+        "avg_historical_price": 18293.0
+      }
+    ]
+  }
+}

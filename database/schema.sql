@@ -1,5 +1,6 @@
 -- =====================================================================
--- DATABASE DESIGN FOR AIRFARE PRICE ESTIMATION & FARE PATTERN ANALYSIS
+-- DATABASE DESIGN FOR FARELENS (3rd Normal Form - 3NF)
+-- Project: Airfare Price Estimation and Fare Pattern Analysis-II
 -- DBMS: MySQL 8.0+ / MariaDB (5 Marks Evaluation Deliverable)
 -- =====================================================================
 
@@ -9,15 +10,26 @@ CREATE DATABASE IF NOT EXISTS flight_fare_db
 
 USE flight_fare_db;
 
--- 1. Master Table: Airports & Cities
-CREATE TABLE IF NOT EXISTS airports_master (
-    airport_code VARCHAR(10) PRIMARY KEY,
-    city_name VARCHAR(100) NOT NULL,
-    state_name VARCHAR(100) NOT NULL,
+-- 1. Stakeholders / Users Table (Authentication & Role-Based Access)
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(120) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('traveler', 'analyst', 'admin') NOT NULL DEFAULT 'traveler',
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Seed initial Airport lookup data
+-- 2. Master Lookup Table: Airports
+CREATE TABLE IF NOT EXISTS airports_master (
+    airport_code VARCHAR(10) PRIMARY KEY,
+    city_name VARCHAR(100) NOT NULL UNIQUE,
+    state_name VARCHAR(100) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO airports_master (airport_code, city_name, state_name) VALUES
 ('BLR', 'Banglore', 'Karnataka'),
 ('CCU', 'Kolkata', 'West Bengal'),
@@ -26,70 +38,100 @@ INSERT INTO airports_master (airport_code, city_name, state_name) VALUES
 ('BOM', 'Mumbai', 'Maharashtra'),
 ('COK', 'Cochin', 'Kerala'),
 ('HYD', 'Hyderabad', 'Telangana')
-ON DUPLICATE KEY UPDATE city_name=VALUES(city_name);
+ON DUPLICATE KEY UPDATE city_name = VALUES(city_name), state_name = VALUES(state_name);
 
--- 2. Master Table: Airlines Catalog
+-- 3. Master Lookup Table: Airlines Catalog
 CREATE TABLE IF NOT EXISTS airlines_master (
     airline_id INT AUTO_INCREMENT PRIMARY KEY,
     airline_name VARCHAR(100) NOT NULL UNIQUE,
-    carrier_code VARCHAR(10),
-    is_active BOOLEAN DEFAULT TRUE,
+    carrier_code VARCHAR(16) NOT NULL,
+    airline_tier VARCHAR(40) NOT NULL DEFAULT 'Full-Service',
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Seed Airlines
-INSERT INTO airlines_master (airline_name, carrier_code) VALUES
-('IndiGo', '6E'),
-('Air India', 'AI'),
-('Jet Airways', '9W'),
-('SpiceJet', 'SG'),
-('Multiple carriers', 'MC'),
-('Vistara', 'UK'),
-('Air Asia', 'I5'),
-('GoAir', 'G8'),
-('Multiple carriers Premium economy', 'MC-PE'),
-('Jet Airways Business', '9W-BUS'),
-('Vistara Premium economy', 'UK-PE'),
-('Trujet', '2T')
-ON DUPLICATE KEY UPDATE carrier_code=VALUES(carrier_code);
+INSERT INTO airlines_master (airline_name, carrier_code, airline_tier) VALUES
+('IndiGo', '6E', 'Low-Cost Carrier'),
+('Air India', 'AI', 'Full-Service'),
+('Jet Airways', '9W', 'Full-Service (Historical 2019)'),
+('SpiceJet', 'SG', 'Low-Cost Carrier'),
+('Multiple carriers', 'MC', 'Interline'),
+('Vistara', 'UK', 'Full-Service'),
+('Air Asia', 'I5', 'Low-Cost Carrier'),
+('GoAir', 'G8', 'Low-Cost (Historical 2019)'),
+('Multiple carriers Premium economy', 'MC-PE', 'Premium Economy'),
+('Jet Airways Business', '9W-BUS', 'Business Class'),
+('Vistara Premium economy', 'UK-PE', 'Premium Economy'),
+('Trujet', '2T', 'Regional (Historical 2019)')
+ON DUPLICATE KEY UPDATE carrier_code = VALUES(carrier_code), airline_tier = VALUES(airline_tier);
 
--- 3. Core Transaction Table: Prediction Logs & Flight Queries
+-- 4. Core Transaction Table: Flight Fare Prediction Logs (3NF via FKs)
 CREATE TABLE IF NOT EXISTS flight_predictions (
-    prediction_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    airline_name VARCHAR(100) NOT NULL,
-    source_city VARCHAR(100) NOT NULL,
-    destination_city VARCHAR(100) NOT NULL,
-    journey_date DATE NOT NULL,
-    departure_time VARCHAR(10) NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
+    airline_id INT NOT NULL,
+    source_code VARCHAR(10) NOT NULL,
+    dest_code VARCHAR(10) NOT NULL,
+    route_str VARCHAR(150) NOT NULL,
+    additional_info VARCHAR(100) NOT NULL DEFAULT 'No info',
+    journey_date VARCHAR(20) NOT NULL,
+    dep_time VARCHAR(10) NOT NULL,
     arrival_time VARCHAR(10) NOT NULL,
     duration_mins INT NOT NULL,
     total_stops INT NOT NULL DEFAULT 0,
     predicted_fare DECIMAL(10, 2) NOT NULL,
-    fare_category ENUM('Budget', 'Standard', 'Premium', 'Surge') DEFAULT 'Standard',
-    model_name VARCHAR(100) DEFAULT 'RandomForestRegressor_Tuned',
-    model_r2_score DECIMAL(5, 4) DEFAULT 0.8177,
-    client_ip VARCHAR(50) DEFAULT '127.0.0.1',
+    fare_lower DECIMAL(10, 2) NOT NULL,
+    fare_upper DECIMAL(10, 2) NOT NULL,
+    fare_category VARCHAR(20) NOT NULL DEFAULT 'Standard',
+    model_name VARCHAR(100) NOT NULL DEFAULT 'Random Forest (Tuned Final)',
+    model_r2_score DECIMAL(5, 4) NOT NULL DEFAULT 0.9031,
+    notes VARCHAR(255) NOT NULL DEFAULT '',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_source_dest (source_city, destination_city),
-    INDEX idx_airline (airline_name),
-    INDEX idx_journey_date (journey_date)
+    CONSTRAINT fk_pred_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    CONSTRAINT fk_pred_airline FOREIGN KEY (airline_id) REFERENCES airlines_master(airline_id),
+    CONSTRAINT fk_pred_source FOREIGN KEY (source_code) REFERENCES airports_master(airport_code),
+    CONSTRAINT fk_pred_dest FOREIGN KEY (dest_code) REFERENCES airports_master(airport_code),
+    CONSTRAINT chk_stops_range CHECK (total_stops >= 0 AND total_stops <= 4),
+    CONSTRAINT chk_duration_pos CHECK (duration_mins > 0),
+    CONSTRAINT chk_fare_pos CHECK (predicted_fare > 0),
+    INDEX idx_pred_route (source_code, dest_code),
+    INDEX idx_pred_user (user_id),
+    INDEX idx_pred_airline (airline_id)
 );
 
--- 4. Benchmark & Model Performance Auditing Table
+-- 5. User Price Watchlist & Alerts Table (Full CRUD Deliverable)
+CREATE TABLE IF NOT EXISTS fare_alerts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    prediction_id INT NULL,
+    airline_id INT NOT NULL,
+    source_code VARCHAR(10) NOT NULL,
+    dest_code VARCHAR(10) NOT NULL,
+    journey_date VARCHAR(20) NOT NULL,
+    target_price DECIMAL(10, 2) NOT NULL,
+    estimated_price DECIMAL(10, 2) NOT NULL,
+    status ENUM('watching', 'target_met', 'paused') NOT NULL DEFAULT 'watching',
+    notes VARCHAR(255) NOT NULL DEFAULT '',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_alert_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_alert_pred FOREIGN KEY (prediction_id) REFERENCES flight_predictions(id) ON DELETE SET NULL,
+    CONSTRAINT fk_alert_airline FOREIGN KEY (airline_id) REFERENCES airlines_master(airline_id),
+    CONSTRAINT fk_alert_source FOREIGN KEY (source_code) REFERENCES airports_master(airport_code),
+    CONSTRAINT fk_alert_dest FOREIGN KEY (dest_code) REFERENCES airports_master(airport_code),
+    CONSTRAINT chk_target_pos CHECK (target_price > 0)
+);
+
+-- 6. ML Benchmark Auditing Table
 CREATE TABLE IF NOT EXISTS model_benchmarks (
-    benchmark_id INT AUTO_INCREMENT PRIMARY KEY,
-    model_name VARCHAR(100) NOT NULL,
-    r2_score DECIMAL(5, 4) NOT NULL,
-    mean_absolute_error DECIMAL(10, 2) NOT NULL,
-    root_mean_squared_error DECIMAL(10, 2) NOT NULL,
-    training_sample_count INT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    model_name VARCHAR(100) NOT NULL UNIQUE,
+    r2_score DECIMAL(6, 4) NOT NULL,
+    mae DECIMAL(10, 2) NOT NULL,
+    rmse DECIMAL(10, 2) NOT NULL,
+    cv_r2_mean DECIMAL(6, 4) NULL,
+    training_samples INT NOT NULL,
+    feature_count INT NOT NULL,
+    is_selected BOOLEAN NOT NULL DEFAULT FALSE,
     evaluated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
--- Seed initial benchmark evaluations
-INSERT INTO model_benchmarks (model_name, r2_score, mean_absolute_error, root_mean_squared_error, training_sample_count) VALUES
-('Linear Regression', 0.5746, 2029.57, 3028.56, 8545),
-('Ridge Regression', 0.5743, 2029.49, 3029.59, 8545),
-('Decision Tree', 0.7575, 1223.48, 2286.80, 8545),
-('Random Forest (Default)', 0.8112, 1168.80, 2017.86, 8545),
-('Random Forest (Tuned)', 0.8177, 1131.59, 1982.37, 8545);

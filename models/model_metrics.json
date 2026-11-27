@@ -1,27 +1,66 @@
 {
-  "Linear Regression": {
-    "R2_Score": 0.5746,
-    "MAE": 2029.57,
-    "RMSE": 3028.56
+  "selected_model": "Random Forest (Tuned Final)",
+  "best_params": {
+    "n_estimators": 250,
+    "min_samples_split": 3,
+    "min_samples_leaf": 1,
+    "max_depth": null
   },
-  "Ridge Regression": {
-    "R2_Score": 0.5743,
-    "MAE": 2029.49,
-    "RMSE": 3029.59
-  },
-  "Decision Tree": {
-    "R2_Score": 0.7575,
-    "MAE": 1223.48,
-    "RMSE": 2286.8
-  },
-  "Random Forest": {
-    "R2_Score": 0.8112,
-    "MAE": 1168.8,
-    "RMSE": 2017.86
-  },
-  "Tuned Random Forest (Final)": {
-    "R2_Score": 0.8177,
-    "MAE": 1131.59,
-    "RMSE": 1982.37
+  "training_samples": 8369,
+  "validation_samples": 2093,
+  "raw_feature_count": 13,
+  "encoded_feature_count": 167,
+  "models": {
+    "Linear Regression": {
+      "r2_score": 0.7154,
+      "mae": 1543.84,
+      "rmse": 2436.15,
+      "mape_pct": 18.82,
+      "is_selected": false
+    },
+    "Ridge Regression": {
+      "r2_score": 0.7152,
+      "mae": 1546.91,
+      "rmse": 2436.92,
+      "mape_pct": 18.88,
+      "is_selected": false
+    },
+    "Decision Tree": {
+      "r2_score": 0.8499,
+      "mae": 750.69,
+      "rmse": 1769.34,
+      "mape_pct": 8.63,
+      "is_selected": false
+    },
+    "KNN Regressor (Scaled)": {
+      "r2_score": 0.8111,
+      "mae": 948.17,
+      "rmse": 1984.53,
+      "mape_pct": 10.89,
+      "is_selected": false
+    },
+    "SVR (RBF Scaled)": {
+      "r2_score": 0.7792,
+      "mae": 1058.16,
+      "rmse": 2145.41,
+      "mape_pct": 11.65,
+      "is_selected": false
+    },
+    "Random Forest (Kaggle Base)": {
+      "r2_score": 0.9021,
+      "mae": 620.34,
+      "rmse": 1428.78,
+      "mape_pct": 7.23,
+      "is_selected": false
+    },
+    "Random Forest (Tuned Final)": {
+      "r2_score": 0.9032,
+      "mae": 619.93,
+      "rmse": 1420.35,
+      "mape_pct": 7.23,
+      "cv_r2_mean": 0.8974,
+      "cv_r2_std": 0.0147,
+      "is_selected": true
+    }
   }
 }

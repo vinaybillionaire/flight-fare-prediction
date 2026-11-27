@@ -1,464 +1,814 @@
 /**
- * AeroPrice - Real-Time Flight Fare Estimation Client Logic
- * Handles dynamic route visualizer, transit hub resolution, duration calculation,
- * and state transition from Empty Placeholder to Active Fare Estimate.
+ * FareLens — Interactive Multi-Role Airfare Intelligence Client
  */
-
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM Elements
+  const TOKEN_KEY = "farelens_jwt_token";
+  const USER_KEY = "farelens_user_obj";
+
+  let authToken = localStorage.getItem(TOKEN_KEY) || null;
+  let currentUser = null;
+  try {
+    currentUser = JSON.parse(localStorage.getItem(USER_KEY) || "null");
+  } catch {
+    currentUser = null;
+  }
+
+  let catalogData = null;
+  let lastPredictionResult = null;
+  let lastPayload = null;
+
+  // DOM References
+  const toastEl = document.getElementById("toast");
+  const rolePill = document.getElementById("user-role-pill");
+  const btnOpenAuth = document.getElementById("btn-open-auth");
+  const btnSignout = document.getElementById("btn-signout");
+  const authModal = document.getElementById("auth-modal");
+  const vivaModal = document.getElementById("viva-modal");
+
   const fareForm = document.getElementById("fare-form");
-  const sourceSelect = document.getElementById("source");
-  const destinationSelect = document.getElementById("destination");
-  const airlineSelect = document.getElementById("airline");
-  const stopsSelect = document.getElementById("total_stops");
-  const journeyDateInput = document.getElementById("journey_date");
-  const depTimeInput = document.getElementById("dep_time");
-  const arrivalTimeInput = document.getElementById("arrival_time");
+  const sourceEl = document.getElementById("source");
+  const destEl = document.getElementById("destination");
+  const airlineEl = document.getElementById("airline");
+  const stopsEl = document.getElementById("total_stops");
+  const routeEl = document.getElementById("route_select");
+  const infoEl = document.getElementById("additional_info");
+  const dateEl = document.getElementById("journey_date");
+  const depEl = document.getElementById("dep_time");
+  const arrEl = document.getElementById("arrival_time");
+  const inflationEl = document.getElementById("inflation_factor");
+  const notesEl = document.getElementById("trip_notes");
   const btnSubmit = document.getElementById("btn-submit");
+  const btnSaveAlert = document.getElementById("btn-save-alert");
 
-  // Route & Duration Indicators
-  const originPreview = document.querySelector(".origin-preview");
-  const destPreview = document.querySelector(".dest-preview");
-  const originName = document.querySelector(".origin-name");
-  const destName = document.querySelector(".dest-name");
-  const durationStripBox = document.getElementById("duration-strip-box");
-  const durationPreviewText = document.getElementById("duration-preview-text");
-  const transitHubsIndicator = document.getElementById("transit-hubs-indicator");
-  const transitPathText = document.getElementById("transit-path-text");
-
-  // Output State Containers
-  const emptyStateView = document.getElementById("empty-state-view");
-  const resultStateView = document.getElementById("result-state-view");
-
-  // Result Elements
-  const priceDisplay = document.getElementById("price-display");
-  const priceRangeDisplay = document.getElementById("price-range-display");
-  const fareTierBadge = document.getElementById("fare-tier-badge");
-  const priceCaptionText = document.getElementById("price-caption-text");
-  const summaryAirline = document.getElementById("summary-airline");
-  const summaryRoute = document.getElementById("summary-route");
-  const summaryTransitRow = document.getElementById("summary-transit-row");
-  const summaryTransitStops = document.getElementById("summary-transit-stops");
-  const summaryDuration = document.getElementById("summary-duration");
-  const summaryStops = document.getElementById("summary-stops");
-  const decompListContainer = document.getElementById("decomp-list-container");
-  const savingsListContainer = document.getElementById("savings-list-container");
-
-  // Airport Metadata Map
-  const airportMeta = {
-    "Banglore": { code: "BLR", name: "Bangalore" },
-    "Delhi": { code: "DEL", name: "Delhi" },
-    "New Delhi": { code: "DEL", name: "Delhi" },
-    "Kolkata": { code: "CCU", name: "Kolkata" },
-    "Chennai": { code: "MAA", name: "Chennai" },
-    "Mumbai": { code: "BOM", name: "Mumbai" },
-    "Cochin": { code: "COK", name: "Cochin" },
-    "Hyderabad": { code: "HYD", name: "Hyderabad" }
+  const airportCodes = {
+    Banglore: { code: "BLR", name: "Bangalore" },
+    Delhi: { code: "DEL", name: "Delhi" },
+    "New Delhi": { code: "DEL", name: "New Delhi" },
+    Kolkata: { code: "CCU", name: "Kolkata" },
+    Chennai: { code: "MAA", name: "Chennai" },
+    Mumbai: { code: "BOM", name: "Mumbai" },
+    Cochin: { code: "COK", name: "Cochin" },
+    Hyderabad: { code: "HYD", name: "Hyderabad" },
   };
 
-  // Intermediate Transit Hub Matrix for Indian Domestic Flights (Supports 1, 2, and 3 stops)
-  const hubMatrix = {
-    "Delhi_Cochin": ["Mumbai (BOM)", "Jaipur (JAI)", "Goa (GOI)"],
-    "Kolkata_Banglore": ["Bhubaneswar (BBI)", "Ranchi (IXR)", "Hyderabad (HYD)"],
-    "Banglore_Delhi": ["Mumbai (BOM)", "Ahmedabad (AMD)", "Jaipur (JAI)"],
-    "Mumbai_Hyderabad": ["Delhi (DEL)", "Chennai (MAA)", "Pune (PNQ)"],
-    "Chennai_Kolkata": ["Hyderabad (HYD)", "Bhubaneswar (BBI)", "Visakhapatnam (VTZ)"],
-    "Chennai_Banglore": ["Hyderabad (HYD)", "Coimbatore (CJB)", "Tirupati (TIR)"],
-    "Chennai_Hyderabad": ["Bangalore (BLR)", "Tirupati (TIR)", "Vijayawada (VGA)"],
-    "Chennai_Delhi": ["Hyderabad (HYD)", "Nagpur (NAG)", "Bhopal (BHO)"],
-    "Chennai_Cochin": ["Bangalore (BLR)", "Coimbatore (CJB)", "Madurai (IXM)"],
-    "Mumbai_Banglore": ["Goa (GOI)", "Hyderabad (HYD)", "Pune (PNQ)"],
-    "Mumbai_Delhi": ["Ahmedabad (AMD)", "Jaipur (JAI)", "Udaipur (UDR)"],
-    "Mumbai_Cochin": ["Goa (GOI)", "Mangalore (IXE)", "Calicut (CCJ)"],
-    "Mumbai_Kolkata": ["Nagpur (NAG)", "Bhubaneswar (BBI)", "Raipur (RPR)"],
-    "Kolkata_Cochin": ["Chennai (MAA)", "Bangalore (BLR)", "Coimbatore (CJB)"],
-    "Delhi_Hyderabad": ["Bhopal (BHO)", "Nagpur (NAG)", "Indore (IDR)"],
-    "Delhi_Kolkata": ["Lucknow (LKO)", "Patna (PAT)", "Varanasi (VNS)"],
-    "Banglore_Cochin": ["Coimbatore (CJB)", "Madurai (IXM)", "Calicut (CCJ)"],
-    "Banglore_Hyderabad": ["Chennai (MAA)", "Tirupati (TIR)", "Vijayawada (VGA)"],
-    "Banglore_Kolkata": ["Hyderabad (HYD)", "Bhubaneswar (BBI)", "Visakhapatnam (VTZ)"],
-    "Delhi_Banglore": ["Mumbai (BOM)", "Hyderabad (HYD)", "Ahmedabad (AMD)"],
-    "Kolkata_Delhi": ["Patna (PAT)", "Lucknow (LKO)", "Varanasi (VNS)"],
-    "Kolkata_Hyderabad": ["Bhubaneswar (BBI)", "Raipur (RPR)", "Visakhapatnam (VTZ)"]
-  };
-
-  // Domestic Indian Air Corridor Standard Flight Times (in minutes)
-  const corridorAirborneMinutes = {
-    "Banglore_Hyderabad": 75,
-    "Hyderabad_Banglore": 75,
-    "Banglore_Delhi": 165,
-    "Delhi_Banglore": 165,
-    "Delhi_Cochin": 195,
-    "Cochin_Delhi": 195,
-    "Kolkata_Banglore": 155,
-    "Banglore_Kolkata": 155,
-    "Mumbai_Hyderabad": 85,
-    "Hyderabad_Mumbai": 85,
-    "Delhi_Kolkata": 135,
-    "Kolkata_Delhi": 135,
-    "Chennai_Kolkata": 140,
-    "Kolkata_Chennai": 140,
-    "Chennai_Banglore": 50,
-    "Banglore_Chennai": 50,
-    "Chennai_Hyderabad": 70,
-    "Hyderabad_Chennai": 70,
-    "Chennai_Delhi": 160,
-    "Delhi_Chennai": 160,
-    "Chennai_Cochin": 75,
-    "Cochin_Chennai": 75,
-    "Mumbai_Banglore": 95,
-    "Banglore_Mumbai": 95,
-    "Mumbai_Delhi": 130,
-    "Delhi_Mumbai": 130,
-    "Mumbai_Cochin": 110,
-    "Cochin_Mumbai": 110,
-    "Mumbai_Kolkata": 155,
-    "Kolkata_Mumbai": 155,
-    "Delhi_Hyderabad": 125,
-    "Hyderabad_Delhi": 125,
-    "Banglore_Cochin": 65,
-    "Cochin_Banglore": 65,
-    "Kolkata_Hyderabad": 125,
-    "Hyderabad_Kolkata": 125,
-    "Kolkata_Cochin": 195,
-    "Cochin_Kolkata": 195
-  };
-
-  function getTransitHubs(src, dst, stops) {
-    if (!src || !dst || stops <= 0) return [];
-    const key = `${src}_${dst}`;
-    const hubs = hubMatrix[key] || ["Mumbai (BOM)", "Delhi (DEL)"];
-    return hubs.slice(0, stops);
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
-  function getAirborneMinutes(src, dst) {
-    if (!src || !dst) return 130;
-    const key = `${src}_${dst}`;
-    return corridorAirborneMinutes[key] || 130;
+  function showToast(msg, isError = false) {
+    toastEl.textContent = msg;
+    toastEl.className = `toast show${isError ? " error" : ""}`;
+    setTimeout(() => {
+      toastEl.className = "toast";
+    }, 3200);
   }
 
-  // Auto-Calculate Realistic Arrival Time based on Route, Timing & Transit Layovers
-  function autoCalculateArrival() {
-    const dep = depTimeInput.value;
-    if (!dep) return;
+  function fmtInr(num) {
+    return Number(num || 0).toLocaleString("en-IN", { maximumFractionDigits: 0 });
+  }
 
-    const src = sourceSelect.value;
-    const dst = destinationSelect.value;
-    const stops = parseInt(stopsSelect.value || "0", 10);
-
-    const airborneMins = getAirborneMinutes(src, dst);
-
-    // Realistic domestic transit layover ground time
-    let layoverMins = 0;
-    if (stops === 1) {
-      layoverMins = 210; // ~3h 30m standard transit layover
-    } else if (stops === 2) {
-      layoverMins = 420; // ~7h 00m combined layover across 2 transit airports
-    } else if (stops >= 3) {
-      layoverMins = 600; // ~10h 00m extended layover
+  async function apiFetch(url, options = {}) {
+    const headers = { ...(options.headers || {}) };
+    if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
+    if (options.body && !headers["Content-Type"]) {
+      headers["Content-Type"] = "application/json";
     }
-
-    const totalMins = airborneMins + layoverMins;
-
-    const [depH, depM] = dep.split(":").map(Number);
-    const totalDepMins = depH * 60 + depM;
-    const totalArrMins = (totalDepMins + totalMins) % (24 * 60);
-
-    const arrH = Math.floor(totalArrMins / 60);
-    const arrM = totalArrMins % 60;
-
-    arrivalTimeInput.value = `${String(arrH).padStart(2, "0")}:${String(arrM).padStart(2, "0")}`;
-
-    updateDurationDisplay(totalMins, airborneMins, layoverMins, stops);
+    const resp = await fetch(url, { ...options, headers });
+    const isJson = (resp.headers.get("content-type") || "").includes("application/json");
+    const data = isJson ? await resp.json() : await resp.text();
+    if (!resp.ok) {
+      const errMsg = typeof data === "object" && data.detail ? data.detail : `HTTP ${resp.status}`;
+      throw new Error(errMsg);
+    }
+    return data;
   }
 
-  function updateDurationDisplay(totalMins, airborneMins, layoverMins, stops) {
-    const hours = Math.floor(totalMins / 60);
-    const mins = totalMins % 60;
-    durationPreviewText.textContent = `${hours}h ${mins}m`;
+  // ---------------------- Tab Switching ----------------------
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
+      btn.classList.add("active");
+      const target = document.getElementById(btn.dataset.tab);
+      if (target) target.classList.add("active");
 
-    const stripBreakdown = document.getElementById("duration-strip-breakdown");
-    if (stripBreakdown) {
-      const airH = Math.floor(airborneMins / 60);
-      const airM = airborneMins % 60;
-      const airStr = airH > 0 ? `${airH}h ${airM}m` : `${airM}m`;
-
-      if (stops === 0) {
-        stripBreakdown.innerHTML = `<span><strong>Direct Non-stop:</strong> ~${airStr} airborne flying time</span>`;
-      } else {
-        const layH = Math.floor(layoverMins / 60);
-        const layM = layoverMins % 60;
-        const layStr = layM > 0 ? `${layH}h ${layM}m` : `${layH}h`;
-        stripBreakdown.innerHTML = `<span><strong>Itinerary Breakdown:</strong> ~${airStr} flying + ~${layStr} transit layover at intermediate hub(s)</span>`;
+      if (btn.dataset.tab === "tab-crud") {
+        loadHistory();
+        loadAlerts();
+      } else if (btn.dataset.tab === "tab-admin") {
+        loadDbStudio();
       }
-    }
-
-    if (durationStripBox) durationStripBox.style.display = "flex";
-  }
-
-  // Handle Manual Arrival Time Input with Sanity Guardrails
-  function onManualArrivalChange() {
-    const dep = depTimeInput.value;
-    const arr = arrivalTimeInput.value;
-    if (!dep || !arr) return;
-
-    const [depH, depM] = dep.split(":").map(Number);
-    const [arrH, arrM] = arr.split(":").map(Number);
-
-    let diff = (arrH * 60 + arrM) - (depH * 60 + depM);
-    if (diff <= 0) diff += 24 * 60; // Overnight flight
-
-    const stops = parseInt(stopsSelect.value || "0", 10);
-    const src = sourceSelect.value;
-    const dst = destinationSelect.value;
-    const airborneMins = getAirborneMinutes(src, dst);
-
-    const minThresholds = { 0: 45, 1: 180, 2: 360, 3: 540 };
-    const minRequired = minThresholds[stops] || 45;
-
-    if (diff < minRequired) {
-      const hours = Math.floor(diff / 60);
-      const mins = diff % 60;
-      durationPreviewText.textContent = `${hours}h ${mins}m (Unrealistic)`;
-      const stripBreakdown = document.getElementById("duration-strip-breakdown");
-      if (stripBreakdown) {
-        stripBreakdown.innerHTML = `
-          <span style="color: var(--color-surge); font-weight: 600;">
-            ⚠️ h m is too short for a -stop journey.
-            <button type="button" class="btn-autofix" id="btn-autofix-time">Auto-Fix Schedule</button>
-          </span>
-        `;
-        const autoFixBtn = document.getElementById("btn-autofix-time");
-        if (autoFixBtn) {
-          autoFixBtn.addEventListener("click", () => autoCalculateArrival());
-        }
-      }
-      if (durationStripBox) durationStripBox.style.display = "flex";
-    } else {
-      const layoverMins = Math.max(0, diff - airborneMins);
-      updateDurationDisplay(diff, airborneMins, layoverMins, stops);
-    }
-  }
-
-  // Update Route Visualizer and Transit Hubs
-  function updateRoute() {
-    const src = sourceSelect.value;
-    const dst = destinationSelect.value;
-    const stops = parseInt(stopsSelect.value || "0", 10);
-
-    if (src && airportMeta[src]) {
-      originPreview.textContent = airportMeta[src].code;
-      originName.textContent = airportMeta[src].name;
-    } else {
-      originPreview.textContent = "---";
-      originName.textContent = "Origin";
-    }
-
-    if (dst && airportMeta[dst]) {
-      destPreview.textContent = airportMeta[dst].code;
-      destName.textContent = airportMeta[dst].name;
-    } else {
-      destPreview.textContent = "---";
-      destName.textContent = "Destination";
-    }
-
-    // Display intermediate transit airports live if 1 or 2 stops are chosen
-    if (src && dst && stops > 0) {
-      const hubs = getTransitHubs(src, dst, stops);
-      if (hubs.length > 0 && transitHubsIndicator && transitPathText) {
-        transitPathText.textContent = hubs.join(" \u2794 ");
-        transitHubsIndicator.style.display = "flex";
-      }
-    } else if (transitHubsIndicator) {
-      transitHubsIndicator.style.display = "none";
-    }
-
-    // Auto-calculate realistic arrival whenever route or stops change
-    autoCalculateArrival();
-  }
-
-  // Quick Flight Schedule Slot Chips
-  const slotChips = document.querySelectorAll(".slot-chip");
-  slotChips.forEach(chip => {
-    chip.addEventListener("click", () => {
-      slotChips.forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      depTimeInput.value = chip.dataset.time;
-      autoCalculateArrival();
     });
   });
 
-  // Set default departure date to 7 days in future, min date to today
-  if (journeyDateInput) {
-    const today = new Date();
-    const futureDate = new Date();
-    futureDate.setDate(today.getDate() + 7);
-
-    const pad = (n) => String(n).padStart(2, "0");
-    journeyDateInput.min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
-    if (!journeyDateInput.value) {
-      journeyDateInput.value = `${futureDate.getFullYear()}-${pad(futureDate.getMonth() + 1)}-${pad(futureDate.getDate())}`;
+  // ---------------------- Auth State & Modals ----------------------
+  function syncAuthUI() {
+    const exportBtn = document.getElementById("btn-export-csv");
+    if (currentUser && authToken) {
+      rolePill.textContent = `${currentUser.full_name} (${currentUser.role.toUpperCase()})`;
+      rolePill.className = currentUser.role === "admin" ? "badge badge-admin" : "badge badge-budget";
+      btnOpenAuth.textContent = "Switch Account";
+      btnSignout.style.display = "inline-flex";
+      btnSaveAlert.disabled = !lastPredictionResult;
+      btnSaveAlert.textContent = "Save Route to Price Watchlist";
+      exportBtn.style.display = ["analyst", "admin"].includes(currentUser.role)
+        ? "inline-flex"
+        : "none";
+    } else {
+      rolePill.textContent = "Guest Mode";
+      rolePill.className = "badge badge-subtle";
+      btnOpenAuth.textContent = "Sign In / Register";
+      btnSignout.style.display = "none";
+      btnSaveAlert.disabled = !lastPredictionResult;
+      btnSaveAlert.textContent = "Save to Price Watchlist (Sign In Required)";
+      exportBtn.style.display = "none";
     }
   }
 
-  // Prevent selecting identical Origin & Destination by dynamically disabling current selection
-  function syncCityDropdowns() {
-    const srcVal = sourceSelect.value;
-    const dstVal = destinationSelect.value;
+  function setSession(token, user) {
+    authToken = token;
+    currentUser = user;
+    if (token && user) {
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+    }
+    syncAuthUI();
+  }
 
-    Array.from(destinationSelect.options).forEach(opt => {
-      if (opt.value && opt.value === srcVal) {
-        opt.disabled = true;
-      } else {
-        opt.disabled = false;
+  function openModal(modal) {
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeModal(modal) {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  btnOpenAuth.addEventListener("click", () => openModal(authModal));
+  document.getElementById("btn-close-auth").addEventListener("click", () => closeModal(authModal));
+  document.getElementById("btn-open-viva").addEventListener("click", () => openModal(vivaModal));
+  document.getElementById("btn-close-viva").addEventListener("click", () => closeModal(vivaModal));
+
+  [authModal, vivaModal].forEach((m) => {
+    m.addEventListener("click", (e) => {
+      if (e.target === m) closeModal(m);
+    });
+  });
+
+  btnSignout.addEventListener("click", () => {
+    setSession(null, null);
+    showToast("Signed out.");
+    loadAlerts();
+    loadDbStudio();
+  });
+
+  document.querySelectorAll(".demo-login-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      try {
+        const res = await apiFetch("/api/auth/login", {
+          method: "POST",
+          body: JSON.stringify({ email: btn.dataset.email, password: btn.dataset.pw }),
+        });
+        setSession(res.access_token, res.user);
+        closeModal(authModal);
+        showToast(`Signed in as ${res.user.full_name} (${res.user.role})`);
+        loadAlerts();
+        loadHistory();
+        loadDbStudio();
+      } catch (err) {
+        showToast(err.message, true);
       }
     });
-
-    Array.from(sourceSelect.options).forEach(opt => {
-      if (opt.value && opt.value === dstVal) {
-        opt.disabled = true;
-      } else {
-        opt.disabled = false;
-      }
-    });
-
-    // If currently identical, auto-select a valid alternative
-    if (srcVal && dstVal && srcVal === dstVal) {
-      const validDst = Array.from(destinationSelect.options).find(opt => opt.value && opt.value !== srcVal && !opt.disabled);
-      if (validDst) {
-        destinationSelect.value = validDst.value;
-      }
-    }
-  }
-
-  // Event Listeners for Live Form Changes
-  sourceSelect.addEventListener("change", () => {
-    syncCityDropdowns();
-    updateRoute();
   });
-  destinationSelect.addEventListener("change", () => {
-    syncCityDropdowns();
-    updateRoute();
-  });
-  stopsSelect.addEventListener("change", updateRoute);
-  depTimeInput.addEventListener("input", autoCalculateArrival);
-  arrivalTimeInput.addEventListener("input", onManualArrivalChange);
 
-  // Initial Sync
-  updateRoute();
-  autoCalculateArrival();
-
-  function getCategoryBadgeClass(category) {
-    switch (category) {
-      case "Budget": return "badge-budget";
-      case "Standard": return "badge-standard";
-      case "Premium": return "badge-premium";
-      case "Surge": return "badge-surge";
-      default: return "badge-standard";
-    }
-  }
-
-  // Form Submit Action
-  fareForm.addEventListener("submit", async (e) => {
+  document.getElementById("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    if (!sourceSelect.value || !destinationSelect.value || !airlineSelect.value || stopsSelect.value === "") {
-      alert("Please complete all flight selection fields.");
-      return;
-    }
-
-    if (sourceSelect.value === destinationSelect.value) {
-      alert("Origin and destination cities cannot be identical. Please select different airports.");
-      return;
-    }
-
-    const payload = {
-      airline: airlineSelect.value,
-      source: sourceSelect.value,
-      destination: destinationSelect.value,
-      journey_date: journeyDateInput.value,
-      dep_time: depTimeInput.value,
-      arrival_time: arrivalTimeInput.value,
-      total_stops: parseInt(stopsSelect.value, 10)
-    };
-
-    const originalText = btnSubmit.querySelector(".btn-text").textContent;
-    btnSubmit.querySelector(".btn-text").textContent = "Calculating Fare...";
-    btnSubmit.disabled = true;
-
     try {
-      const response = await fetch("/api/predict", {
+      const res = await apiFetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          email: document.getElementById("login-email").value,
+          password: document.getElementById("login-password").value,
+        }),
+      });
+      setSession(res.access_token, res.user);
+      closeModal(authModal);
+      showToast(`Welcome back, ${res.user.full_name}!`);
+      loadAlerts();
+      loadDbStudio();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
+
+  document.getElementById("register-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    try {
+      const res = await apiFetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify({
+          full_name: document.getElementById("reg-name").value,
+          email: document.getElementById("reg-email").value,
+          password: document.getElementById("reg-password").value,
+          role: document.getElementById("reg-role").value,
+        }),
+      });
+      setSession(res.access_token, res.user);
+      closeModal(authModal);
+      showToast(`Registered & signed in as ${res.user.role}!`);
+      loadAlerts();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
+
+  // ---------------------- Form & Route Sync ----------------------
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  dateEl.value = tomorrow.toISOString().split("T")[0];
+
+  function updateDuration() {
+    if (!depEl.value || !arrEl.value) return;
+    const [dh, dm] = depEl.value.split(":").map(Number);
+    const [ah, am] = arrEl.value.split(":").map(Number);
+    let diff = ah * 60 + am - (dh * 60 + dm);
+    if (diff <= 0) diff += 24 * 60;
+    document.getElementById("duration-preview-text").textContent = `${Math.floor(diff / 60)}h ${diff % 60}m`;
+  }
+
+  function updateRouteVisualizer() {
+    const src = airportCodes[sourceEl.value] || { code: "SRC", name: sourceEl.value };
+    const dst = airportCodes[destEl.value] || { code: "DST", name: destEl.value };
+    document.querySelector(".origin-preview").textContent = src.code;
+    document.querySelector(".origin-name").textContent = src.name;
+    document.querySelector(".dest-preview").textContent = dst.code;
+    document.querySelector(".dest-name").textContent = dst.name;
+    populateMatchingRoutes();
+  }
+
+  function populateMatchingRoutes() {
+    if (!catalogData) return;
+    const key = `${sourceEl.value}|${destEl.value}|${stopsEl.value}`;
+    const matches = (catalogData.routes_by_trip && catalogData.routes_by_trip[key]) || [];
+    routeEl.innerHTML = '<option value="auto">Auto-select typical route</option>';
+    matches.slice(0, 12).forEach((item) => {
+      const opt = document.createElement("option");
+      opt.value = item.route;
+      opt.textContent = `${item.route} (${item.sample_count} historical flights)`;
+      routeEl.appendChild(opt);
+    });
+    document.getElementById("route-hint-text").textContent = matches.length
+      ? `${matches.length} historical layover paths found`
+      : "Synthetic fallback path";
+  }
+
+  sourceEl.addEventListener("change", updateRouteVisualizer);
+  destEl.addEventListener("change", updateRouteVisualizer);
+  stopsEl.addEventListener("change", populateMatchingRoutes);
+  depEl.addEventListener("input", updateDuration);
+  arrEl.addEventListener("input", updateDuration);
+
+  // ---------------------- Estimator & Batch Comparisons ----------------------
+  function currentPayload() {
+    return {
+      airline: airlineEl.value,
+      source: sourceEl.value,
+      destination: destEl.value,
+      journey_date: dateEl.value,
+      dep_time: depEl.value,
+      arrival_time: arrEl.value,
+      total_stops: parseInt(stopsEl.value, 10),
+      route: routeEl.value || "auto",
+      additional_info: infoEl.value || "No info",
+      inflation_factor: parseFloat(inflationEl.value || "1.0"),
+      notes: notesEl.value || "",
+    };
+  }
+
+  function badgeClass(cat) {
+    if (cat === "Budget") return "badge-budget";
+    if (cat === "Standard") return "badge-standard";
+    if (cat === "Premium") return "badge-premium";
+    return "badge-surge";
+  }
+
+  async function runPredictionAndComparisons() {
+    const payload = currentPayload();
+    if ((airportCodes[payload.source]?.code || payload.source) === (airportCodes[payload.destination]?.code || payload.destination)) {
+      showToast("Origin and destination refer to the same city. Choose two different airports.", true);
+      return;
+    }
+
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = "Computing ML Inference & Batch Intelligence...";
+    try {
+      const [predRes, dateRes, airlineRes] = await Promise.all([
+        apiFetch("/api/predict", { method: "POST", body: JSON.stringify(payload) }),
+        apiFetch("/api/compare-dates", { method: "POST", body: JSON.stringify(payload) }),
+        apiFetch("/api/compare-airlines", { method: "POST", body: JSON.stringify(payload) }),
+      ]);
+
+      lastPredictionResult = predRes;
+      lastPayload = payload;
+      renderPredictionCard(predRes);
+      renderFlexDates(dateRes);
+      renderAirlineComparisons(airlineRes);
+      syncAuthUI();
+    } catch (err) {
+      showToast(err.message, true);
+    } finally {
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = "Estimate Fare & Run Intelligence";
+    }
+  }
+
+  function renderPredictionCard(res) {
+    document.getElementById("price-display").textContent = fmtInr(res.predicted_fare);
+    document.getElementById("price-range-pill").textContent =
+      `IQR Confidence Band: ₹${fmtInr(res.confidence_interval.lower)} – ₹${fmtInr(res.confidence_interval.upper)}`;
+    const badge = document.getElementById("fare-tier-badge");
+    badge.textContent = `${res.fare_category} Fare`;
+    badge.className = `badge ${badgeClass(res.fare_category)}`;
+    document.getElementById("price-caption-text").textContent =
+      `${res.model_info.algorithm} • R² ${(res.model_info.r2_score * 100).toFixed(2)}% • Logged #${res.prediction_id}`;
+
+    document.getElementById("summary-airline").textContent = res.flight_details.airline;
+    document.getElementById("summary-route").textContent = res.flight_details.resolved_route_path;
+    document.getElementById("summary-duration").textContent = `${res.flight_details.duration} • ${res.flight_details.stops}`;
+    document.getElementById("summary-info").textContent = res.flight_details.additional_info;
+    document.getElementById("summary-base-fare").textContent = `₹${fmtInr(res.historical_2019_fare)} (${res.inflation_factor}x)`;
+
+    const driversWrap = document.getElementById("drivers-wrap");
+    driversWrap.innerHTML = res.drivers
+      .map((d) => `<span class="driver-chip ${escapeHtml(d.tone)}"><strong>${escapeHtml(d.factor)}:</strong> ${escapeHtml(d.impact)}</span>`)
+      .join("");
+  }
+
+  function renderFlexDates(res) {
+    const grid = document.getElementById("flex-dates-grid");
+    document.getElementById("flex-date-summary").textContent =
+      `Cheapest day: ${res.cheapest_date} (₹${fmtInr(res.cheapest_fare)})`;
+    document.getElementById("flex-savings-badge").textContent =
+      res.potential_savings > 0 ? `Save up to ₹${fmtInr(res.potential_savings)}` : "Optimal Date Selected";
+
+    grid.innerHTML = res.dates
+      .map((d) => {
+        const cls = d.date === res.cheapest_date ? "cheapest" : d.is_selected ? "active" : "";
+        return `
+          <button type="button" class="date-tile ${cls}" data-date="${escapeHtml(d.date)}">
+            <span class="d-day">${escapeHtml(d.label)}</span>
+            <span class="d-price">₹${fmtInr(d.predicted_fare)}</span>
+          </button>`;
+      })
+      .join("");
+
+    grid.querySelectorAll(".date-tile").forEach((tile) => {
+      tile.addEventListener("click", () => {
+        dateEl.value = tile.dataset.date;
+        runPredictionAndComparisons();
+      });
+    });
+  }
+
+  function renderAirlineComparisons(res) {
+    const container = document.getElementById("airline-compare-bars");
+    const maxFare = Math.max(...res.comparisons.map((c) => c.predicted_fare), 1);
+    container.innerHTML = res.comparisons
+      .map((c) => {
+        const pct = Math.round((c.predicted_fare / maxFare) * 100);
+        const fillCls = c.is_selected ? "emerald" : "";
+        return `
+          <div class="bar-row">
+            <span class="bar-label">${escapeHtml(c.airline)}${c.is_selected ? " ★" : ""}</span>
+            <div class="bar-track"><div class="bar-fill ${fillCls}" style="width:${pct}%"></div></div>
+            <span class="bar-val">₹${fmtInr(c.predicted_fare)}</span>
+          </div>`;
+      })
+      .join("");
+  }
+
+  fareForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    runPredictionAndComparisons();
+  });
+
+  btnSaveAlert.addEventListener("click", async () => {
+    if (!authToken) {
+      authModal.classList.add("open");
+      showToast("Sign in first to save a Watchlist Alert.", true);
+      return;
+    }
+    if (!lastPredictionResult || !lastPayload) return;
+    const defaultTarget = Math.round(lastPredictionResult.predicted_fare * 0.9);
+    const input = window.prompt("Enter your target alert fare (INR):", String(defaultTarget));
+    if (!input) return;
+    const targetPrice = parseFloat(input);
+    if (Number.isNaN(targetPrice) || targetPrice <= 0) {
+      showToast("Invalid target price.", true);
+      return;
+    }
+    try {
+      await apiFetch("/api/alerts", {
+        method: "POST",
+        body: JSON.stringify({
+          prediction_id: lastPredictionResult.prediction_id,
+          airline: lastPayload.airline,
+          source: lastPayload.source,
+          destination: lastPayload.destination,
+          journey_date: lastPayload.journey_date,
+          target_price: targetPrice,
+          estimated_price: lastPredictionResult.predicted_fare,
+          notes: lastPayload.notes || "Watched from Estimator",
+        }),
+      });
+      showToast("Saved to Price Watchlist!");
+      loadAlerts();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
+
+  // ---------------------- EDA & Benchmarks Loaders ----------------------
+  function renderBarList(elId, items, labelKey, valKey, suffix = "", prefix = "₹", fillCls = "") {
+    const el = document.getElementById(elId);
+    if (!el || !items || !items.length) return;
+    const maxVal = Math.max(...items.map((i) => Number(i[valKey])), 1);
+    el.innerHTML = items
+      .map((item) => {
+        const val = Number(item[valKey]);
+        const pct = Math.max(4, Math.round((val / maxVal) * 100));
+        return `
+          <div class="bar-row">
+            <span class="bar-label" title="${escapeHtml(item[labelKey])}">${escapeHtml(item[labelKey])}</span>
+            <div class="bar-track"><div class="bar-fill ${fillCls}" style="width:${pct}%"></div></div>
+            <span class="bar-val">${prefix}${fmtInr(val)}${suffix}</span>
+          </div>`;
+      })
+      .join("");
+  }
+
+  async function loadAnalyticsAndBenchmarks() {
+    const [analyticsRes, metricsRes] = await Promise.all([
+      apiFetch("/api/analytics"),
+      apiFetch("/api/metrics"),
+    ]);
+
+    const eda = analyticsRes.eda || {};
+    const ov = eda.dataset_overview || {};
+    document.getElementById("eda-kpis").innerHTML = `
+      <div class="kpi-card"><div class="label">Cleaned Records</div><div class="value">${fmtInr(ov.cleaned_records)}</div><div class="sub">${ov.duplicates_removed || 220} duplicates removed</div></div>
+      <div class="kpi-card"><div class="label">Mean / Median Fare</div><div class="value">₹${fmtInr(ov.mean_price)}</div><div class="sub">Median: ₹${fmtInr(ov.median_price)}</div></div>
+      <div class="kpi-card"><div class="label">Fare Range</div><div class="value">₹${fmtInr(ov.min_price)}</div><div class="sub">Max Business: ₹${fmtInr(ov.max_price)}</div></div>
+      <div class="kpi-card"><div class="label">Error ≤ ₹1,000</div><div class="value">${ov.within_1000_inr_pct || 0}%</div><div class="sub">≤ ₹1,500: ${ov.within_1500_inr_pct || 0}%</div></div>
+    `;
+
+    renderBarList("eda-importances", (eda.feature_importances || []).slice(0, 8), "feature", "importance_pct", "%", "", "emerald");
+    renderBarList("eda-airlines", (eda.by_airline || []).slice(0, 8), "airline", "mean_price");
+    renderBarList("eda-stops", eda.by_stops || [], "label", "mean_price", "", "₹", "amber");
+    renderBarList("eda-dep-windows", eda.by_departure_window || [], "window", "mean_price");
+    renderBarList("eda-months", eda.by_month || [], "label", "mean_price", "", "₹", "emerald");
+    renderBarList("eda-weekdays", eda.by_weekday || [], "label", "mean_price");
+
+    const limList = document.getElementById("market-limitations-list");
+    limList.innerHTML = ((eda.market_limitations && eda.market_limitations.factors) || [])
+      .map((txt) => `<li>${escapeHtml(txt)}</li>`)
+      .join("");
+
+    // Benchmarks
+    const metrics = metricsRes.metrics || {};
+    const selectedName = metrics.selected_model || "Random Forest (Tuned Final)";
+    const modelEntries = Object.entries(metrics.models || {});
+    const selStats = (metrics.models && metrics.models[selectedName]) || {};
+
+    if (selStats.r2_score) {
+      document.getElementById("header-r2-badge").textContent = `R² ${(selStats.r2_score * 100).toFixed(2)}%`;
+      document.getElementById("hero-r2").textContent = `${(selStats.r2_score * 100).toFixed(2)}%`;
+      document.getElementById("hero-mae").textContent = `₹${fmtInr(selStats.mae)}`;
+      if (selStats.cv_r2_mean) {
+        document.getElementById("hero-cv").textContent = `${(selStats.cv_r2_mean * 100).toFixed(2)}%`;
+      }
+    }
+
+    document.getElementById("benchmarks-tbody").innerHTML = modelEntries
+      .map(([name, s]) => `
+        <tr class="${s.is_selected ? "selected-row" : ""}">
+          <td><strong>${escapeHtml(name)}</strong></td>
+          <td class="font-mono">${(s.r2_score * 100).toFixed(2)}%</td>
+          <td class="font-mono">₹${fmtInr(s.mae)}</td>
+          <td class="font-mono">₹${fmtInr(s.rmse)}</td>
+          <td class="font-mono">${s.mape_pct}%</td>
+          <td>${s.is_selected ? '<span class="badge badge-budget">Deployed</span>' : '<span class="badge badge-subtle">Benchmarked</span>'}</td>
+        </tr>`)
+      .join("");
+
+    const r2Items = modelEntries.map(([name, s]) => ({
+      name,
+      r2_pct: Number((s.r2_score * 100).toFixed(2)),
+    }));
+    renderBarList("benchmark-r2-bars", r2Items, "name", "r2_pct", "%", "", "emerald");
+  }
+
+  // ---------------------- Watchlist & History CRUD ----------------------
+  async function loadAlerts() {
+    const notice = document.getElementById("alerts-auth-notice");
+    const tbody = document.getElementById("alerts-tbody");
+    if (!authToken) {
+      notice.style.display = "block";
+      tbody.innerHTML = "";
+      return;
+    }
+    notice.style.display = "none";
+    try {
+      const res = await apiFetch("/api/alerts");
+      if (!res.alerts.length) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-muted);">No fare alerts yet. Run an estimate and click "Save Route to Price Watchlist".</td></tr>';
+        return;
+      }
+      tbody.innerHTML = res.alerts
+        .map((a) => `
+          <tr>
+            <td class="font-mono">#${a.id}</td>
+            <td>${escapeHtml(a.source_code)} → ${escapeHtml(a.dest_code)}</td>
+            <td>${escapeHtml(a.airline)}</td>
+            <td class="font-mono">${escapeHtml(a.journey_date)}</td>
+            <td class="font-mono">₹${fmtInr(a.estimated_price)}</td>
+            <td class="font-mono"><strong>₹${fmtInr(a.target_price)}</strong></td>
+            <td><span class="badge ${a.status === "target_met" ? "badge-budget" : a.status === "paused" ? "badge-premium" : "badge-standard"}">${escapeHtml(a.status)}</span></td>
+            <td>${escapeHtml(a.notes)}</td>
+            <td style="white-space:nowrap;">
+              <button type="button" class="btn btn-secondary btn-sm btn-edit-alert" data-id="${a.id}" data-target="${a.target_price}">Edit Target</button>
+              <button type="button" class="btn btn-danger btn-sm btn-del-alert" data-id="${a.id}">Delete</button>
+            </td>
+          </tr>`)
+        .join("");
+
+      tbody.querySelectorAll(".btn-edit-alert").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const val = window.prompt("New Target Price (INR):", btn.dataset.target);
+          if (!val) return;
+          try {
+            await apiFetch(`/api/alerts/${btn.dataset.id}`, {
+              method: "PATCH",
+              body: JSON.stringify({ target_price: parseFloat(val) }),
+            });
+            showToast("Alert updated.");
+            loadAlerts();
+          } catch (err) {
+            showToast(err.message, true);
+          }
+        });
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Unable to estimate fare.");
-      }
-
-      const result = await response.json();
-
-      // Transition from Empty State to Active Result
-      if (emptyStateView) emptyStateView.style.display = "none";
-      if (resultStateView) resultStateView.style.display = "block";
-
-      // Update Price Display
-      const fareInt = Math.floor(result.predicted_fare);
-      priceDisplay.textContent = fareInt.toLocaleString("en-IN");
-
-      fareTierBadge.textContent = `${result.fare_category} Fare`;
-      fareTierBadge.className = `badge ${getCategoryBadgeClass(result.fare_category)}`;
-
-      priceCaptionText.textContent = `Expected single passenger fare for ${result.flight_details.airline} (${result.flight_details.stops})`;
-
-      // Update Breakdown Summary
-      summaryAirline.textContent = result.flight_details.airline;
-      summaryRoute.textContent = result.flight_details.route;
-      summaryDuration.textContent = result.flight_details.duration;
-      summaryStops.textContent = result.flight_details.stops;
-
-      // Show intermediate transit hubs if stops > 0
-      if (result.flight_details.transit_hubs && result.flight_details.transit_hubs.length > 0) {
-        summaryTransitStops.textContent = result.flight_details.transit_hubs.join(" \u2022 ");
-        summaryTransitRow.style.display = "flex";
-      } else {
-        summaryTransitRow.style.display = "none";
-      }
-
-      // Update Market Price Range
-      if (priceRangeDisplay && result.fare_range) {
-        priceRangeDisplay.textContent = `${result.fare_range.low} \u2014 ${result.fare_range.high}`;
-      }
-
-      // Render Transparent XAI Fare Decomposition
-      if (decompListContainer && result.fare_decomposition) {
-        decompListContainer.innerHTML = result.fare_decomposition.map(item => {
-          let extraClass = "";
-          if (item.amount.startsWith("-")) extraClass = "negative";
-          else if (item.amount.startsWith("+")) extraClass = "positive";
-          return `
-            <div class="decomp-row">
-              <span class="decomp-factor">${item.factor}</span>
-              <span class="decomp-amount ${extraClass}">${item.amount}</span>
-            </div>
-          `;
-        }).join("");
-      }
-
-      // Render Smart Schedule Optimizer Insights
-      if (savingsListContainer && result.savings_insights) {
-        savingsListContainer.innerHTML = result.savings_insights.map(tip => `
-          <li class="savings-item">${tip}</li>
-        `).join("");
-      }
-
+      tbody.querySelectorAll(".btn-del-alert").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          try {
+            await apiFetch(`/api/alerts/${btn.dataset.id}`, { method: "DELETE" });
+            showToast("Alert deleted.");
+            loadAlerts();
+          } catch (err) {
+            showToast(err.message, true);
+          }
+        });
+      });
     } catch (err) {
-      alert(`Fare Estimation Error: ${err.message}`);
-    } finally {
-      btnSubmit.querySelector(".btn-text").textContent = originalText;
-      btnSubmit.disabled = false;
+      showToast(err.message, true);
+    }
+  }
+
+  async function loadHistory() {
+    const params = new URLSearchParams({ limit: "30" });
+    const search = document.getElementById("history-search").value.trim();
+    const airline = document.getElementById("history-airline-filter").value;
+    const mine = document.getElementById("history-mine-only").checked;
+    if (search) params.set("search", search);
+    if (airline) params.set("airline", airline);
+    if (mine) params.set("mine", "true");
+
+    const res = await apiFetch(`/api/history?${params.toString()}`);
+    const tbody = document.getElementById("history-tbody");
+    if (!res.history.length) {
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-muted);">No matching prediction records found.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = res.history
+      .map((r) => `
+        <tr>
+          <td class="font-mono">#${r.id}</td>
+          <td class="font-mono">${escapeHtml(r.timestamp)}</td>
+          <td>${escapeHtml(r.user_email)}</td>
+          <td>${escapeHtml(r.airline)}</td>
+          <td>${escapeHtml(r.route_str)}</td>
+          <td>${escapeHtml(r.journey_date)} (${r.total_stops} stop)</td>
+          <td class="font-mono"><strong>₹${fmtInr(r.predicted_fare)}</strong></td>
+          <td>${escapeHtml(r.notes || "—")}</td>
+          <td style="white-space:nowrap;">
+            <button type="button" class="btn btn-secondary btn-sm btn-edit-pred" data-id="${r.id}" data-notes="${escapeHtml(r.notes)}">Edit Note</button>
+            <button type="button" class="btn btn-danger btn-sm btn-del-pred" data-id="${r.id}">Delete</button>
+          </td>
+        </tr>`)
+      .join("");
+
+    tbody.querySelectorAll(".btn-edit-pred").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!authToken) {
+          authModal.classList.add("open");
+          showToast("Sign in to edit prediction notes.", true);
+          return;
+        }
+        const nextNote = window.prompt("Update trip note:", btn.dataset.notes || "");
+        if (nextNote === null) return;
+        try {
+          await apiFetch(`/api/history/${btn.dataset.id}`, {
+            method: "PATCH",
+            body: JSON.stringify({ notes: nextNote }),
+          });
+          showToast("Prediction note updated.");
+          loadHistory();
+        } catch (err) {
+          showToast(err.message, true);
+        }
+      });
+    });
+
+    tbody.querySelectorAll(".btn-del-pred").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!authToken) {
+          authModal.classList.add("open");
+          showToast("Sign in to delete prediction logs.", true);
+          return;
+        }
+        try {
+          await apiFetch(`/api/history/${btn.dataset.id}`, { method: "DELETE" });
+          showToast("Prediction record deleted.");
+          loadHistory();
+        } catch (err) {
+          showToast(err.message, true);
+        }
+      });
+    });
+  }
+
+  document.getElementById("btn-refresh-alerts").addEventListener("click", loadAlerts);
+  document.getElementById("btn-refresh-history").addEventListener("click", loadHistory);
+  document.getElementById("btn-filter-history").addEventListener("click", loadHistory);
+
+  document.getElementById("btn-export-csv").addEventListener("click", async () => {
+    try {
+      const resp = await fetch("/api/history/export", {
+        headers: { Authorization: `Bearer ${authToken}` },
+      });
+      if (!resp.ok) throw new Error("Export requires Analyst or Admin role.");
+      const blob = await resp.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "farelens_predictions.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      showToast(err.message, true);
     }
   });
+
+  // ---------------------- Admin & DB Studio ----------------------
+  async function loadDbStudio() {
+    const [dbRes, catRes] = await Promise.all([apiFetch("/api/db-status"), apiFetch("/api/catalog")]);
+    document.getElementById("db-engine-badge").textContent = dbRes.db_type;
+    document.getElementById("header-db-badge").textContent = `${dbRes.db_type} • Group G1716`;
+
+    const c = dbRes.table_counts || {};
+    document.getElementById("db-kpi-grid").innerHTML = `
+      <div class="kpi-card"><div class="label">Stakeholder Users</div><div class="value">${c.users || 0}</div><div class="sub">Traveler / Analyst / Admin</div></div>
+      <div class="kpi-card"><div class="label">Predictions Logged</div><div class="value">${c.flight_predictions || 0}</div><div class="sub">FK-linked transaction rows</div></div>
+      <div class="kpi-card"><div class="label">Watchlist Alerts</div><div class="value">${c.fare_alerts || 0}</div><div class="sub">CASCADE FK to users</div></div>
+      <div class="kpi-card"><div class="label">Master Catalog</div><div class="value">${(c.airports_master || 0) + (c.airlines_master || 0)}</div><div class="sub">${c.airports_master || 0} Airports • ${c.airlines_master || 0} Airlines</div></div>
+    `;
+
+    const airlines = (catRes.master && catRes.master.airlines) || [];
+    document.getElementById("catalog-preview").innerHTML = `
+      <table class="data-table">
+        <thead><tr><th>Code</th><th>Airline Name</th><th>Tier</th></tr></thead>
+        <tbody>${airlines
+          .map((a) => `<tr><td class="font-mono">${escapeHtml(a.carrier_code)}</td><td>${escapeHtml(a.airline_name)}</td><td>${escapeHtml(a.airline_tier)}</td></tr>`)
+          .join("")}</tbody>
+      </table>`;
+
+    const usersWrap = document.getElementById("admin-users-wrap");
+    if (!currentUser || currentUser.role !== "admin") {
+      usersWrap.innerHTML = `<p class="card-desc">Sign in as <strong>Admin</strong> (<code>admin@farelens.in</code>) to view and manage stakeholder accounts.</p>`;
+      return;
+    }
+
+    try {
+      const usersRes = await apiFetch("/api/admin/users");
+      usersWrap.innerHTML = `
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>${usersRes.users
+              .map(
+                (u) => `
+                <tr>
+                  <td>${escapeHtml(u.full_name)}</td>
+                  <td class="font-mono">${escapeHtml(u.email)}</td>
+                  <td>
+                    <select class="admin-role-select" data-id="${u.id}">
+                      <option value="traveler" ${u.role === "traveler" ? "selected" : ""}>traveler</option>
+                      <option value="analyst" ${u.role === "analyst" ? "selected" : ""}>analyst</option>
+                      <option value="admin" ${u.role === "admin" ? "selected" : ""}>admin</option>
+                    </select>
+                  </td>
+                  <td><span class="badge ${u.is_active ? "badge-budget" : "badge-surge"}">${u.is_active ? "Active" : "Disabled"}</span></td>
+                </tr>`
+              )
+              .join("")}</tbody>
+          </table>
+        </div>`;
+
+      usersWrap.querySelectorAll(".admin-role-select").forEach((sel) => {
+        sel.addEventListener("change", async () => {
+          try {
+            await apiFetch(`/api/admin/users/${sel.dataset.id}`, {
+              method: "PATCH",
+              body: JSON.stringify({ role: sel.value }),
+            });
+            showToast("User role updated.");
+          } catch (err) {
+            showToast(err.message, true);
+          }
+        });
+      });
+    } catch (err) {
+      usersWrap.innerHTML = `<p class="card-desc">${escapeHtml(err.message)}</p>`;
+    }
+  }
+
+  document.getElementById("admin-airline-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!currentUser || currentUser.role !== "admin") {
+      authModal.classList.add("open");
+      showToast("Admin role required to add airlines.", true);
+      return;
+    }
+    try {
+      await apiFetch("/api/admin/airlines", {
+        method: "POST",
+        body: JSON.stringify({
+          airline_name: document.getElementById("new-airline-name").value,
+          carrier_code: document.getElementById("new-carrier-code").value,
+          airline_tier: document.getElementById("new-airline-tier").value,
+        }),
+      });
+      showToast("Airline added to master table.");
+      document.getElementById("admin-airline-form").reset();
+      loadDbStudio();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
+
+  // ---------------------- Initialization ----------------------
+  async function init() {
+    syncAuthUI();
+    try {
+      const catRes = await apiFetch("/api/catalog");
+      catalogData = catRes.catalog || {};
+
+      const airlines = catalogData.airlines || ["IndiGo", "Air India", "Jet Airways", "SpiceJet"];
+      airlineEl.innerHTML = airlines
+        .map((a) => `<option value="${escapeHtml(a)}" ${a === "IndiGo" ? "selected" : ""}>${escapeHtml(a)}</option>`)
+        .join("");
+
+      const filterEl = document.getElementById("history-airline-filter");
+      airlines.forEach((a) => {
+        const opt = document.createElement("option");
+        opt.value = a;
+        opt.textContent = a;
+        filterEl.appendChild(opt);
+      });
+
+      const infoOpts = catalogData.additional_info_options || ["No info"];
+      infoEl.innerHTML = infoOpts
+        .map((i) => `<option value="${escapeHtml(i)}" ${i === "No info" ? "selected" : ""}>${escapeHtml(i)}</option>`)
+        .join("");
+
+      updateRouteVisualizer();
+      updateDuration();
+
+      await Promise.all([loadAnalyticsAndBenchmarks(), loadDbStudio(), runPredictionAndComparisons()]);
+    } catch (err) {
+      showToast(`Startup error: ${err.message}`, true);
+    }
+  }
+
+  init();
 });
