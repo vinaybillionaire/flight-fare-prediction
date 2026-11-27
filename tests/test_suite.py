@@ -130,9 +130,10 @@ def test_prediction_validation_and_batch_comparisons():
 
 
 def test_auth_rbac_and_full_crud_lifecycle():
-    # Unauthenticated protected endpoints must return 401
-    assert client.get("/api/alerts").status_code == 401
+    # Admin routes remain protected (401 unauthenticated), while workspace CRUD works seamlessly
     assert client.get("/api/admin/users").status_code == 401
+    assert client.get("/api/alerts").status_code == 200
+    assert client.get("/api/history/export").status_code == 200
 
     # Register fresh traveler
     unique_email = f"traveler_{uuid.uuid4().hex[:8]}@test.in"
@@ -149,9 +150,8 @@ def test_auth_rbac_and_full_crud_lifecycle():
     traveler_token = reg.json()["access_token"]
     t_headers = {"Authorization": f"Bearer {traveler_token}"}
 
-    # Traveler cannot access Admin or Analyst CSV export -> 403
+    # Traveler cannot access Admin routes -> 403
     assert client.get("/api/admin/users", headers=t_headers).status_code == 403
-    assert client.get("/api/history/export", headers=t_headers).status_code == 403
 
     # Create prediction as authenticated traveler
     pred = client.post(

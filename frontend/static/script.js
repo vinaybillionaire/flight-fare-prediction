@@ -1,30 +1,12 @@
 /**
- * FareLens — Interactive Multi-Role Airfare Intelligence Client
+ * FareLens — Interactive Airfare Intelligence Client
  */
 document.addEventListener("DOMContentLoaded", () => {
-  const TOKEN_KEY = "farelens_jwt_token";
-  const USER_KEY = "farelens_user_obj";
-
-  let authToken = localStorage.getItem(TOKEN_KEY) || null;
-  let currentUser = null;
-  try {
-    currentUser = JSON.parse(localStorage.getItem(USER_KEY) || "null");
-  } catch {
-    currentUser = null;
-  }
-
   let catalogData = null;
   let lastPredictionResult = null;
   let lastPayload = null;
 
-  // DOM References
   const toastEl = document.getElementById("toast");
-  const rolePill = document.getElementById("user-role-pill");
-  const btnOpenAuth = document.getElementById("btn-open-auth");
-  const btnSignout = document.getElementById("btn-signout");
-  const authModal = document.getElementById("auth-modal");
-  const vivaModal = document.getElementById("viva-modal");
-
   const fareForm = document.getElementById("fare-form");
   const sourceEl = document.getElementById("source");
   const destEl = document.getElementById("destination");
@@ -74,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function apiFetch(url, options = {}) {
     const headers = { ...(options.headers || {}) };
-    if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
     if (options.body && !headers["Content-Type"]) {
       headers["Content-Type"] = "application/json";
     }
@@ -104,131 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
         loadDbStudio();
       }
     });
-  });
-
-  // ---------------------- Auth State & Modals ----------------------
-  function syncAuthUI() {
-    const exportBtn = document.getElementById("btn-export-csv");
-    if (currentUser && authToken) {
-      rolePill.textContent = `${currentUser.full_name} (${currentUser.role.toUpperCase()})`;
-      rolePill.className = currentUser.role === "admin" ? "badge badge-admin" : "badge badge-budget";
-      btnOpenAuth.textContent = "Switch Account";
-      btnSignout.style.display = "inline-flex";
-      btnSaveAlert.disabled = !lastPredictionResult;
-      btnSaveAlert.textContent = "Save Route to Price Watchlist";
-      exportBtn.style.display = ["analyst", "admin"].includes(currentUser.role)
-        ? "inline-flex"
-        : "none";
-    } else {
-      rolePill.textContent = "Guest Mode";
-      rolePill.className = "badge badge-subtle";
-      btnOpenAuth.textContent = "Sign In / Register";
-      btnSignout.style.display = "none";
-      btnSaveAlert.disabled = !lastPredictionResult;
-      btnSaveAlert.textContent = "Save to Price Watchlist (Sign In Required)";
-      exportBtn.style.display = "none";
-    }
-  }
-
-  function setSession(token, user) {
-    authToken = token;
-    currentUser = user;
-    if (token && user) {
-      localStorage.setItem(TOKEN_KEY, token);
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
-    } else {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USER_KEY);
-    }
-    syncAuthUI();
-  }
-
-  function openModal(modal) {
-    modal.classList.add("open");
-    modal.setAttribute("aria-hidden", "false");
-  }
-
-  function closeModal(modal) {
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-  }
-
-  btnOpenAuth.addEventListener("click", () => openModal(authModal));
-  document.getElementById("btn-close-auth").addEventListener("click", () => closeModal(authModal));
-  document.getElementById("btn-open-viva").addEventListener("click", () => openModal(vivaModal));
-  document.getElementById("btn-close-viva").addEventListener("click", () => closeModal(vivaModal));
-
-  [authModal, vivaModal].forEach((m) => {
-    m.addEventListener("click", (e) => {
-      if (e.target === m) closeModal(m);
-    });
-  });
-
-  btnSignout.addEventListener("click", () => {
-    setSession(null, null);
-    showToast("Signed out.");
-    loadAlerts();
-    loadDbStudio();
-  });
-
-  document.querySelectorAll(".demo-login-btn").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      try {
-        const res = await apiFetch("/api/auth/login", {
-          method: "POST",
-          body: JSON.stringify({ email: btn.dataset.email, password: btn.dataset.pw }),
-        });
-        setSession(res.access_token, res.user);
-        closeModal(authModal);
-        showToast(`Signed in as ${res.user.full_name} (${res.user.role})`);
-        loadAlerts();
-        loadHistory();
-        loadDbStudio();
-      } catch (err) {
-        showToast(err.message, true);
-      }
-    });
-  });
-
-  document.getElementById("login-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    try {
-      const res = await apiFetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify({
-          email: document.getElementById("login-email").value,
-          password: document.getElementById("login-password").value,
-        }),
-      });
-      setSession(res.access_token, res.user);
-      closeModal(authModal);
-      showToast(`Welcome back, ${res.user.full_name}!`);
-      loadAlerts();
-      loadDbStudio();
-    } catch (err) {
-      showToast(err.message, true);
-    }
-  });
-
-  document.getElementById("register-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    try {
-      const res = await apiFetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify({
-          full_name: document.getElementById("reg-name").value,
-          email: document.getElementById("reg-email").value,
-          password: document.getElementById("reg-password").value,
-          role: document.getElementById("reg-role").value,
-        }),
-      });
-      setSession(res.access_token, res.user);
-      closeModal(authModal);
-      showToast(`Registered & signed in as ${res.user.role}!`);
-      loadAlerts();
-    } catch (err) {
-      showToast(err.message, true);
-    }
   });
 
   // ---------------------- Form & Route Sync ----------------------
@@ -267,8 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
       routeEl.appendChild(opt);
     });
     document.getElementById("route-hint-text").textContent = matches.length
-      ? `${matches.length} historical layover paths found`
-      : "Synthetic fallback path";
+      ? `${matches.length} layover paths available`
+      : "Direct/standard path";
   }
 
   sourceEl.addEventListener("change", updateRouteVisualizer);
@@ -309,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     btnSubmit.disabled = true;
-    btnSubmit.textContent = "Computing ML Inference & Batch Intelligence...";
+    btnSubmit.textContent = "Calculating Fare & Comparing Options...";
     try {
       const [predRes, dateRes, airlineRes] = await Promise.all([
         apiFetch("/api/predict", { method: "POST", body: JSON.stringify(payload) }),
@@ -319,27 +175,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
       lastPredictionResult = predRes;
       lastPayload = payload;
+      btnSaveAlert.disabled = false;
       renderPredictionCard(predRes);
       renderFlexDates(dateRes);
       renderAirlineComparisons(airlineRes);
-      syncAuthUI();
     } catch (err) {
       showToast(err.message, true);
     } finally {
       btnSubmit.disabled = false;
-      btnSubmit.textContent = "Estimate Fare & Run Intelligence";
+      btnSubmit.textContent = "Estimate Fare & Compare Options";
     }
   }
 
   function renderPredictionCard(res) {
     document.getElementById("price-display").textContent = fmtInr(res.predicted_fare);
     document.getElementById("price-range-pill").textContent =
-      `IQR Confidence Band: ₹${fmtInr(res.confidence_interval.lower)} – ₹${fmtInr(res.confidence_interval.upper)}`;
+      `Typical Fare Band: ₹${fmtInr(res.confidence_interval.lower)} – ₹${fmtInr(res.confidence_interval.upper)}`;
     const badge = document.getElementById("fare-tier-badge");
     badge.textContent = `${res.fare_category} Fare`;
     badge.className = `badge ${badgeClass(res.fare_category)}`;
     document.getElementById("price-caption-text").textContent =
-      `${res.model_info.algorithm} • R² ${(res.model_info.r2_score * 100).toFixed(2)}% • Logged #${res.prediction_id}`;
+      `Estimated single-passenger fare • Saved as search #${res.prediction_id}`;
 
     document.getElementById("summary-airline").textContent = res.flight_details.airline;
     document.getElementById("summary-route").textContent = res.flight_details.resolved_route_path;
@@ -402,11 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnSaveAlert.addEventListener("click", async () => {
-    if (!authToken) {
-      authModal.classList.add("open");
-      showToast("Sign in first to save a Watchlist Alert.", true);
-      return;
-    }
     if (!lastPredictionResult || !lastPayload) return;
     const defaultTarget = Math.round(lastPredictionResult.predicted_fare * 0.9);
     const input = window.prompt("Enter your target alert fare (INR):", String(defaultTarget));
@@ -427,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
           journey_date: lastPayload.journey_date,
           target_price: targetPrice,
           estimated_price: lastPredictionResult.predicted_fare,
-          notes: lastPayload.notes || "Watched from Estimator",
+          notes: lastPayload.notes || "Saved from Fare Estimator",
         }),
       });
       showToast("Saved to Price Watchlist!");
@@ -437,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ---------------------- EDA & Benchmarks Loaders ----------------------
+  // ---------------------- EDA Insights Loader ----------------------
   function renderBarList(elId, items, labelKey, valKey, suffix = "", prefix = "₹", fillCls = "") {
     const el = document.getElementById(elId);
     if (!el || !items || !items.length) return;
@@ -456,19 +307,15 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
-  async function loadAnalyticsAndBenchmarks() {
-    const [analyticsRes, metricsRes] = await Promise.all([
-      apiFetch("/api/analytics"),
-      apiFetch("/api/metrics"),
-    ]);
-
+  async function loadAnalytics() {
+    const analyticsRes = await apiFetch("/api/analytics");
     const eda = analyticsRes.eda || {};
     const ov = eda.dataset_overview || {};
     document.getElementById("eda-kpis").innerHTML = `
       <div class="kpi-card"><div class="label">Cleaned Records</div><div class="value">${fmtInr(ov.cleaned_records)}</div><div class="sub">${ov.duplicates_removed || 220} duplicates removed</div></div>
       <div class="kpi-card"><div class="label">Mean / Median Fare</div><div class="value">₹${fmtInr(ov.mean_price)}</div><div class="sub">Median: ₹${fmtInr(ov.median_price)}</div></div>
       <div class="kpi-card"><div class="label">Fare Range</div><div class="value">₹${fmtInr(ov.min_price)}</div><div class="sub">Max Business: ₹${fmtInr(ov.max_price)}</div></div>
-      <div class="kpi-card"><div class="label">Error ≤ ₹1,000</div><div class="value">${ov.within_1000_inr_pct || 0}%</div><div class="sub">≤ ₹1,500: ${ov.within_1500_inr_pct || 0}%</div></div>
+      <div class="kpi-card"><div class="label">Within ±₹1,000</div><div class="value">${ov.within_1000_inr_pct || 0}%</div><div class="sub">Within ±₹1,500: ${ov.within_1500_inr_pct || 0}%</div></div>
     `;
 
     renderBarList("eda-importances", (eda.feature_importances || []).slice(0, 8), "feature", "importance_pct", "%", "", "emerald");
@@ -482,51 +329,11 @@ document.addEventListener("DOMContentLoaded", () => {
     limList.innerHTML = ((eda.market_limitations && eda.market_limitations.factors) || [])
       .map((txt) => `<li>${escapeHtml(txt)}</li>`)
       .join("");
-
-    // Benchmarks
-    const metrics = metricsRes.metrics || {};
-    const selectedName = metrics.selected_model || "Random Forest (Tuned Final)";
-    const modelEntries = Object.entries(metrics.models || {});
-    const selStats = (metrics.models && metrics.models[selectedName]) || {};
-
-    if (selStats.r2_score) {
-      document.getElementById("header-r2-badge").textContent = `R² ${(selStats.r2_score * 100).toFixed(2)}%`;
-      document.getElementById("hero-r2").textContent = `${(selStats.r2_score * 100).toFixed(2)}%`;
-      document.getElementById("hero-mae").textContent = `₹${fmtInr(selStats.mae)}`;
-      if (selStats.cv_r2_mean) {
-        document.getElementById("hero-cv").textContent = `${(selStats.cv_r2_mean * 100).toFixed(2)}%`;
-      }
-    }
-
-    document.getElementById("benchmarks-tbody").innerHTML = modelEntries
-      .map(([name, s]) => `
-        <tr class="${s.is_selected ? "selected-row" : ""}">
-          <td><strong>${escapeHtml(name)}</strong></td>
-          <td class="font-mono">${(s.r2_score * 100).toFixed(2)}%</td>
-          <td class="font-mono">₹${fmtInr(s.mae)}</td>
-          <td class="font-mono">₹${fmtInr(s.rmse)}</td>
-          <td class="font-mono">${s.mape_pct}%</td>
-          <td>${s.is_selected ? '<span class="badge badge-budget">Deployed</span>' : '<span class="badge badge-subtle">Benchmarked</span>'}</td>
-        </tr>`)
-      .join("");
-
-    const r2Items = modelEntries.map(([name, s]) => ({
-      name,
-      r2_pct: Number((s.r2_score * 100).toFixed(2)),
-    }));
-    renderBarList("benchmark-r2-bars", r2Items, "name", "r2_pct", "%", "", "emerald");
   }
 
   // ---------------------- Watchlist & History CRUD ----------------------
   async function loadAlerts() {
-    const notice = document.getElementById("alerts-auth-notice");
     const tbody = document.getElementById("alerts-tbody");
-    if (!authToken) {
-      notice.style.display = "block";
-      tbody.innerHTML = "";
-      return;
-    }
-    notice.style.display = "none";
     try {
       const res = await apiFetch("/api/alerts");
       if (!res.alerts.length) {
@@ -588,15 +395,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams({ limit: "30" });
     const search = document.getElementById("history-search").value.trim();
     const airline = document.getElementById("history-airline-filter").value;
-    const mine = document.getElementById("history-mine-only").checked;
     if (search) params.set("search", search);
     if (airline) params.set("airline", airline);
-    if (mine) params.set("mine", "true");
 
     const res = await apiFetch(`/api/history?${params.toString()}`);
     const tbody = document.getElementById("history-tbody");
     if (!res.history.length) {
-      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--text-muted);">No matching prediction records found.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);">No matching prediction records found.</td></tr>';
       return;
     }
     tbody.innerHTML = res.history
@@ -604,7 +409,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <tr>
           <td class="font-mono">#${r.id}</td>
           <td class="font-mono">${escapeHtml(r.timestamp)}</td>
-          <td>${escapeHtml(r.user_email)}</td>
           <td>${escapeHtml(r.airline)}</td>
           <td>${escapeHtml(r.route_str)}</td>
           <td>${escapeHtml(r.journey_date)} (${r.total_stops} stop)</td>
@@ -619,11 +423,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tbody.querySelectorAll(".btn-edit-pred").forEach((btn) => {
       btn.addEventListener("click", async () => {
-        if (!authToken) {
-          authModal.classList.add("open");
-          showToast("Sign in to edit prediction notes.", true);
-          return;
-        }
         const nextNote = window.prompt("Update trip note:", btn.dataset.notes || "");
         if (nextNote === null) return;
         try {
@@ -641,11 +440,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tbody.querySelectorAll(".btn-del-pred").forEach((btn) => {
       btn.addEventListener("click", async () => {
-        if (!authToken) {
-          authModal.classList.add("open");
-          showToast("Sign in to delete prediction logs.", true);
-          return;
-        }
         try {
           await apiFetch(`/api/history/${btn.dataset.id}`, { method: "DELETE" });
           showToast("Prediction record deleted.");
@@ -663,10 +457,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("btn-export-csv").addEventListener("click", async () => {
     try {
-      const resp = await fetch("/api/history/export", {
-        headers: { Authorization: `Bearer ${authToken}` },
-      });
-      if (!resp.ok) throw new Error("Export requires Analyst or Admin role.");
+      const resp = await fetch("/api/history/export");
+      if (!resp.ok) throw new Error("Unable to export CSV.");
       const blob = await resp.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -679,19 +471,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ---------------------- Admin & DB Studio ----------------------
+  // ---------------------- Database & Master Catalog ----------------------
   async function loadDbStudio() {
     const [dbRes, catRes] = await Promise.all([apiFetch("/api/db-status"), apiFetch("/api/catalog")]);
     document.getElementById("db-engine-badge").textContent = dbRes.db_type;
-    document.getElementById("header-db-badge").textContent = `${dbRes.db_type} • Group G1716`;
+    document.getElementById("header-db-badge").textContent = `${dbRes.db_type} • Real-Time Airfare Intelligence`;
 
     const c = dbRes.table_counts || {};
     document.getElementById("db-kpi-grid").innerHTML = `
-      <div class="kpi-card"><div class="label">Stakeholder Users</div><div class="value">${c.users || 0}</div><div class="sub">Traveler / Analyst / Admin</div></div>
-      <div class="kpi-card"><div class="label">Predictions Logged</div><div class="value">${c.flight_predictions || 0}</div><div class="sub">FK-linked transaction rows</div></div>
-      <div class="kpi-card"><div class="label">Watchlist Alerts</div><div class="value">${c.fare_alerts || 0}</div><div class="sub">CASCADE FK to users</div></div>
-      <div class="kpi-card"><div class="label">Master Catalog</div><div class="value">${(c.airports_master || 0) + (c.airlines_master || 0)}</div><div class="sub">${c.airports_master || 0} Airports • ${c.airlines_master || 0} Airlines</div></div>
+      <div class="kpi-card"><div class="label">Predictions Logged</div><div class="value">${c.flight_predictions || 0}</div><div class="sub">Saved searches</div></div>
+      <div class="kpi-card"><div class="label">Watchlist Alerts</div><div class="value">${c.fare_alerts || 0}</div><div class="sub">Active price alerts</div></div>
+      <div class="kpi-card"><div class="label">Master Airports</div><div class="value">${c.airports_master || 0}</div><div class="sub">Indexed domestic hubs</div></div>
+      <div class="kpi-card"><div class="label">Master Airlines</div><div class="value">${c.airlines_master || 0}</div><div class="sub">Supported carriers</div></div>
     `;
+
+    const airports = (catRes.master && catRes.master.airports) || [];
+    document.getElementById("airports-preview").innerHTML = `
+      <table class="data-table">
+        <thead><tr><th>IATA</th><th>City</th><th>State / Region</th></tr></thead>
+        <tbody>${airports
+          .map((ap) => `<tr><td class="font-mono"><strong>${escapeHtml(ap.airport_code)}</strong></td><td>${escapeHtml(ap.city_name)}</td><td>${escapeHtml(ap.state_name)}</td></tr>`)
+          .join("")}</tbody>
+      </table>`;
 
     const airlines = (catRes.master && catRes.master.airlines) || [];
     document.getElementById("catalog-preview").innerHTML = `
@@ -701,84 +502,10 @@ document.addEventListener("DOMContentLoaded", () => {
           .map((a) => `<tr><td class="font-mono">${escapeHtml(a.carrier_code)}</td><td>${escapeHtml(a.airline_name)}</td><td>${escapeHtml(a.airline_tier)}</td></tr>`)
           .join("")}</tbody>
       </table>`;
-
-    const usersWrap = document.getElementById("admin-users-wrap");
-    if (!currentUser || currentUser.role !== "admin") {
-      usersWrap.innerHTML = `<p class="card-desc">Sign in as <strong>Admin</strong> (<code>admin@farelens.in</code>) to view and manage stakeholder accounts.</p>`;
-      return;
-    }
-
-    try {
-      const usersRes = await apiFetch("/api/admin/users");
-      usersWrap.innerHTML = `
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
-            <tbody>${usersRes.users
-              .map(
-                (u) => `
-                <tr>
-                  <td>${escapeHtml(u.full_name)}</td>
-                  <td class="font-mono">${escapeHtml(u.email)}</td>
-                  <td>
-                    <select class="admin-role-select" data-id="${u.id}">
-                      <option value="traveler" ${u.role === "traveler" ? "selected" : ""}>traveler</option>
-                      <option value="analyst" ${u.role === "analyst" ? "selected" : ""}>analyst</option>
-                      <option value="admin" ${u.role === "admin" ? "selected" : ""}>admin</option>
-                    </select>
-                  </td>
-                  <td><span class="badge ${u.is_active ? "badge-budget" : "badge-surge"}">${u.is_active ? "Active" : "Disabled"}</span></td>
-                </tr>`
-              )
-              .join("")}</tbody>
-          </table>
-        </div>`;
-
-      usersWrap.querySelectorAll(".admin-role-select").forEach((sel) => {
-        sel.addEventListener("change", async () => {
-          try {
-            await apiFetch(`/api/admin/users/${sel.dataset.id}`, {
-              method: "PATCH",
-              body: JSON.stringify({ role: sel.value }),
-            });
-            showToast("User role updated.");
-          } catch (err) {
-            showToast(err.message, true);
-          }
-        });
-      });
-    } catch (err) {
-      usersWrap.innerHTML = `<p class="card-desc">${escapeHtml(err.message)}</p>`;
-    }
   }
-
-  document.getElementById("admin-airline-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!currentUser || currentUser.role !== "admin") {
-      authModal.classList.add("open");
-      showToast("Admin role required to add airlines.", true);
-      return;
-    }
-    try {
-      await apiFetch("/api/admin/airlines", {
-        method: "POST",
-        body: JSON.stringify({
-          airline_name: document.getElementById("new-airline-name").value,
-          carrier_code: document.getElementById("new-carrier-code").value,
-          airline_tier: document.getElementById("new-airline-tier").value,
-        }),
-      });
-      showToast("Airline added to master table.");
-      document.getElementById("admin-airline-form").reset();
-      loadDbStudio();
-    } catch (err) {
-      showToast(err.message, true);
-    }
-  });
 
   // ---------------------- Initialization ----------------------
   async function init() {
-    syncAuthUI();
     try {
       const catRes = await apiFetch("/api/catalog");
       catalogData = catRes.catalog || {};
@@ -804,7 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateRouteVisualizer();
       updateDuration();
 
-      await Promise.all([loadAnalyticsAndBenchmarks(), loadDbStudio(), runPredictionAndComparisons()]);
+      await Promise.all([loadAnalytics(), loadDbStudio(), runPredictionAndComparisons()]);
     } catch (err) {
       showToast(`Startup error: ${err.message}`, true);
     }

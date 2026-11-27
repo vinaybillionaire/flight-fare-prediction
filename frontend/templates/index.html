@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FareLens — Airfare Intelligence &amp; ML Estimation Platform</title>
+  <title>FareLens — Real-Time Airfare Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -19,68 +19,40 @@
           </svg>
         </div>
         <div>
-          <div class="brand-title">
-            FareLens
-            <span class="badge badge-budget" id="header-r2-badge">R² 90.32%</span>
-          </div>
-          <div class="brand-sub" id="header-db-badge">3NF Relational DB • Group G1716</div>
+          <div class="brand-title">FareLens</div>
+          <div class="brand-sub" id="header-db-badge">Real-Time Airfare Intelligence</div>
         </div>
       </div>
 
       <div class="header-actions">
-        <span class="badge badge-subtle" id="user-role-pill">Guest Mode (Read-Only)</span>
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-open-viva">Architecture &amp; Viva</button>
-        <button type="button" class="btn btn-primary btn-sm" id="btn-open-auth">Sign In / Register</button>
-        <button type="button" class="btn btn-danger btn-sm" id="btn-signout" style="display:none;">Sign Out</button>
+        <span class="badge badge-subtle">INR (₹)</span>
       </div>
     </div>
 
     <nav class="tabs-bar" aria-label="Workspace Sections">
       <div class="tabs-inner">
         <button type="button" class="tab-btn active" data-tab="tab-estimator">Fare Estimator &amp; Comparator</button>
-        <button type="button" class="tab-btn" data-tab="tab-eda">EDA &amp; Market Drift</button>
-        <button type="button" class="tab-btn" data-tab="tab-benchmarks">ML Model Benchmarks</button>
-        <button type="button" class="tab-btn" data-tab="tab-crud">Watchlist &amp; History (CRUD)</button>
-        <button type="button" class="tab-btn" data-tab="tab-admin">Admin &amp; 3NF DB Studio</button>
+        <button type="button" class="tab-btn" data-tab="tab-eda">EDA &amp; Market Insights</button>
+        <button type="button" class="tab-btn" data-tab="tab-crud">Watchlist &amp; History</button>
+        <button type="button" class="tab-btn" data-tab="tab-admin">Database &amp; Catalog</button>
       </div>
     </nav>
   </header>
 
   <main class="container">
     <!-- =========================================================
-         TAB 1: FARE ESTIMATOR, CONFIDENCE RANGE & BATCH COMPARE
+         TAB 1: FARE ESTIMATOR, PRICE RANGE & BATCH COMPARE
          ========================================================= -->
     <section id="tab-estimator" class="tab-panel active">
-      <div class="hero-banner">
-        <div>
-          <h1>Airfare Price Estimation &amp; Fare Pattern Intelligence</h1>
-          <p>Powered by our leak-free 167-feature Random Forest pipeline preserving exact layover routes and cabin attributes, paired with 7-day flexible date search, carrier comparison, and 3NF relational logging.</p>
-        </div>
-        <div class="hero-kpis">
-          <div class="hero-kpi">
-            <span class="kpi-val" id="hero-r2">90.32%</span>
-            <span class="kpi-lbl">Held-out R²</span>
-          </div>
-          <div class="hero-kpi">
-            <span class="kpi-val" id="hero-mae">₹620</span>
-            <span class="kpi-lbl">Avg MAE</span>
-          </div>
-          <div class="hero-kpi">
-            <span class="kpi-val" id="hero-cv">89.74%</span>
-            <span class="kpi-lbl">5-Fold CV R²</span>
-          </div>
-        </div>
-      </div>
-
       <div class="workspace-grid">
         <!-- Left Column: Trip Parameters -->
         <section class="card">
           <div class="card-header">
             <div>
-              <h2 class="card-title">Flight Itinerary &amp; Feature Builder</h2>
-              <p class="card-desc">All 13 raw ML attributes map cleanly through the Scikit-Learn ColumnTransformer pipeline.</p>
+              <h2 class="card-title">Flight Itinerary</h2>
+              <p class="card-desc">Select origin, destination, airline, and schedule to estimate your fare.</p>
             </div>
-            <span class="badge badge-subtle">167 Encoded Features</span>
+            <span class="badge badge-subtle">One-Way</span>
           </div>
 
           <form id="fare-form" class="fare-form">
@@ -99,7 +71,7 @@
                 <label for="destination">To (Destination City)</label>
                 <select id="destination" required>
                   <option value="Delhi" selected>Delhi (DEL)</option>
-                  <option value="New Delhi">New Delhi (DEL - Peak/Early Season)</option>
+                  <option value="New Delhi">New Delhi (DEL - Early Season)</option>
                   <option value="Cochin">Cochin (COK)</option>
                   <option value="Banglore">Bangalore (BLR)</option>
                   <option value="Hyderabad">Hyderabad (HYD)</option>
@@ -139,13 +111,13 @@
 
             <div class="form-row">
               <div class="form-field">
-                <label for="route_select">Layover Route Path (Kaggle High-Accuracy Feature)</label>
+                <label for="route_select">Layover Route Path</label>
                 <select id="route_select">
                   <option value="auto">Auto-select typical route</option>
                 </select>
               </div>
               <div class="form-field">
-                <label for="additional_info">Booking / Cabin Info</label>
+                <label for="additional_info">Cabin &amp; Booking Info</label>
                 <select id="additional_info">
                   <option value="No info" selected>No info (Standard)</option>
                 </select>
@@ -177,8 +149,8 @@
                 </select>
               </div>
               <div class="form-field">
-                <label for="trip_notes">Trip Note (Saved to DB)</label>
-                <input type="text" id="trip_notes" placeholder="e.g., Semester break trip">
+                <label for="trip_notes">Trip Note (Optional)</label>
+                <input type="text" id="trip_notes" placeholder="e.g., Weekend trip">
               </div>
             </div>
 
@@ -188,7 +160,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" id="btn-submit">
-              Estimate Fare &amp; Run Intelligence
+              Estimate Fare &amp; Compare Options
             </button>
           </form>
         </section>
@@ -197,8 +169,8 @@
         <section class="card">
           <div class="card-header">
             <div>
-              <h2 class="card-title">Fare Estimate &amp; Tree Uncertainty</h2>
-              <p class="card-desc">Point estimate plus 25th–75th percentile IQR range across 250 trees.</p>
+              <h2 class="card-title">Fare Estimate</h2>
+              <p class="card-desc">Expected ticket fare and typical pricing spread for this route.</p>
             </div>
             <span class="badge badge-standard" id="fare-tier-badge">Ready</span>
           </div>
@@ -209,8 +181,8 @@
               <span class="price-currency">₹</span>
               <span class="price-figure" id="price-display">4,820</span>
             </div>
-            <div class="price-range-pill" id="price-range-pill">IQR Confidence Band: ₹4,450 – ₹5,210</div>
-            <p class="card-desc" id="price-caption-text" style="margin-top:8px;">Submit an itinerary to run real-time ML inference.</p>
+            <div class="price-range-pill" id="price-range-pill">Typical Fare Band: ₹4,450 – ₹5,210</div>
+            <p class="card-desc" id="price-caption-text" style="margin-top:8px;">Submit an itinerary to calculate your fare estimate.</p>
           </div>
 
           <div class="breakdown-list">
@@ -232,14 +204,14 @@
             </div>
             <div class="breakdown-item">
               <span class="item-label">Historical 2019 Base</span>
-              <span class="item-val" id="summary-base-fare">₹4,820.00</span>
+              <span class="item-val" id="summary-base-fare">₹4,820</span>
             </div>
           </div>
 
           <div class="drivers-wrap" id="drivers-wrap"></div>
 
           <button type="button" class="btn btn-secondary btn-block" id="btn-save-alert" disabled>
-            Save Route to Price Watchlist (Auth Required)
+            Save Route to Price Watchlist
           </button>
         </section>
       </div>
@@ -250,7 +222,7 @@
           <div class="card-header">
             <div>
               <h2 class="card-title">7-Day Flexible Date Calendar</h2>
-              <p class="card-desc" id="flex-date-summary">Evaluates ±3 days around your departure date via batch ML inference.</p>
+              <p class="card-desc" id="flex-date-summary">Compares ±3 days around your chosen departure date.</p>
             </div>
             <span class="badge badge-budget" id="flex-savings-badge">Savings Tracker</span>
           </div>
@@ -261,7 +233,7 @@
           <div class="card-header">
             <div>
               <h2 class="card-title">Cross-Airline Fare Comparison</h2>
-              <p class="card-desc">Same route, schedule &amp; stops simulated across 8 airlines in one ML batch.</p>
+              <p class="card-desc">Same route, schedule &amp; stops compared across major airlines.</p>
             </div>
           </div>
           <div class="bar-list" id="airline-compare-bars"></div>
@@ -270,7 +242,7 @@
     </section>
 
     <!-- =========================================================
-         TAB 2: EDA & MARKET DRIFT LIMITATIONS
+         TAB 2: EDA & MARKET INSIGHTS
          ========================================================= -->
     <section id="tab-eda" class="tab-panel">
       <div class="kpi-grid" id="eda-kpis"></div>
@@ -279,8 +251,8 @@
         <section class="card">
           <div class="card-header">
             <div>
-              <h2 class="card-title">Top Feature Importances (Random Forest)</h2>
-              <p class="card-desc">Aggregated across 167 one-hot &amp; numeric inputs from 10,462 flights.</p>
+              <h2 class="card-title">Top Fare Drivers (Feature Importance)</h2>
+              <p class="card-desc">Relative impact across 10,462 historical domestic flights.</p>
             </div>
           </div>
           <div class="bar-list" id="eda-importances"></div>
@@ -324,8 +296,8 @@
       <section class="card" style="margin-top:24px;">
         <div class="card-header">
           <div>
-            <h2 class="card-title">Collection Dates &amp; Market-Change Limitations (Problem Statement Analysis)</h2>
-            <p class="card-desc">Why historical 2019 ML models require recalibration before quoting real-time 2026 fares.</p>
+            <h2 class="card-title">Collection Dates &amp; Market-Change Limitations</h2>
+            <p class="card-desc">Why historical 2019 fares require recalibration before quoting real-time modern ticket prices.</p>
           </div>
           <span class="badge badge-premium">Mar – Jun 2019 Cutoff</span>
         </div>
@@ -337,78 +309,16 @@
     </section>
 
     <!-- =========================================================
-         TAB 3: ML MODEL BENCHMARKS
-         ========================================================= -->
-    <section id="tab-benchmarks" class="tab-panel">
-      <section class="card">
-        <div class="card-header">
-          <div>
-            <h2 class="card-title">Regression Algorithm Benchmark Suite (Held-Out Validation: 2,093 Records)</h2>
-            <p class="card-desc">All models fit strictly on 8,369 training records inside leak-free Scikit-Learn Pipelines.</p>
-          </div>
-          <span class="badge badge-budget">Winner: Tuned Random Forest (90.32% R²)</span>
-        </div>
-
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Algorithm</th>
-                <th>R² Score</th>
-                <th>MAE (INR)</th>
-                <th>RMSE (INR)</th>
-                <th>MAPE (%)</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="benchmarks-tbody"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <div class="two-col-grid">
-        <section class="card">
-          <div class="card-header">
-            <div>
-              <h2 class="card-title">R² Variance Explained Comparison</h2>
-              <p class="card-desc">Notice how adding StandardScaler lifted KNN (81.1%) and SVR (77.9%), while Random Forest hit 90.3%.</p>
-            </div>
-          </div>
-          <div class="bar-list" id="benchmark-r2-bars"></div>
-        </section>
-
-        <section class="card">
-          <div class="card-header">
-            <div>
-              <h2 class="card-title">Why Our 90.32% Pipeline Outperforms Naive Baselines</h2>
-              <p class="card-desc">Key engineering upgrades over dropping Route &amp; Additional_Info.</p>
-            </div>
-          </div>
-          <ul style="padding-left:18px;font-size:0.86rem;color:var(--text-secondary);display:flex;flex-direction:column;gap:10px;">
-            <li><strong>Zero Data Leakage:</strong> Unlike fitting OneHotEncoder on all rows before splitting, our <code>ColumnTransformer</code> fits strictly inside <code>Pipeline</code> on the 80% training split.</li>
-            <li><strong>Preserves Route &amp; Cabin Signal:</strong> Keeping <code>Route</code> (128+ layover sequences) and <code>Additional_Info</code> (meal/baggage/business class tags) adds +8.5% R² over dropping them.</li>
-            <li><strong>Duplicate Removal:</strong> Dropping 220 duplicate training records prevented inflated tree splits and reduced MAE from ₹1,131 to <strong>₹619.93</strong>.</li>
-            <li><strong>Cross-Validated Tuning:</strong> <code>RandomizedSearchCV</code> selected <code>n_estimators=250</code>, <code>min_samples_split=3</code>, achieving <strong>0.8974 ± 0.0147</strong> 5-fold CV R².</li>
-          </ul>
-        </section>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         TAB 4: WATCHLIST & PREDICTION HISTORY (FULL CRUD)
+         TAB 3: WATCHLIST & PREDICTION HISTORY
          ========================================================= -->
     <section id="tab-crud" class="tab-panel">
       <section class="card" style="margin-bottom:24px;">
         <div class="card-header">
           <div>
-            <h2 class="card-title">Price Watchlist &amp; Target Fare Alerts (CRUD)</h2>
-            <p class="card-desc">Create from Estimator tab, edit target fare/status inline, or delete anytime.</p>
+            <h2 class="card-title">Price Watchlist &amp; Target Fare Alerts</h2>
+            <p class="card-desc">Save routes from the Fare Estimator tab, edit target prices inline, or remove alerts anytime.</p>
           </div>
           <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-alerts">Refresh Alerts</button>
-        </div>
-        <div id="alerts-auth-notice" class="callout-box" style="margin-top:0;display:none;">
-          <h4>Sign in as Traveler, Analyst, or Admin to manage personal Watchlist Alerts</h4>
-          <p style="font-size:0.82rem;">Click <strong>Sign In / Register</strong> in the header (1-click demo accounts available).</p>
         </div>
         <div class="table-responsive" id="alerts-table-wrap">
           <table class="data-table">
@@ -433,11 +343,11 @@
       <section class="card">
         <div class="card-header">
           <div>
-            <h2 class="card-title">Prediction Audit Log (Search, Edit Notes, Delete, Export)</h2>
-            <p class="card-desc">Backed by normalized 3NF <code>flight_predictions</code> joined with <code>airports_master</code> &amp; <code>airlines_master</code>.</p>
+            <h2 class="card-title">Saved Search &amp; Prediction History</h2>
+            <p class="card-desc">Filter routes, update trip notes, export CSV, or delete entries.</p>
           </div>
           <div style="display:flex;gap:8px;">
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv" style="display:none;">Export CSV (Analyst/Admin)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv">Export CSV</button>
             <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-history">Refresh</button>
           </div>
         </div>
@@ -447,9 +357,6 @@
           <select id="history-airline-filter">
             <option value="">All Airlines</option>
           </select>
-          <label style="display:flex;align-items:center;gap:6px;font-size:0.82rem;font-weight:600;">
-            <input type="checkbox" id="history-mine-only" style="width:auto;min-height:auto;"> My Logs Only
-          </label>
           <button type="button" class="btn btn-primary btn-sm" id="btn-filter-history">Apply Filter</button>
         </div>
 
@@ -459,13 +366,12 @@
               <tr>
                 <th>ID</th>
                 <th>Timestamp</th>
-                <th>User</th>
                 <th>Airline</th>
                 <th>Route Path</th>
                 <th>Date &amp; Stops</th>
                 <th>Predicted Fare</th>
                 <th>Notes</th>
-                <th>CRUD Actions</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody id="history-tbody"></tbody>
@@ -475,7 +381,7 @@
     </section>
 
     <!-- =========================================================
-         TAB 5: ADMIN & 3NF DATABASE STUDIO
+         TAB 4: DATABASE & MASTER CATALOG
          ========================================================= -->
     <section id="tab-admin" class="tab-panel">
       <div class="kpi-grid" id="db-kpi-grid"></div>
@@ -483,8 +389,8 @@
       <section class="card" style="margin-bottom:24px;">
         <div class="card-header">
           <div>
-            <h2 class="card-title">3rd Normal Form (3NF) Relational Schema &amp; Foreign Keys</h2>
-            <p class="card-desc">MySQL 8.0+ (`database/schema.sql`) and SQLAlchemy ORM (`database/db.py`) stay 1:1 synchronized.</p>
+            <h2 class="card-title">Database Schema &amp; Live Collection Overview</h2>
+            <p class="card-desc">Synchronized normalized data structure supporting MongoDB Atlas &amp; 3NF SQL.</p>
           </div>
           <span class="badge badge-budget" id="db-engine-badge">Checking...</span>
         </div>
@@ -493,7 +399,7 @@
             <strong>users</strong>
             PK: <code>id</code><br>
             Unique: <code>email</code><br>
-            Cols: <code>full_name, password_hash, role, is_active</code>
+            Cols: <code>full_name, role, is_active</code>
           </div>
           <div class="schema-table-box">
             <strong>airports_master</strong>
@@ -510,18 +416,20 @@
           <div class="schema-table-box">
             <strong>flight_predictions</strong>
             PK: <code>id</code><br>
-            FKs: <code>user_id → users, airline_id → airlines_master, source_code/dest_code → airports_master</code>
+            Refs: <code>airline_id, source_code, dest_code</code><br>
+            Cols: <code>route_str, predicted_fare, notes</code>
           </div>
           <div class="schema-table-box">
             <strong>fare_alerts</strong>
             PK: <code>id</code><br>
-            FKs: <code>user_id → users (CASCADE), prediction_id → flight_predictions, airline_id, source_code, dest_code</code>
+            Refs: <code>user_id, prediction_id, airline_id</code><br>
+            Cols: <code>target_price, status, notes</code>
           </div>
           <div class="schema-table-box">
             <strong>model_benchmarks</strong>
             PK: <code>id</code><br>
             Unique: <code>model_name</code><br>
-            Cols: <code>r2_score, mae, rmse, cv_r2_mean, is_selected</code>
+            Cols: <code>r2_score, mae, rmse</code>
           </div>
         </div>
       </section>
@@ -530,113 +438,32 @@
         <section class="card">
           <div class="card-header">
             <div>
-              <h2 class="card-title">Stakeholder User Management (Admin RBAC)</h2>
-              <p class="card-desc">Requires <strong>Admin</strong> sign-in to list or update user roles.</p>
+              <h2 class="card-title">Supported Airports Catalog</h2>
+              <p class="card-desc">Indian domestic hub airports indexed in <code>airports_master</code>.</p>
             </div>
           </div>
-          <div id="admin-users-wrap">
-            <p class="card-desc">Sign in as Admin (<code>admin@farelens.in</code>) to view and manage stakeholder accounts.</p>
-          </div>
+          <div id="airports-preview"></div>
         </section>
 
         <section class="card">
           <div class="card-header">
             <div>
-              <h2 class="card-title">Airline Master Catalog (Admin CRUD)</h2>
-              <p class="card-desc">Add a carrier to <code>airlines_master</code> or inspect active master rows.</p>
+              <h2 class="card-title">Supported Airlines Catalog</h2>
+              <p class="card-desc">Active and historical carriers stored in <code>airlines_master</code>.</p>
             </div>
           </div>
-          <form id="admin-airline-form" class="fare-form" style="margin-bottom:16px;">
-            <div class="form-row three">
-              <input type="text" id="new-airline-name" placeholder="Airline Name (e.g. Akasa Air)" required>
-              <input type="text" id="new-carrier-code" placeholder="IATA (e.g. QP)" required>
-              <input type="text" id="new-airline-tier" value="Low-Cost Carrier" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm">Add Airline to Master Table (Admin)</button>
-          </form>
-          <div id="catalog-preview" style="max-height:240px;overflow-y:auto;"></div>
+          <div id="catalog-preview" style="max-height:280px;overflow-y:auto;"></div>
         </section>
       </div>
     </section>
   </main>
 
-  <!-- Auth Modal -->
-  <div class="modal-backdrop" id="auth-modal" aria-hidden="true">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>Stakeholder Authentication &amp; Role Access</h3>
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-close-auth">Close</button>
-      </div>
-
-      <p class="card-desc">Quick 1-Click Demo Login (for evaluation walkthrough):</p>
-      <div class="demo-role-grid">
-        <button type="button" class="btn btn-secondary btn-sm demo-login-btn" data-email="traveler@farelens.in" data-pw="Traveler@123">Traveler Demo</button>
-        <button type="button" class="btn btn-secondary btn-sm demo-login-btn" data-email="analyst@farelens.in" data-pw="Analyst@123">Analyst Demo</button>
-        <button type="button" class="btn btn-secondary btn-sm demo-login-btn" data-email="admin@farelens.in" data-pw="Admin@123">Admin Demo</button>
-      </div>
-
-      <div class="two-col-grid" style="margin-top:0;">
-        <form id="login-form" class="fare-form">
-          <h4>Sign In</h4>
-          <div class="form-field">
-            <label for="login-email">Email</label>
-            <input type="email" id="login-email" required>
-          </div>
-          <div class="form-field">
-            <label for="login-password">Password</label>
-            <input type="password" id="login-password" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Sign In</button>
-        </form>
-
-        <form id="register-form" class="fare-form">
-          <h4>Create New Account</h4>
-          <div class="form-field">
-            <label for="reg-name">Full Name</label>
-            <input type="text" id="reg-name" required>
-          </div>
-          <div class="form-field">
-            <label for="reg-email">Email</label>
-            <input type="email" id="reg-email" required>
-          </div>
-          <div class="form-field">
-            <label for="reg-password">Password (min 6 chars)</label>
-            <input type="password" id="reg-password" minlength="6" required>
-          </div>
-          <div class="form-field">
-            <label for="reg-role">Role</label>
-            <select id="reg-role">
-              <option value="traveler">Traveler (Price Estimator &amp; Alerts)</option>
-              <option value="analyst">Analyst (EDA &amp; Export)</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-secondary">Register Account</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Viva Architecture Modal -->
-  <div class="modal-backdrop" id="viva-modal" aria-hidden="true">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3>16-Step ML Architecture &amp; Viva Reference</h3>
-        <button type="button" class="btn btn-secondary btn-sm" id="btn-close-viva">Close</button>
-      </div>
-      <div style="font-size:0.85rem;color:var(--text-secondary);display:flex;flex-direction:column;gap:10px;">
-        <p><strong>1. Model Core (Kaggle `lokii1929/airfare-prediction` Upgraded):</strong> 10,683 raw rows &rarr; 1 null dropped &rarr; 220 duplicates removed (10,462 clean rows) &rarr; leak-free <code>ColumnTransformer</code> inside <code>Pipeline</code> (One-Hot Encoded Airline, Source, Destination, Route, Additional_Info + 8 numerical features = 167 features).</p>
-        <p><strong>2. Accuracy &amp; Generalization:</strong> Tuned Random Forest (250 trees, <code>min_samples_split=3</code>) achieves <strong>R² = 90.32%</strong>, <strong>MAE = ₹619.93</strong>, <strong>RMSE = ₹1,420.35</strong>, and <strong>5-Fold CV R² = 89.74%</strong> — beating Linear (71.5%), Ridge (71.5%), SVR (77.9%), KNN (81.1%), and Decision Tree (85.0%).</p>
-        <p><strong>3. Anti-Penalty Full-Stack Capabilities:</strong> JWT Authentication &amp; RBAC (Traveler / Analyst / Admin), 3NF Relational Database (6 tables with enforced FKs), Full CRUD on Predictions &amp; Fare Alerts, 7-Day Date Flexibility Calendar, Cross-Airline Batch Comparison, IQR Tree Confidence Band, and Market Drift Disclaimer.</p>
-      </div>
-    </div>
-  </div>
-
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <footer class="app-footer">
     <div class="footer-inner">
-      <span><strong>FareLens</strong> &mdash; Group G1716 (Cheekati Vinay, Bommineni Lokesh Narayana, Devarshetty Karthik Datta, Kamboji Sai Dhanush Kumar)</span>
-      <span>FastAPI + Scikit-Learn (90.32% R²) + 3NF SQLAlchemy | <a href="/docs" target="_blank" rel="noopener">Swagger OpenAPI Docs</a></span>
+      <span><strong>FareLens</strong> &mdash; Real-Time Airfare Intelligence</span>
+      <span><a href="/docs" target="_blank" rel="noopener">API Documentation</a></span>
     </div>
   </footer>
 
