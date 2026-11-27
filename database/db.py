@@ -5,7 +5,7 @@ Framework: SQLAlchemy ORM
 """
 
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import (
     create_engine, Column, Integer, BigInteger, String,
     Float, Date, DateTime, Text, Index
@@ -40,7 +40,7 @@ class FlightPredictionRecord(Base):
     predicted_fare = Column(Float, nullable=False)
     fare_category = Column(String(20), default="Standard")
     model_name = Column(String(100), default="RandomForestRegressor_Tuned")
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
     __table_args__ = (
         Index("idx_source_destination", "source", "destination"),
