@@ -257,7 +257,83 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("duration-preview-text").textContent = `${Math.floor(diff / 60)}h ${diff % 60}m`;
   }
 
-  function updateRouteVisualizer() {
+  function getSchedulesForPair(source, destination, airline) {
+    if (!catalogData) return [];
+    const normSrc = source === "New Delhi" ? "Delhi" : source;
+    const schedMap = catalogData.schedules_by_pair || {};
+    const defMap = catalogData.default_schedules_by_airline || {};
+    const pairMatches =
+      schedMap[`${source}|${destination}|${airline}`] ||
+      schedMap[`${normSrc}|${destination}|${airline}`] ||
+      [];
+    if (pairMatches.length) return pairMatches;
+
+    const fallback = defMap[airline] || [];
+    if (fallback.length) return fallback;
+    return [
+      { dep_time: "06:30", arrival_time: "08:55", duration_label: "2h 25m", total_stops: 0, route: "auto" },
+      { dep_time: "13:15", arrival_time: "15:45", duration_label: "2h 30m", total_stops: 0, route: "auto" },
+      { dep_time: "18:40", arrival_time: "21:10", duration_label: "2h 30m", total_stops: 0, route: "auto" },
+    ];
+  }
+
+  function applyScheduleSlot(slot) {
+    if (!slot) return;
+    depEl.value = slot.dep_time;
+    arrEl.value = slot.arrival_time;
+    if (slot.total_stops !== undefined && slot.total_stops !== null) {
+      stopsEl.value = String(slot.total_stops);
+    }
+    populateMatchingRoutes();
+    if (slot.route && slot.route !== "auto") {
+      const hasOpt = Array.from(routeEl.options).some((o) => o.value === slot.route);
+      if (hasOpt) routeEl.value = slot.route;
+    }
+    updateDuration();
+  }
+
+  function renderSchedulePresets(autoSelect = false, preferredStops = null) {
+    const grid = document.getElementById("schedule-presets-grid");
+    const lbl = document.getElementById("schedule-airline-label");
+    if (!grid) return;
+    lbl.textContent = airlineEl.value;
+
+    const schedules = getSchedulesForPair(sourceEl.value, destEl.value, airlineEl.value);
+    if (autoSelect && schedules.length) {
+      let chosen = schedules[0];
+      if (preferredStops !== null) {
+        const stopMatch = schedules.find((s) => Number(s.total_stops) === Number(preferredStops));
+        if (stopMatch) chosen = stopMatch;
+      }
+      applyScheduleSlot(chosen);
+    }
+
+    grid.innerHTML = schedules
+      .slice(0, 6)
+      .map((s, idx) => {
+        const isActive =
+          s.dep_time === depEl.value &&
+          s.arrival_time === arrEl.value &&
+          Number(s.total_stops) === Number(stopsEl.value);
+        const stopTxt = Number(s.total_stops) === 0 ? "Non-stop" : `${s.total_stops} stop`;
+        return `
+          <button type="button" class="schedule-chip ${isActive ? "active" : ""}" data-idx="${idx}">
+            <span class="s-time">${escapeHtml(s.dep_time)} &rarr; ${escapeHtml(s.arrival_time)}</span>
+            <span class="s-meta">${escapeHtml(s.duration_label)} &bull; ${stopTxt}${s.route && s.route !== "auto" ? ` &bull; ${escapeHtml(s.route)}` : ""}</span>
+          </button>`;
+      })
+      .join("");
+
+    grid.querySelectorAll(".schedule-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const slot = schedules[Number(chip.dataset.idx)];
+        applyScheduleSlot(slot);
+        renderSchedulePresets(false);
+      });
+    });
+  }
+
+  function updateRouteVisualizer(autoSchedule = true) {
     const src = airportCodes[sourceEl.value] || { code: "SRC", name: sourceEl.value };
     const dst = airportCodes[destEl.value] || { code: "DST", name: destEl.value };
     document.querySelector(".origin-preview").textContent = src.code;
@@ -265,11 +341,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".dest-preview").textContent = dst.code;
     document.querySelector(".dest-name").textContent = dst.name;
     populateMatchingRoutes();
+    renderSchedulePresets(autoSchedule);
   }
 
   function populateMatchingRoutes() {
     if (!catalogData) return;
-    const key = `${sourceEl.value}|${destEl.value}|${stopsEl.value}`;
+    const normSrc = sourceEl.value === "New Delhi" ? "Delhi" : sourceEl.value;
+    const key = `${normSrc}|${destEl.value}|${stopsEl.value}`;
     const matches = (catalogData.routes_by_trip && catalogData.routes_by_trip[key]) || [];
     routeEl.innerHTML = '<option value="auto">Auto-select typical route</option>';
     matches.slice(0, 12).forEach((item) => {
@@ -283,11 +361,21 @@ document.addEventListener("DOMContentLoaded", () => {
       : "Direct/standard path";
   }
 
-  sourceEl.addEventListener("change", updateRouteVisualizer);
-  destEl.addEventListener("change", updateRouteVisualizer);
-  stopsEl.addEventListener("change", populateMatchingRoutes);
-  depEl.addEventListener("input", updateDuration);
-  arrEl.addEventListener("input", updateDuration);
+  sourceEl.addEventListener("change", () => updateRouteVisualizer(true));
+  destEl.addEventListener("change", () => updateRouteVisualizer(true));
+  airlineEl.addEventListener("change", () => renderSchedulePresets(true));
+  stopsEl.addEventListener("change", () => {
+    populateMatchingRoutes();
+    renderSchedulePresets(true, parseInt(stopsEl.value, 10));
+  });
+  depEl.addEventListener("input", () => {
+    updateDuration();
+    renderSchedulePresets(false);
+  });
+  arrEl.addEventListener("input", () => {
+    updateDuration();
+    renderSchedulePresets(false);
+  });
 
   // ---------------------- Estimator & Batch Comparisons ----------------------
   function currentPayload() {
@@ -395,17 +483,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("airline-compare-bars");
     const maxFare = Math.max(...res.comparisons.map((c) => c.predicted_fare), 1);
     container.innerHTML = res.comparisons
-      .map((c) => {
+      .map((c, idx) => {
         const pct = Math.round((c.predicted_fare / maxFare) * 100);
         const fillCls = c.is_selected ? "emerald" : "";
         return `
-          <div class="bar-row">
-            <span class="bar-label">${escapeHtml(c.airline)}${c.is_selected ? " ★" : ""}</span>
-            <div class="bar-track"><div class="bar-fill ${fillCls}" style="width:${pct}%"></div></div>
-            <span class="bar-val">₹${fmtInr(c.predicted_fare)}</span>
+          <div class="airline-compare-item ${c.is_selected ? "selected" : ""}" data-idx="${idx}">
+            <div class="bar-row">
+              <span class="bar-label">${escapeHtml(c.airline)}${c.is_selected ? " ★" : ""}</span>
+              <div class="bar-track"><div class="bar-fill ${fillCls}" style="width:${pct}%"></div></div>
+              <span class="bar-val">₹${fmtInr(c.predicted_fare)}</span>
+            </div>
+            <div class="airline-compare-sub">
+              Dep ${escapeHtml(c.dep_time)} &rarr; Arr ${escapeHtml(c.arrival_time)} &bull; ${escapeHtml(c.duration)} &bull; ${escapeHtml(c.stops_label)} &bull; ${escapeHtml(c.resolved_route)}
+            </div>
           </div>`;
       })
       .join("");
+
+    container.querySelectorAll(".airline-compare-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        const chosen = res.comparisons[Number(item.dataset.idx)];
+        if (!chosen) return;
+        airlineEl.value = chosen.airline;
+        applyScheduleSlot({
+          dep_time: chosen.dep_time,
+          arrival_time: chosen.arrival_time,
+          total_stops: chosen.total_stops,
+          route: chosen.resolved_route,
+        });
+        renderSchedulePresets(false);
+        runPredictionAndComparisons();
+      });
+    });
   }
 
   fareForm.addEventListener("submit", (e) => {

@@ -64,21 +64,26 @@
                 <label for="source">From (Origin City)</label>
                 <select id="source" required>
                   <option value="Banglore" selected>Bangalore (BLR)</option>
-                  <option value="Delhi">Delhi (DEL)</option>
-                  <option value="Kolkata">Kolkata (CCU)</option>
                   <option value="Chennai">Chennai (MAA)</option>
+                  <option value="Cochin">Cochin (COK)</option>
+                  <option value="Delhi">Delhi (DEL)</option>
+                  <option value="New Delhi">New Delhi (DEL)</option>
+                  <option value="Hyderabad">Hyderabad (HYD)</option>
+                  <option value="Kolkata">Kolkata (CCU)</option>
                   <option value="Mumbai">Mumbai (BOM)</option>
                 </select>
               </div>
               <div class="form-field">
                 <label for="destination">To (Destination City)</label>
                 <select id="destination" required>
-                  <option value="Delhi" selected>Delhi (DEL)</option>
-                  <option value="New Delhi">New Delhi (DEL - Early Season)</option>
-                  <option value="Cochin">Cochin (COK)</option>
                   <option value="Banglore">Bangalore (BLR)</option>
+                  <option value="Chennai">Chennai (MAA)</option>
+                  <option value="Cochin">Cochin (COK)</option>
+                  <option value="Delhi" selected>Delhi (DEL)</option>
+                  <option value="New Delhi">New Delhi (DEL)</option>
                   <option value="Hyderabad">Hyderabad (HYD)</option>
                   <option value="Kolkata">Kolkata (CCU)</option>
+                  <option value="Mumbai">Mumbai (BOM)</option>
                 </select>
               </div>
             </div>
@@ -110,6 +115,14 @@
                   <option value="4">4 Stops</option>
                 </select>
               </div>
+            </div>
+
+            <div class="schedule-picker-box">
+              <div class="schedule-picker-header">
+                <span>Available Flight Schedules (<span id="schedule-airline-label">IndiGo</span>)</span>
+                <span class="card-desc" style="margin:0;">Pre-filled departure &amp; arrival times — click to switch</span>
+              </div>
+              <div id="schedule-presets-grid" class="schedule-presets-grid"></div>
             </div>
 
             <div class="form-row">
@@ -235,8 +248,8 @@
         <section class="card">
           <div class="card-header">
             <div>
-              <h2 class="card-title">Cross-Airline Fare Comparison</h2>
-              <p class="card-desc">Same route, schedule &amp; stops compared across major airlines.</p>
+              <h2 class="card-title">Cross-Airline Schedule &amp; Fare Comparison</h2>
+              <p class="card-desc">Fixed departure &amp; arrival timings shown below each carrier — click any airline to select it.</p>
             </div>
           </div>
           <div class="bar-list" id="airline-compare-bars"></div>

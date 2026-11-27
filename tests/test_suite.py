@@ -126,7 +126,26 @@ def test_prediction_validation_and_batch_comparisons():
 
     airlines = client.post("/api/compare-airlines", json=payload)
     assert airlines.status_code == 200
-    assert len(airlines.json()["comparisons"]) >= 8
+    comps = airlines.json()["comparisons"]
+    assert len(comps) >= 8
+    assert all("dep_time" in c and "arrival_time" in c and "duration" in c for c in comps)
+
+    # Reverse corridor support (Cochin -> Delhi mirrors Delhi -> Cochin cleanly)
+    rev = client.post(
+        "/api/predict",
+        json={
+            "airline": "IndiGo",
+            "source": "Cochin",
+            "destination": "Delhi",
+            "journey_date": "2026-12-04",
+            "dep_time": "05:35",
+            "arrival_time": "08:50",
+            "total_stops": 0,
+        },
+    )
+    assert rev.status_code == 200
+    assert rev.json()["predicted_fare"] > 2000
+    assert "COK" in rev.json()["flight_details"]["resolved_route_path"]
 
 
 def test_auth_rbac_and_full_crud_lifecycle():

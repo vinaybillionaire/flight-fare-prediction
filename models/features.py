@@ -6,7 +6,7 @@ preventing data leakage by keeping all categorical encoding inside an sklearn Pi
 
 import re
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 import pandas as pd
 
@@ -42,6 +42,15 @@ AIRPORT_CODES: Dict[str, Dict[str, str]] = {
     "Hyderabad": {"code": "HYD", "display": "Hyderabad", "state": "Telangana"},
 }
 
+TRAINED_CORRIDORS: Set[Tuple[str, str]] = {
+    ("Banglore", "Delhi"),
+    ("Banglore", "New Delhi"),
+    ("Chennai", "Kolkata"),
+    ("Delhi", "Cochin"),
+    ("Kolkata", "Banglore"),
+    ("Mumbai", "Hyderabad"),
+}
+
 
 def parse_duration_minutes(duration: str) -> int:
     """Parse duration strings like '2h 50m', '19h', or '5m' into total integer minutes."""
@@ -63,11 +72,16 @@ def calculate_duration_minutes(dep_time: str, arrival_time: str) -> int:
     return diff
 
 
-def preprocess_raw_dataframe(df_raw: pd.DataFrame, is_train: bool = True) -> pd.DataFrame:
-    """Clean and transform raw flight Excel/CSV dataframe into engineered features.
+def reverse_route_string(route: str) -> str:
+    """Reverse layover route legs (e.g., 'DEL → BOM → COK' -> 'COK → BOM → DEL')."""
+    parts = [p.strip() for p in str(route).split("→") if p.strip()]
+    if len(parts) <= 1:
+        return route
+    return " → ".join(reversed(parts))
 
-    Preserves Route and Additional_Info exactly as in the high-accuracy Kaggle workflow.
-    """
+
+def preprocess_raw_dataframe(df_raw: pd.DataFrame, is_train: bool = True) -> pd.DataFrame:
+    """Clean and transform raw flight Excel/CSV dataframe into engineered features."""
     df = df_raw.copy()
     if is_train:
         df.dropna(inplace=True)
@@ -103,17 +117,23 @@ def resolve_route_string(
     if requested_route and requested_route.strip() and requested_route.strip().lower() != "auto":
         return requested_route.strip()
 
-    key = f"{source}|{destination}|{int(total_stops)}"
+    norm_src = "Delhi" if source == "New Delhi" else source
+    key = f"{norm_src}|{destination}|{int(total_stops)}"
     routes_map = route_catalog.get("routes_by_trip", {})
     candidates = routes_map.get(key)
     if candidates:
         return candidates[0]["route"]
 
-    # Fallback: check any route matching source and destination
-    pair_prefix = f"{source}|{destination}|"
+    # Check any stop count for this pair
+    pair_prefix = f"{norm_src}|{destination}|"
     for k, items in routes_map.items():
         if k.startswith(pair_prefix) and items:
             return items[0]["route"]
+
+    # Check reverse corridor
+    rev_key = f"{destination}|{norm_src}|{int(total_stops)}"
+    if routes_map.get(rev_key):
+        return reverse_route_string(routes_map[rev_key][0]["route"])
 
     src_code = AIRPORT_CODES.get(source, {}).get("code", source[:3].upper())
     dst_code = AIRPORT_CODES.get(destination, {}).get("code", destination[:3].upper())
@@ -135,7 +155,12 @@ def build_inference_dataframe(
     duration_override_mins: Optional[int] = None,
     route_catalog: Optional[Dict] = None,
 ) -> Tuple[pd.DataFrame, str, int]:
-    """Construct a single-row DataFrame matching FEATURE_COLUMNS for Pipeline inference."""
+    """Construct a single-row DataFrame matching FEATURE_COLUMNS for Pipeline inference.
+
+    Applies bidirectional corridor symmetry when evaluating reverse directions of
+    trained corridors (e.g., Cochin -> Delhi mirrors Delhi -> Cochin) so predictions
+    retain trained route and hub fidelity.
+    """
     j_dt = datetime.strptime(journey_date, "%Y-%m-%d")
     dep_dt = datetime.strptime(dep_time, "%H:%M")
     arr_dt = datetime.strptime(arrival_time, "%H:%M")
@@ -150,11 +175,24 @@ def build_inference_dataframe(
     )
     clean_info = (additional_info or "No info").strip() or "No info"
 
+    model_src = "Delhi" if source == "New Delhi" else source
+    model_dst = destination
+    model_route = resolved_route
+
+    if (model_src, model_dst) not in TRAINED_CORRIDORS:
+        reverse_dst = "Delhi" if model_dst == "New Delhi" else model_dst
+        if (reverse_dst, model_src) in TRAINED_CORRIDORS:
+            model_src, model_dst = reverse_dst, model_src
+            model_route = reverse_route_string(resolved_route)
+        elif (reverse_dst, "New Delhi") in TRAINED_CORRIDORS and model_src == "Banglore":
+            model_src, model_dst = reverse_dst, "New Delhi"
+            model_route = reverse_route_string(resolved_route)
+
     row = {
         "Airline": airline,
-        "Source": source,
-        "Destination": destination,
-        "Route": resolved_route,
+        "Source": model_src,
+        "Destination": model_dst,
+        "Route": model_route,
         "Additional_Info": clean_info,
         "Duration": duration_mins,
         "Total_Stops": int(total_stops),

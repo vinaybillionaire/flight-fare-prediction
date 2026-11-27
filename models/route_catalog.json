@@ -89,11 +89,27 @@
         "avg_historical_price": 5144.0
       }
     ],
+    "Delhi|Banglore|0": [
+      {
+        "route": "DEL \u2192 BLR",
+        "sample_count": 1265,
+        "avg_historical_price": 5144.0,
+        "mirrored": true
+      }
+    ],
     "Banglore|New Delhi|0": [
       {
         "route": "BLR \u2192 DEL",
         "sample_count": 271,
         "avg_historical_price": 7458.0
+      }
+    ],
+    "New Delhi|Banglore|0": [
+      {
+        "route": "DEL \u2192 BLR",
+        "sample_count": 271,
+        "avg_historical_price": 7458.0,
+        "mirrored": true
       }
     ],
     "Banglore|New Delhi|1": [
@@ -178,6 +194,104 @@
         "avg_historical_price": 5746.0
       }
     ],
+    "New Delhi|Banglore|1": [
+      {
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 402,
+        "avg_historical_price": 15723.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 HYD \u2192 BLR",
+        "sample_count": 37,
+        "avg_historical_price": 6473.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 MAA \u2192 BLR",
+        "sample_count": 29,
+        "avg_historical_price": 12072.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 AMD \u2192 BLR",
+        "sample_count": 18,
+        "avg_historical_price": 11134.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 COK \u2192 BLR",
+        "sample_count": 15,
+        "avg_historical_price": 9139.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 CCU \u2192 BLR",
+        "sample_count": 11,
+        "avg_historical_price": 12260.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 VGA \u2192 BLR",
+        "sample_count": 9,
+        "avg_historical_price": 9002.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 BDQ \u2192 BLR",
+        "sample_count": 8,
+        "avg_historical_price": 11550.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 GOI \u2192 BLR",
+        "sample_count": 7,
+        "avg_historical_price": 8760.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 BBI \u2192 BLR",
+        "sample_count": 5,
+        "avg_historical_price": 11486.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 IDR \u2192 BLR",
+        "sample_count": 5,
+        "avg_historical_price": 7610.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 PNQ \u2192 BLR",
+        "sample_count": 5,
+        "avg_historical_price": 11888.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 GAU \u2192 BLR",
+        "sample_count": 3,
+        "avg_historical_price": 12508.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 LKO \u2192 BLR",
+        "sample_count": 3,
+        "avg_historical_price": 7334.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 NAG \u2192 BLR",
+        "sample_count": 3,
+        "avg_historical_price": 11313.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 STV \u2192 BLR",
+        "sample_count": 2,
+        "avg_historical_price": 5746.0,
+        "mirrored": true
+      }
+    ],
     "Banglore|New Delhi|2": [
       {
         "route": "BLR \u2192 BOM \u2192 BHO \u2192 DEL",
@@ -245,6 +359,86 @@
         "avg_historical_price": 13303.0
       }
     ],
+    "New Delhi|Banglore|2": [
+      {
+        "route": "DEL \u2192 BHO \u2192 BOM \u2192 BLR",
+        "sample_count": 11,
+        "avg_historical_price": 17212.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 GAU \u2192 CCU \u2192 BLR",
+        "sample_count": 11,
+        "avg_historical_price": 11810.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 VGA \u2192 HYD \u2192 BLR",
+        "sample_count": 10,
+        "avg_historical_price": 10771.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 NAG \u2192 BOM \u2192 BLR",
+        "sample_count": 9,
+        "avg_historical_price": 14685.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 JDH \u2192 BOM \u2192 BLR",
+        "sample_count": 6,
+        "avg_historical_price": 14846.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 IDR \u2192 BOM \u2192 BLR",
+        "sample_count": 5,
+        "avg_historical_price": 15361.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 BBI \u2192 CCU \u2192 BLR",
+        "sample_count": 5,
+        "avg_historical_price": 9155.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 AMD \u2192 BOM \u2192 BLR",
+        "sample_count": 4,
+        "avg_historical_price": 14156.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 HYD \u2192 VGA \u2192 BLR",
+        "sample_count": 4,
+        "avg_historical_price": 9599.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 UDR \u2192 BOM \u2192 BLR",
+        "sample_count": 3,
+        "avg_historical_price": 11938.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 COK \u2192 TRV \u2192 BLR",
+        "sample_count": 2,
+        "avg_historical_price": 11838.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 VTZ \u2192 VGA \u2192 BLR",
+        "sample_count": 2,
+        "avg_historical_price": 15361.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 IXC \u2192 BOM \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 13303.0,
+        "mirrored": true
+      }
+    ],
     "Banglore|New Delhi|3": [
       {
         "route": "BLR \u2192 BOM \u2192 IDR \u2192 GWL \u2192 DEL",
@@ -272,11 +466,51 @@
         "avg_historical_price": 12358.0
       }
     ],
+    "New Delhi|Banglore|3": [
+      {
+        "route": "DEL \u2192 GWL \u2192 IDR \u2192 BOM \u2192 BLR",
+        "sample_count": 2,
+        "avg_historical_price": 13387.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 HYD \u2192 BBI \u2192 CCU \u2192 BLR",
+        "sample_count": 2,
+        "avg_historical_price": 12714.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 AMD \u2192 BOM \u2192 HBX \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 10573.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 BHO \u2192 BOM \u2192 HBX \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 14195.0,
+        "mirrored": true
+      },
+      {
+        "route": "DEL \u2192 NAG \u2192 BOM \u2192 HBX \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 12358.0,
+        "mirrored": true
+      }
+    ],
     "Banglore|New Delhi|4": [
       {
         "route": "BLR \u2192 CCU \u2192 BBI \u2192 HYD \u2192 VGA \u2192 DEL",
         "sample_count": 1,
         "avg_historical_price": 17686.0
+      }
+    ],
+    "New Delhi|Banglore|4": [
+      {
+        "route": "DEL \u2192 VGA \u2192 HYD \u2192 BBI \u2192 CCU \u2192 BLR",
+        "sample_count": 1,
+        "avg_historical_price": 17686.0,
+        "mirrored": true
       }
     ],
     "Chennai|Kolkata|0": [
@@ -286,11 +520,27 @@
         "avg_historical_price": 4790.0
       }
     ],
+    "Kolkata|Chennai|0": [
+      {
+        "route": "CCU \u2192 MAA",
+        "sample_count": 381,
+        "avg_historical_price": 4790.0,
+        "mirrored": true
+      }
+    ],
     "Delhi|Cochin|0": [
       {
         "route": "DEL \u2192 COK",
         "sample_count": 213,
         "avg_historical_price": 6316.0
+      }
+    ],
+    "Cochin|Delhi|0": [
+      {
+        "route": "COK \u2192 DEL",
+        "sample_count": 213,
+        "avg_historical_price": 6316.0,
+        "mirrored": true
       }
     ],
     "Delhi|Cochin|1": [
@@ -338,6 +588,62 @@
         "route": "DEL \u2192 BBI \u2192 COK",
         "sample_count": 5,
         "avg_historical_price": 11063.0
+      }
+    ],
+    "Cochin|Delhi|1": [
+      {
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 2376,
+        "avg_historical_price": 10954.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 HYD \u2192 DEL",
+        "sample_count": 326,
+        "avg_historical_price": 7299.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 232,
+        "avg_historical_price": 7560.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 MAA \u2192 DEL",
+        "sample_count": 146,
+        "avg_historical_price": 7312.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 PNQ \u2192 DEL",
+        "sample_count": 42,
+        "avg_historical_price": 6602.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 AMD \u2192 DEL",
+        "sample_count": 25,
+        "avg_historical_price": 5606.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 LKO \u2192 DEL",
+        "sample_count": 17,
+        "avg_historical_price": 7166.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 TRV \u2192 DEL",
+        "sample_count": 16,
+        "avg_historical_price": 7836.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BBI \u2192 DEL",
+        "sample_count": 5,
+        "avg_historical_price": 11063.0,
+        "mirrored": true
       }
     ],
     "Delhi|Cochin|2": [
@@ -432,6 +738,116 @@
         "avg_historical_price": 19540.0
       }
     ],
+    "Cochin|Delhi|2": [
+      {
+        "route": "COK \u2192 BOM \u2192 JAI \u2192 DEL",
+        "sample_count": 183,
+        "avg_historical_price": 12210.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 AMD \u2192 DEL",
+        "sample_count": 144,
+        "avg_historical_price": 12630.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 IDR \u2192 DEL",
+        "sample_count": 90,
+        "avg_historical_price": 14038.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 MAA \u2192 HYD \u2192 DEL",
+        "sample_count": 83,
+        "avg_historical_price": 9133.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 BHO \u2192 DEL",
+        "sample_count": 48,
+        "avg_historical_price": 14121.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 HYD \u2192 DEL",
+        "sample_count": 45,
+        "avg_historical_price": 11725.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 CCU \u2192 DEL",
+        "sample_count": 44,
+        "avg_historical_price": 13962.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 GOI \u2192 DEL",
+        "sample_count": 44,
+        "avg_historical_price": 11942.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 NAG \u2192 DEL",
+        "sample_count": 44,
+        "avg_historical_price": 12171.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 LKO \u2192 DEL",
+        "sample_count": 41,
+        "avg_historical_price": 13277.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 ATQ \u2192 DEL",
+        "sample_count": 40,
+        "avg_historical_price": 16700.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 JDH \u2192 DEL",
+        "sample_count": 37,
+        "avg_historical_price": 16163.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 BDQ \u2192 DEL",
+        "sample_count": 27,
+        "avg_historical_price": 12339.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 UDR \u2192 DEL",
+        "sample_count": 18,
+        "avg_historical_price": 13859.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 IXU \u2192 DEL",
+        "sample_count": 12,
+        "avg_historical_price": 19381.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 IXC \u2192 DEL",
+        "sample_count": 11,
+        "avg_historical_price": 12515.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 MAA \u2192 DEL",
+        "sample_count": 11,
+        "avg_historical_price": 9162.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 DED \u2192 DEL",
+        "sample_count": 2,
+        "avg_historical_price": 19540.0,
+        "mirrored": true
+      }
+    ],
     "Delhi|Cochin|3": [
       {
         "route": "DEL \u2192 RPR \u2192 NAG \u2192 BOM \u2192 COK",
@@ -444,11 +860,33 @@
         "avg_historical_price": 17293.0
       }
     ],
+    "Cochin|Delhi|3": [
+      {
+        "route": "COK \u2192 BOM \u2192 NAG \u2192 RPR \u2192 DEL",
+        "sample_count": 15,
+        "avg_historical_price": 11022.0,
+        "mirrored": true
+      },
+      {
+        "route": "COK \u2192 BOM \u2192 IDR \u2192 GWL \u2192 DEL",
+        "sample_count": 8,
+        "avg_historical_price": 17293.0,
+        "mirrored": true
+      }
+    ],
     "Kolkata|Banglore|0": [
       {
         "route": "CCU \u2192 BLR",
         "sample_count": 724,
         "avg_historical_price": 4556.0
+      }
+    ],
+    "Banglore|Kolkata|0": [
+      {
+        "route": "BLR \u2192 CCU",
+        "sample_count": 724,
+        "avg_historical_price": 4556.0,
+        "mirrored": true
       }
     ],
     "Kolkata|Banglore|1": [
@@ -521,6 +959,92 @@
         "route": "CCU \u2192 VTZ \u2192 BLR",
         "sample_count": 1,
         "avg_historical_price": 6301.0
+      }
+    ],
+    "Banglore|Kolkata|1": [
+      {
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 979,
+        "avg_historical_price": 11488.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 565,
+        "avg_historical_price": 10763.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 MAA \u2192 CCU",
+        "sample_count": 65,
+        "avg_historical_price": 5241.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 HYD \u2192 CCU",
+        "sample_count": 53,
+        "avg_historical_price": 4910.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 BBI \u2192 CCU",
+        "sample_count": 50,
+        "avg_historical_price": 6061.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 GAU \u2192 CCU",
+        "sample_count": 41,
+        "avg_historical_price": 7613.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 IXB \u2192 CCU",
+        "sample_count": 20,
+        "avg_historical_price": 9275.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 PNQ \u2192 CCU",
+        "sample_count": 19,
+        "avg_historical_price": 6703.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 AMD \u2192 CCU",
+        "sample_count": 11,
+        "avg_historical_price": 8383.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 KNU \u2192 CCU",
+        "sample_count": 10,
+        "avg_historical_price": 8623.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 PAT \u2192 CCU",
+        "sample_count": 10,
+        "avg_historical_price": 10821.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 NAG \u2192 CCU",
+        "sample_count": 9,
+        "avg_historical_price": 6279.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 IXA \u2192 CCU",
+        "sample_count": 1,
+        "avg_historical_price": 9413.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 VTZ \u2192 CCU",
+        "sample_count": 1,
+        "avg_historical_price": 6301.0,
+        "mirrored": true
       }
     ],
     "Kolkata|Banglore|2": [
@@ -625,6 +1149,128 @@
         "avg_historical_price": 6103.0
       }
     ],
+    "Banglore|Kolkata|2": [
+      {
+        "route": "BLR \u2192 DEL \u2192 IXR \u2192 CCU",
+        "sample_count": 46,
+        "avg_historical_price": 10969.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 BBI \u2192 CCU",
+        "sample_count": 42,
+        "avg_historical_price": 10457.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 DEL \u2192 GAU \u2192 CCU",
+        "sample_count": 38,
+        "avg_historical_price": 13892.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 COK \u2192 BOM \u2192 CCU",
+        "sample_count": 30,
+        "avg_historical_price": 12865.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 COK \u2192 DEL \u2192 CCU",
+        "sample_count": 29,
+        "avg_historical_price": 13486.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 AMD \u2192 DEL \u2192 CCU",
+        "sample_count": 21,
+        "avg_historical_price": 13719.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 GOI \u2192 BOM \u2192 CCU",
+        "sample_count": 13,
+        "avg_historical_price": 11810.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 BOM \u2192 JAI \u2192 CCU",
+        "sample_count": 13,
+        "avg_historical_price": 10875.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 DEL \u2192 VNS \u2192 CCU",
+        "sample_count": 10,
+        "avg_historical_price": 15164.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 HYD \u2192 BBI \u2192 CCU",
+        "sample_count": 9,
+        "avg_historical_price": 5790.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 AMD \u2192 BOM \u2192 CCU",
+        "sample_count": 9,
+        "avg_historical_price": 14424.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 HBX \u2192 BOM \u2192 CCU",
+        "sample_count": 6,
+        "avg_historical_price": 10037.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 BBI \u2192 IXR \u2192 CCU",
+        "sample_count": 6,
+        "avg_historical_price": 7369.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 DEL \u2192 JAI \u2192 CCU",
+        "sample_count": 6,
+        "avg_historical_price": 12053.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 PNQ \u2192 BOM \u2192 CCU",
+        "sample_count": 4,
+        "avg_historical_price": 10118.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 VGA \u2192 DEL \u2192 CCU",
+        "sample_count": 4,
+        "avg_historical_price": 12533.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 TRV \u2192 BOM \u2192 CCU",
+        "sample_count": 2,
+        "avg_historical_price": 12403.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 DEL \u2192 IXB \u2192 CCU",
+        "sample_count": 1,
+        "avg_historical_price": 15292.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 MAA \u2192 IXZ \u2192 CCU",
+        "sample_count": 1,
+        "avg_historical_price": 11522.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 HYD \u2192 RPR \u2192 CCU",
+        "sample_count": 1,
+        "avg_historical_price": 6103.0,
+        "mirrored": true
+      }
+    ],
     "Kolkata|Banglore|3": [
       {
         "route": "CCU \u2192 GAU \u2192 IMF \u2192 DEL \u2192 BLR",
@@ -642,11 +1288,39 @@
         "avg_historical_price": 12606.0
       }
     ],
+    "Banglore|Kolkata|3": [
+      {
+        "route": "BLR \u2192 DEL \u2192 IMF \u2192 GAU \u2192 CCU",
+        "sample_count": 5,
+        "avg_historical_price": 13537.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 TRV \u2192 COK \u2192 DEL \u2192 CCU",
+        "sample_count": 4,
+        "avg_historical_price": 12941.0,
+        "mirrored": true
+      },
+      {
+        "route": "BLR \u2192 DEL \u2192 IXR \u2192 BBI \u2192 CCU",
+        "sample_count": 2,
+        "avg_historical_price": 12606.0,
+        "mirrored": true
+      }
+    ],
     "Mumbai|Hyderabad|0": [
       {
         "route": "BOM \u2192 HYD",
         "sample_count": 621,
         "avg_historical_price": 3933.0
+      }
+    ],
+    "Hyderabad|Mumbai|0": [
+      {
+        "route": "HYD \u2192 BOM",
+        "sample_count": 621,
+        "avg_historical_price": 3933.0,
+        "mirrored": true
       }
     ],
     "Mumbai|Hyderabad|1": [
@@ -689,6 +1363,56 @@
         "route": "BOM \u2192 NDC \u2192 HYD",
         "sample_count": 1,
         "avg_historical_price": 4140.0
+      }
+    ],
+    "Hyderabad|Mumbai|1": [
+      {
+        "route": "HYD \u2192 DEL \u2192 BOM",
+        "sample_count": 33,
+        "avg_historical_price": 13380.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 BLR \u2192 BOM",
+        "sample_count": 3,
+        "avg_historical_price": 9045.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 MAA \u2192 BOM",
+        "sample_count": 3,
+        "avg_historical_price": 8598.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 BBI \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 14408.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 CCU \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 16666.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 GOI \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 7681.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 JLR \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 13552.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 NDC \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 4140.0,
+        "mirrored": true
       }
     ],
     "Mumbai|Hyderabad|2": [
@@ -753,6 +1477,80 @@
         "avg_historical_price": 23528.0
       }
     ],
+    "Hyderabad|Mumbai|2": [
+      {
+        "route": "HYD \u2192 DEL \u2192 BHO \u2192 BOM",
+        "sample_count": 7,
+        "avg_historical_price": 13162.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 PNQ \u2192 GOI \u2192 BOM",
+        "sample_count": 6,
+        "avg_historical_price": 17082.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 ISK \u2192 AMD \u2192 BOM",
+        "sample_count": 4,
+        "avg_historical_price": 11762.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 JDH \u2192 BOM",
+        "sample_count": 3,
+        "avg_historical_price": 23867.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 BDQ \u2192 BOM",
+        "sample_count": 2,
+        "avg_historical_price": 22792.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 IDR \u2192 BOM",
+        "sample_count": 2,
+        "avg_historical_price": 17049.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 MAA \u2192 COK \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 9678.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 DED \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 24115.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 JAI \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 17926.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 VTZ \u2192 RPR \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 9736.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 UDR \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 22950.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 VNS \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 23528.0,
+        "mirrored": true
+      }
+    ],
     "Mumbai|Hyderabad|3": [
       {
         "route": "BOM \u2192 BLR \u2192 CCU \u2192 BBI \u2192 HYD",
@@ -763,6 +1561,5160 @@
         "route": "BOM \u2192 JDH \u2192 JAI \u2192 DEL \u2192 HYD",
         "sample_count": 1,
         "avg_historical_price": 18293.0
+      }
+    ],
+    "Hyderabad|Mumbai|3": [
+      {
+        "route": "HYD \u2192 BBI \u2192 CCU \u2192 BLR \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 14260.0,
+        "mirrored": true
+      },
+      {
+        "route": "HYD \u2192 DEL \u2192 JAI \u2192 JDH \u2192 BOM",
+        "sample_count": 1,
+        "avg_historical_price": 18293.0,
+        "mirrored": true
+      }
+    ]
+  },
+  "schedules_by_pair": {
+    "Banglore|Delhi|Air Asia": [
+      {
+        "dep_time": "23:55",
+        "arrival_time": "02:45",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 4569.0
+      },
+      {
+        "dep_time": "04:55",
+        "arrival_time": "07:45",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 23,
+        "avg_price": 4388.0
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "13:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 23,
+        "avg_price": 3813.0
+      }
+    ],
+    "Delhi|Banglore|Air Asia": [
+      {
+        "dep_time": "23:55",
+        "arrival_time": "02:45",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 4569.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "04:55",
+        "arrival_time": "07:45",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 23,
+        "avg_price": 4388.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "13:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 23,
+        "avg_price": 3813.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|Delhi|Air India": [
+      {
+        "dep_time": "10:00",
+        "arrival_time": "12:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 26,
+        "avg_price": 6321.0
+      },
+      {
+        "dep_time": "21:05",
+        "arrival_time": "23:55",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 5442.0
+      },
+      {
+        "dep_time": "13:20",
+        "arrival_time": "16:10",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 6084.0
+      },
+      {
+        "dep_time": "06:10",
+        "arrival_time": "08:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 20,
+        "avg_price": 6110.0
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "19:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 19,
+        "avg_price": 6242.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "08:45",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 3,
+        "avg_price": 6121.0
+      }
+    ],
+    "Delhi|Banglore|Air India": [
+      {
+        "dep_time": "10:00",
+        "arrival_time": "12:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 26,
+        "avg_price": 6321.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:05",
+        "arrival_time": "23:55",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 5442.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "13:20",
+        "arrival_time": "16:10",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 24,
+        "avg_price": 6084.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:10",
+        "arrival_time": "08:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 20,
+        "avg_price": 6110.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "19:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 19,
+        "avg_price": 6242.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "08:45",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 3,
+        "avg_price": 6121.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|Delhi|GoAir": [
+      {
+        "dep_time": "07:45",
+        "arrival_time": "10:40",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 26,
+        "avg_price": 4254.0
+      },
+      {
+        "dep_time": "20:55",
+        "arrival_time": "23:40",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 3930.0
+      },
+      {
+        "dep_time": "11:40",
+        "arrival_time": "14:30",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 18,
+        "avg_price": 3924.0
+      }
+    ],
+    "Delhi|Banglore|GoAir": [
+      {
+        "dep_time": "07:45",
+        "arrival_time": "10:40",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 26,
+        "avg_price": 4254.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "20:55",
+        "arrival_time": "23:40",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 3930.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:40",
+        "arrival_time": "14:30",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 18,
+        "avg_price": 3924.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|Delhi|IndiGo": [
+      {
+        "dep_time": "08:30",
+        "arrival_time": "11:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 27,
+        "avg_price": 4891.0
+      },
+      {
+        "dep_time": "23:30",
+        "arrival_time": "02:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 27,
+        "avg_price": 4428.0
+      },
+      {
+        "dep_time": "01:30",
+        "arrival_time": "04:15",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 3959.0
+      },
+      {
+        "dep_time": "04:00",
+        "arrival_time": "06:50",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 4077.0
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "10:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 4823.0
+      },
+      {
+        "dep_time": "18:55",
+        "arrival_time": "21:50",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 4913.0
+      }
+    ],
+    "Delhi|Banglore|IndiGo": [
+      {
+        "dep_time": "08:30",
+        "arrival_time": "11:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 27,
+        "avg_price": 4891.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "23:30",
+        "arrival_time": "02:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 27,
+        "avg_price": 4428.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "01:30",
+        "arrival_time": "04:15",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 3959.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "04:00",
+        "arrival_time": "06:50",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 4077.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "10:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 4823.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "18:55",
+        "arrival_time": "21:50",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 4913.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|Delhi|Jet Airways": [
+      {
+        "dep_time": "18:55",
+        "arrival_time": "22:00",
+        "duration_mins": 185,
+        "duration_label": "3h 5m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 50,
+        "avg_price": 6499.0
+      },
+      {
+        "dep_time": "08:20",
+        "arrival_time": "11:20",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 47,
+        "avg_price": 6393.0
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "10:10",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 46,
+        "avg_price": 6405.0
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "14:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 46,
+        "avg_price": 6306.0
+      },
+      {
+        "dep_time": "17:45",
+        "arrival_time": "20:45",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 46,
+        "avg_price": 6617.0
+      },
+      {
+        "dep_time": "15:15",
+        "arrival_time": "18:10",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 45,
+        "avg_price": 6281.0
+      }
+    ],
+    "Delhi|Banglore|Jet Airways": [
+      {
+        "dep_time": "18:55",
+        "arrival_time": "22:00",
+        "duration_mins": 185,
+        "duration_label": "3h 5m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 50,
+        "avg_price": 6499.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:20",
+        "arrival_time": "11:20",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 47,
+        "avg_price": 6393.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "10:10",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 46,
+        "avg_price": 6405.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "14:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 46,
+        "avg_price": 6306.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:45",
+        "arrival_time": "20:45",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 46,
+        "avg_price": 6617.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:15",
+        "arrival_time": "18:10",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 45,
+        "avg_price": 6281.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|Delhi|SpiceJet": [
+      {
+        "dep_time": "09:30",
+        "arrival_time": "12:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 49,
+        "avg_price": 4232.0
+      },
+      {
+        "dep_time": "05:55",
+        "arrival_time": "08:35",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 45,
+        "avg_price": 3811.0
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "00:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 43,
+        "avg_price": 3974.0
+      }
+    ],
+    "Delhi|Banglore|SpiceJet": [
+      {
+        "dep_time": "09:30",
+        "arrival_time": "12:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 49,
+        "avg_price": 4232.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:55",
+        "arrival_time": "08:35",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 45,
+        "avg_price": 3811.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "00:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 43,
+        "avg_price": 3974.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|Delhi|Vistara": [
+      {
+        "dep_time": "07:00",
+        "arrival_time": "09:40",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 4926.0
+      },
+      {
+        "dep_time": "09:45",
+        "arrival_time": "12:35",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 5009.0
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "19:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 5123.0
+      },
+      {
+        "dep_time": "11:30",
+        "arrival_time": "14:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 21,
+        "avg_price": 4913.0
+      },
+      {
+        "dep_time": "19:30",
+        "arrival_time": "22:15",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 19,
+        "avg_price": 5232.0
+      },
+      {
+        "dep_time": "21:00",
+        "arrival_time": "23:50",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 19,
+        "avg_price": 5082.0
+      }
+    ],
+    "Delhi|Banglore|Vistara": [
+      {
+        "dep_time": "07:00",
+        "arrival_time": "09:40",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 24,
+        "avg_price": 4926.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:45",
+        "arrival_time": "12:35",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 24,
+        "avg_price": 5009.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "19:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 24,
+        "avg_price": 5123.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:30",
+        "arrival_time": "14:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 21,
+        "avg_price": 4913.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:30",
+        "arrival_time": "22:15",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 19,
+        "avg_price": 5232.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:00",
+        "arrival_time": "23:50",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 19,
+        "avg_price": 5082.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|Delhi|Vistara Premium economy": [
+      {
+        "dep_time": "11:30",
+        "arrival_time": "14:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 5969.0
+      }
+    ],
+    "Delhi|Banglore|Vistara Premium economy": [
+      {
+        "dep_time": "11:30",
+        "arrival_time": "14:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 5969.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|Air Asia": [
+      {
+        "dep_time": "05:50",
+        "arrival_time": "08:40",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 9,
+        "avg_price": 6105.0
+      },
+      {
+        "dep_time": "23:25",
+        "arrival_time": "02:10",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 5741.0
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "13:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 3383.0
+      }
+    ],
+    "New Delhi|Banglore|Air Asia": [
+      {
+        "dep_time": "05:50",
+        "arrival_time": "08:40",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 9,
+        "avg_price": 6105.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "23:25",
+        "arrival_time": "02:10",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 5741.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "13:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 3383.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|Air India": [
+      {
+        "dep_time": "13:20",
+        "arrival_time": "16:10",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 8484.0
+      },
+      {
+        "dep_time": "10:00",
+        "arrival_time": "12:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 7,
+        "avg_price": 7321.0
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "19:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 7,
+        "avg_price": 12128.0
+      },
+      {
+        "dep_time": "06:10",
+        "arrival_time": "08:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 7932.0
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "23:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 9857.0
+      },
+      {
+        "dep_time": "11:50",
+        "arrival_time": "08:55",
+        "duration_mins": 1265,
+        "duration_label": "21h 5m",
+        "total_stops": 1,
+        "route": "BLR \u2192 MAA \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 10384.0
+      }
+    ],
+    "New Delhi|Banglore|Air India": [
+      {
+        "dep_time": "13:20",
+        "arrival_time": "16:10",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 8484.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "10:00",
+        "arrival_time": "12:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 7,
+        "avg_price": 7321.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "19:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 7,
+        "avg_price": 12128.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:10",
+        "arrival_time": "08:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 7932.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "23:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 9857.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:50",
+        "arrival_time": "08:55",
+        "duration_mins": 1265,
+        "duration_label": "21h 5m",
+        "total_stops": 1,
+        "route": "DEL \u2192 MAA \u2192 BLR",
+        "sample_count": 5,
+        "avg_price": 10384.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|GoAir": [
+      {
+        "dep_time": "07:45",
+        "arrival_time": "10:40",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 7,
+        "avg_price": 6772.0
+      },
+      {
+        "dep_time": "11:40",
+        "arrival_time": "14:35",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 7,
+        "avg_price": 6393.0
+      },
+      {
+        "dep_time": "20:55",
+        "arrival_time": "23:50",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 8773.0
+      },
+      {
+        "dep_time": "15:45",
+        "arrival_time": "20:15",
+        "duration_mins": 270,
+        "duration_label": "4h 30m",
+        "total_stops": 1,
+        "route": "BLR \u2192 GOI \u2192 DEL",
+        "sample_count": 3,
+        "avg_price": 9441.0
+      },
+      {
+        "dep_time": "15:50",
+        "arrival_time": "20:15",
+        "duration_mins": 265,
+        "duration_label": "4h 25m",
+        "total_stops": 1,
+        "route": "BLR \u2192 GOI \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 7657.0
+      }
+    ],
+    "New Delhi|Banglore|GoAir": [
+      {
+        "dep_time": "07:45",
+        "arrival_time": "10:40",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 7,
+        "avg_price": 6772.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:40",
+        "arrival_time": "14:35",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 7,
+        "avg_price": 6393.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "20:55",
+        "arrival_time": "23:50",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 8773.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:45",
+        "arrival_time": "20:15",
+        "duration_mins": 270,
+        "duration_label": "4h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 GOI \u2192 BLR",
+        "sample_count": 3,
+        "avg_price": 9441.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:50",
+        "arrival_time": "20:15",
+        "duration_mins": 265,
+        "duration_label": "4h 25m",
+        "total_stops": 1,
+        "route": "DEL \u2192 GOI \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 7657.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|IndiGo": [
+      {
+        "dep_time": "22:20",
+        "arrival_time": "01:10",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 9,
+        "avg_price": 6564.0
+      },
+      {
+        "dep_time": "01:30",
+        "arrival_time": "04:15",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 5487.0
+      },
+      {
+        "dep_time": "18:25",
+        "arrival_time": "21:20",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 8293.0
+      },
+      {
+        "dep_time": "21:20",
+        "arrival_time": "00:15",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 6795.0
+      },
+      {
+        "dep_time": "23:30",
+        "arrival_time": "02:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 6527.0
+      },
+      {
+        "dep_time": "04:00",
+        "arrival_time": "06:50",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 7,
+        "avg_price": 5699.0
+      }
+    ],
+    "New Delhi|Banglore|IndiGo": [
+      {
+        "dep_time": "22:20",
+        "arrival_time": "01:10",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 9,
+        "avg_price": 6564.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "01:30",
+        "arrival_time": "04:15",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 5487.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "18:25",
+        "arrival_time": "21:20",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 8293.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:20",
+        "arrival_time": "00:15",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 6795.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "23:30",
+        "arrival_time": "02:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 6527.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "04:00",
+        "arrival_time": "06:50",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 7,
+        "avg_price": 5699.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|Jet Airways": [
+      {
+        "dep_time": "19:55",
+        "arrival_time": "22:35",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 11053.0
+      },
+      {
+        "dep_time": "05:50",
+        "arrival_time": "12:20",
+        "duration_mins": 390,
+        "duration_label": "6h 30m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BDQ \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 11845.0
+      },
+      {
+        "dep_time": "08:00",
+        "arrival_time": "07:40",
+        "duration_mins": 1420,
+        "duration_label": "23h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 13306.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "10:25",
+        "duration_mins": 280,
+        "duration_label": "4h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 11975.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "16:10",
+        "duration_mins": 625,
+        "duration_label": "10h 25m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 14575.0
+      },
+      {
+        "dep_time": "07:00",
+        "arrival_time": "13:15",
+        "duration_mins": 375,
+        "duration_label": "6h 15m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 15073.0
+      }
+    ],
+    "New Delhi|Banglore|Jet Airways": [
+      {
+        "dep_time": "19:55",
+        "arrival_time": "22:35",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 11053.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:50",
+        "arrival_time": "12:20",
+        "duration_mins": 390,
+        "duration_label": "6h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BDQ \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 11845.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:00",
+        "arrival_time": "07:40",
+        "duration_mins": 1420,
+        "duration_label": "23h 40m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 13306.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "10:25",
+        "duration_mins": 280,
+        "duration_label": "4h 40m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 5,
+        "avg_price": 11975.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "16:10",
+        "duration_mins": 625,
+        "duration_label": "10h 25m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 5,
+        "avg_price": 14575.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:00",
+        "arrival_time": "13:15",
+        "duration_mins": 375,
+        "duration_label": "6h 15m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 5,
+        "avg_price": 15073.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|Jet Airways Business": [
+      {
+        "dep_time": "05:45",
+        "arrival_time": "10:45",
+        "duration_mins": 300,
+        "duration_label": "5h 0m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 52229.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "11:25",
+        "duration_mins": 340,
+        "duration_label": "5h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 79512.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "12:25",
+        "duration_mins": 400,
+        "duration_label": "6h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 62427.0
+      },
+      {
+        "dep_time": "09:45",
+        "arrival_time": "14:25",
+        "duration_mins": 280,
+        "duration_label": "4h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 MAA \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 57209.0
+      }
+    ],
+    "New Delhi|Banglore|Jet Airways Business": [
+      {
+        "dep_time": "05:45",
+        "arrival_time": "10:45",
+        "duration_mins": 300,
+        "duration_label": "5h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 52229.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "11:25",
+        "duration_mins": 340,
+        "duration_label": "5h 40m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 79512.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "12:25",
+        "duration_mins": 400,
+        "duration_label": "6h 40m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 62427.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:45",
+        "arrival_time": "14:25",
+        "duration_mins": 280,
+        "duration_label": "4h 40m",
+        "total_stops": 1,
+        "route": "DEL \u2192 MAA \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 57209.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|SpiceJet": [
+      {
+        "dep_time": "09:35",
+        "arrival_time": "12:30",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 14,
+        "avg_price": 5976.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "08:35",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 10,
+        "avg_price": 5017.0
+      },
+      {
+        "dep_time": "20:30",
+        "arrival_time": "23:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 9,
+        "avg_price": 5076.0
+      },
+      {
+        "dep_time": "10:20",
+        "arrival_time": "18:15",
+        "duration_mins": 475,
+        "duration_label": "7h 55m",
+        "total_stops": 1,
+        "route": "BLR \u2192 PNQ \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 11888.0
+      },
+      {
+        "dep_time": "15:35",
+        "arrival_time": "23:40",
+        "duration_mins": 485,
+        "duration_label": "8h 5m",
+        "total_stops": 1,
+        "route": "BLR \u2192 HYD \u2192 DEL",
+        "sample_count": 3,
+        "avg_price": 6627.0
+      }
+    ],
+    "New Delhi|Banglore|SpiceJet": [
+      {
+        "dep_time": "09:35",
+        "arrival_time": "12:30",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 14,
+        "avg_price": 5976.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "08:35",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 10,
+        "avg_price": 5017.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "20:30",
+        "arrival_time": "23:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 9,
+        "avg_price": 5076.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "10:20",
+        "arrival_time": "18:15",
+        "duration_mins": 475,
+        "duration_label": "7h 55m",
+        "total_stops": 1,
+        "route": "DEL \u2192 PNQ \u2192 BLR",
+        "sample_count": 5,
+        "avg_price": 11888.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:35",
+        "arrival_time": "23:40",
+        "duration_mins": 485,
+        "duration_label": "8h 5m",
+        "total_stops": 1,
+        "route": "DEL \u2192 HYD \u2192 BLR",
+        "sample_count": 3,
+        "avg_price": 6627.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|Vistara": [
+      {
+        "dep_time": "07:00",
+        "arrival_time": "09:40",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 8343.0
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "00:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 8,
+        "avg_price": 8947.0
+      },
+      {
+        "dep_time": "16:00",
+        "arrival_time": "18:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 7,
+        "avg_price": 8778.0
+      },
+      {
+        "dep_time": "19:40",
+        "arrival_time": "22:20",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 7,
+        "avg_price": 10660.0
+      },
+      {
+        "dep_time": "09:50",
+        "arrival_time": "12:35",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 7337.0
+      },
+      {
+        "dep_time": "11:30",
+        "arrival_time": "14:10",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 6,
+        "avg_price": 8107.0
+      }
+    ],
+    "New Delhi|Banglore|Vistara": [
+      {
+        "dep_time": "07:00",
+        "arrival_time": "09:40",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 8343.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "00:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 8947.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "16:00",
+        "arrival_time": "18:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 7,
+        "avg_price": 8778.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:40",
+        "arrival_time": "22:20",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 7,
+        "avg_price": 10660.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:50",
+        "arrival_time": "12:35",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 7337.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:30",
+        "arrival_time": "14:10",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 6,
+        "avg_price": 8107.0,
+        "mirrored": true
+      }
+    ],
+    "Banglore|New Delhi|Vistara Premium economy": [
+      {
+        "dep_time": "16:00",
+        "arrival_time": "18:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 11793.0
+      }
+    ],
+    "New Delhi|Banglore|Vistara Premium economy": [
+      {
+        "dep_time": "16:00",
+        "arrival_time": "18:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "DEL \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 11793.0,
+        "mirrored": true
+      }
+    ],
+    "Chennai|Kolkata|Air India": [
+      {
+        "dep_time": "11:40",
+        "arrival_time": "13:55",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 25,
+        "avg_price": 5896.0
+      }
+    ],
+    "Kolkata|Chennai|Air India": [
+      {
+        "dep_time": "11:40",
+        "arrival_time": "13:55",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 25,
+        "avg_price": 5896.0,
+        "mirrored": true
+      }
+    ],
+    "Chennai|Kolkata|IndiGo": [
+      {
+        "dep_time": "07:55",
+        "arrival_time": "10:15",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 29,
+        "avg_price": 4488.0
+      },
+      {
+        "dep_time": "11:35",
+        "arrival_time": "14:00",
+        "duration_mins": 145,
+        "duration_label": "2h 25m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 26,
+        "avg_price": 4705.0
+      },
+      {
+        "dep_time": "22:05",
+        "arrival_time": "00:25",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 25,
+        "avg_price": 5318.0
+      },
+      {
+        "dep_time": "19:35",
+        "arrival_time": "21:55",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 24,
+        "avg_price": 4317.0
+      },
+      {
+        "dep_time": "13:15",
+        "arrival_time": "15:35",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 18,
+        "avg_price": 3597.0
+      },
+      {
+        "dep_time": "14:45",
+        "arrival_time": "17:05",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 17,
+        "avg_price": 3658.0
+      }
+    ],
+    "Kolkata|Chennai|IndiGo": [
+      {
+        "dep_time": "07:55",
+        "arrival_time": "10:15",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 29,
+        "avg_price": 4488.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "11:35",
+        "arrival_time": "14:00",
+        "duration_mins": 145,
+        "duration_label": "2h 25m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 26,
+        "avg_price": 4705.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "22:05",
+        "arrival_time": "00:25",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 25,
+        "avg_price": 5318.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:35",
+        "arrival_time": "21:55",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 24,
+        "avg_price": 4317.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "13:15",
+        "arrival_time": "15:35",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 18,
+        "avg_price": 3597.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "14:45",
+        "arrival_time": "17:05",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 17,
+        "avg_price": 3658.0,
+        "mirrored": true
+      }
+    ],
+    "Chennai|Kolkata|SpiceJet": [
+      {
+        "dep_time": "08:20",
+        "arrival_time": "10:35",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 46,
+        "avg_price": 3941.0
+      },
+      {
+        "dep_time": "17:45",
+        "arrival_time": "20:05",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 41,
+        "avg_price": 4073.0
+      },
+      {
+        "dep_time": "09:45",
+        "arrival_time": "12:00",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 28,
+        "avg_price": 3594.0
+      },
+      {
+        "dep_time": "09:30",
+        "arrival_time": "12:05",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 13,
+        "avg_price": 4789.0
+      }
+    ],
+    "Kolkata|Chennai|SpiceJet": [
+      {
+        "dep_time": "08:20",
+        "arrival_time": "10:35",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 46,
+        "avg_price": 3941.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:45",
+        "arrival_time": "20:05",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 41,
+        "avg_price": 4073.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:45",
+        "arrival_time": "12:00",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 28,
+        "avg_price": 3594.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:30",
+        "arrival_time": "12:05",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 13,
+        "avg_price": 4789.0,
+        "mirrored": true
+      }
+    ],
+    "Chennai|Kolkata|Vistara": [
+      {
+        "dep_time": "07:05",
+        "arrival_time": "09:20",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 24,
+        "avg_price": 4282.0
+      },
+      {
+        "dep_time": "17:45",
+        "arrival_time": "20:05",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 18,
+        "avg_price": 11982.0
+      },
+      {
+        "dep_time": "07:45",
+        "arrival_time": "10:00",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 1,
+        "avg_price": 3687.0
+      }
+    ],
+    "Kolkata|Chennai|Vistara": [
+      {
+        "dep_time": "07:05",
+        "arrival_time": "09:20",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 24,
+        "avg_price": 4282.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:45",
+        "arrival_time": "20:05",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 18,
+        "avg_price": 11982.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:45",
+        "arrival_time": "10:00",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 1,
+        "avg_price": 3687.0,
+        "mirrored": true
+      }
+    ],
+    "Chennai|Kolkata|Vistara Premium economy": [
+      {
+        "dep_time": "07:05",
+        "arrival_time": "09:20",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "MAA \u2192 CCU",
+        "sample_count": 1,
+        "avg_price": 9125.0
+      }
+    ],
+    "Kolkata|Chennai|Vistara Premium economy": [
+      {
+        "dep_time": "07:05",
+        "arrival_time": "09:20",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "route": "CCU \u2192 MAA",
+        "sample_count": 1,
+        "avg_price": 9125.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|Air Asia": [
+      {
+        "dep_time": "16:45",
+        "arrival_time": "07:10",
+        "duration_mins": 865,
+        "duration_label": "14h 25m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 14,
+        "avg_price": 8221.0
+      },
+      {
+        "dep_time": "07:55",
+        "arrival_time": "22:25",
+        "duration_mins": 870,
+        "duration_label": "14h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 12,
+        "avg_price": 7054.0
+      },
+      {
+        "dep_time": "07:55",
+        "arrival_time": "13:25",
+        "duration_mins": 330,
+        "duration_label": "5h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 11,
+        "avg_price": 7388.0
+      },
+      {
+        "dep_time": "16:45",
+        "arrival_time": "22:25",
+        "duration_mins": 340,
+        "duration_label": "5h 40m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 11,
+        "avg_price": 8560.0
+      },
+      {
+        "dep_time": "20:45",
+        "arrival_time": "07:10",
+        "duration_mins": 625,
+        "duration_label": "10h 25m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 11,
+        "avg_price": 7857.0
+      },
+      {
+        "dep_time": "07:55",
+        "arrival_time": "15:45",
+        "duration_mins": 470,
+        "duration_label": "7h 50m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 5,
+        "avg_price": 7254.0
+      }
+    ],
+    "Cochin|Delhi|Air Asia": [
+      {
+        "dep_time": "16:45",
+        "arrival_time": "07:10",
+        "duration_mins": 865,
+        "duration_label": "14h 25m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 14,
+        "avg_price": 8221.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:55",
+        "arrival_time": "22:25",
+        "duration_mins": 870,
+        "duration_label": "14h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 12,
+        "avg_price": 7054.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:55",
+        "arrival_time": "13:25",
+        "duration_mins": 330,
+        "duration_label": "5h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 11,
+        "avg_price": 7388.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "16:45",
+        "arrival_time": "22:25",
+        "duration_mins": 340,
+        "duration_label": "5h 40m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 11,
+        "avg_price": 8560.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "20:45",
+        "arrival_time": "07:10",
+        "duration_mins": 625,
+        "duration_label": "10h 25m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 11,
+        "avg_price": 7857.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:55",
+        "arrival_time": "15:45",
+        "duration_mins": 470,
+        "duration_label": "7h 50m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 7254.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|Air India": [
+      {
+        "dep_time": "05:10",
+        "arrival_time": "08:00",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 28,
+        "avg_price": 5696.0
+      },
+      {
+        "dep_time": "14:10",
+        "arrival_time": "17:10",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 24,
+        "avg_price": 6234.0
+      },
+      {
+        "dep_time": "22:00",
+        "arrival_time": "19:15",
+        "duration_mins": 1275,
+        "duration_label": "21h 15m",
+        "total_stops": 2,
+        "route": "DEL \u2192 GOI \u2192 BOM \u2192 COK",
+        "sample_count": 24,
+        "avg_price": 11373.0
+      },
+      {
+        "dep_time": "20:40",
+        "arrival_time": "09:25",
+        "duration_mins": 765,
+        "duration_label": "12h 45m",
+        "total_stops": 1,
+        "route": "DEL \u2192 MAA \u2192 COK",
+        "sample_count": 21,
+        "avg_price": 7192.0
+      },
+      {
+        "dep_time": "18:05",
+        "arrival_time": "21:10",
+        "duration_mins": 185,
+        "duration_label": "3h 5m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 20,
+        "avg_price": 6199.0
+      },
+      {
+        "dep_time": "19:45",
+        "arrival_time": "19:15",
+        "duration_mins": 1410,
+        "duration_label": "23h 30m",
+        "total_stops": 2,
+        "route": "DEL \u2192 AMD \u2192 BOM \u2192 COK",
+        "sample_count": 18,
+        "avg_price": 10496.0
+      }
+    ],
+    "Cochin|Delhi|Air India": [
+      {
+        "dep_time": "05:10",
+        "arrival_time": "08:00",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 28,
+        "avg_price": 5696.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "14:10",
+        "arrival_time": "17:10",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 6234.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "22:00",
+        "arrival_time": "19:15",
+        "duration_mins": 1275,
+        "duration_label": "21h 15m",
+        "total_stops": 2,
+        "route": "COK \u2192 BOM \u2192 GOI \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 11373.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "20:40",
+        "arrival_time": "09:25",
+        "duration_mins": 765,
+        "duration_label": "12h 45m",
+        "total_stops": 1,
+        "route": "COK \u2192 MAA \u2192 DEL",
+        "sample_count": 21,
+        "avg_price": 7192.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "18:05",
+        "arrival_time": "21:10",
+        "duration_mins": 185,
+        "duration_label": "3h 5m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 20,
+        "avg_price": 6199.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:45",
+        "arrival_time": "19:15",
+        "duration_mins": 1410,
+        "duration_label": "23h 30m",
+        "total_stops": 2,
+        "route": "COK \u2192 BOM \u2192 AMD \u2192 DEL",
+        "sample_count": 18,
+        "avg_price": 10496.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|GoAir": [
+      {
+        "dep_time": "07:25",
+        "arrival_time": "13:35",
+        "duration_mins": 370,
+        "duration_label": "6h 10m",
+        "total_stops": 1,
+        "route": "DEL \u2192 AMD \u2192 COK",
+        "sample_count": 17,
+        "avg_price": 5479.0
+      },
+      {
+        "dep_time": "10:35",
+        "arrival_time": "19:35",
+        "duration_mins": 540,
+        "duration_label": "9h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 17,
+        "avg_price": 5517.0
+      },
+      {
+        "dep_time": "07:00",
+        "arrival_time": "12:55",
+        "duration_mins": 355,
+        "duration_label": "5h 55m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 15,
+        "avg_price": 5756.0
+      },
+      {
+        "dep_time": "14:25",
+        "arrival_time": "19:35",
+        "duration_mins": 310,
+        "duration_label": "5h 10m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 9,
+        "avg_price": 8961.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "13:20",
+        "duration_mins": 440,
+        "duration_label": "7h 20m",
+        "total_stops": 1,
+        "route": "DEL \u2192 AMD \u2192 COK",
+        "sample_count": 3,
+        "avg_price": 6459.0
+      },
+      {
+        "dep_time": "07:00",
+        "arrival_time": "12:50",
+        "duration_mins": 350,
+        "duration_label": "5h 50m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 3,
+        "avg_price": 7348.0
+      }
+    ],
+    "Cochin|Delhi|GoAir": [
+      {
+        "dep_time": "07:25",
+        "arrival_time": "13:35",
+        "duration_mins": 370,
+        "duration_label": "6h 10m",
+        "total_stops": 1,
+        "route": "COK \u2192 AMD \u2192 DEL",
+        "sample_count": 17,
+        "avg_price": 5479.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "10:35",
+        "arrival_time": "19:35",
+        "duration_mins": 540,
+        "duration_label": "9h 0m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 17,
+        "avg_price": 5517.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:00",
+        "arrival_time": "12:55",
+        "duration_mins": 355,
+        "duration_label": "5h 55m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 15,
+        "avg_price": 5756.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "14:25",
+        "arrival_time": "19:35",
+        "duration_mins": 310,
+        "duration_label": "5h 10m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 9,
+        "avg_price": 8961.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "13:20",
+        "duration_mins": 440,
+        "duration_label": "7h 20m",
+        "total_stops": 1,
+        "route": "COK \u2192 AMD \u2192 DEL",
+        "sample_count": 3,
+        "avg_price": 6459.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:00",
+        "arrival_time": "12:50",
+        "duration_mins": 350,
+        "duration_label": "5h 50m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 3,
+        "avg_price": 7348.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|IndiGo": [
+      {
+        "dep_time": "05:35",
+        "arrival_time": "08:50",
+        "duration_mins": 195,
+        "duration_label": "3h 15m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 25,
+        "avg_price": 5734.0
+      },
+      {
+        "dep_time": "16:00",
+        "arrival_time": "21:00",
+        "duration_mins": 300,
+        "duration_label": "5h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 20,
+        "avg_price": 6141.0
+      },
+      {
+        "dep_time": "07:30",
+        "arrival_time": "21:00",
+        "duration_mins": 810,
+        "duration_label": "13h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 19,
+        "avg_price": 7926.0
+      },
+      {
+        "dep_time": "02:00",
+        "arrival_time": "07:45",
+        "duration_mins": 345,
+        "duration_label": "5h 45m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 17,
+        "avg_price": 6570.0
+      },
+      {
+        "dep_time": "02:00",
+        "arrival_time": "07:25",
+        "duration_mins": 325,
+        "duration_label": "5h 25m",
+        "total_stops": 1,
+        "route": "DEL \u2192 MAA \u2192 COK",
+        "sample_count": 17,
+        "avg_price": 5959.0
+      },
+      {
+        "dep_time": "06:40",
+        "arrival_time": "21:00",
+        "duration_mins": 860,
+        "duration_label": "14h 20m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 16,
+        "avg_price": 7632.0
+      }
+    ],
+    "Cochin|Delhi|IndiGo": [
+      {
+        "dep_time": "05:35",
+        "arrival_time": "08:50",
+        "duration_mins": 195,
+        "duration_label": "3h 15m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 5734.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "16:00",
+        "arrival_time": "21:00",
+        "duration_mins": 300,
+        "duration_label": "5h 0m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 20,
+        "avg_price": 6141.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:30",
+        "arrival_time": "21:00",
+        "duration_mins": 810,
+        "duration_label": "13h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 19,
+        "avg_price": 7926.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "02:00",
+        "arrival_time": "07:45",
+        "duration_mins": 345,
+        "duration_label": "5h 45m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 17,
+        "avg_price": 6570.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "02:00",
+        "arrival_time": "07:25",
+        "duration_mins": 325,
+        "duration_label": "5h 25m",
+        "total_stops": 1,
+        "route": "COK \u2192 MAA \u2192 DEL",
+        "sample_count": 17,
+        "avg_price": 5959.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:40",
+        "arrival_time": "21:00",
+        "duration_mins": 860,
+        "duration_label": "14h 20m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 16,
+        "avg_price": 7632.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|Jet Airways": [
+      {
+        "dep_time": "11:00",
+        "arrival_time": "14:15",
+        "duration_mins": 195,
+        "duration_label": "3h 15m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 30,
+        "avg_price": 7705.0
+      },
+      {
+        "dep_time": "21:50",
+        "arrival_time": "04:25",
+        "duration_mins": 395,
+        "duration_label": "6h 35m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 24,
+        "avg_price": 13271.0
+      },
+      {
+        "dep_time": "09:40",
+        "arrival_time": "12:35",
+        "duration_mins": 1615,
+        "duration_label": "26h 55m",
+        "total_stops": 2,
+        "route": "DEL \u2192 JAI \u2192 BOM \u2192 COK",
+        "sample_count": 24,
+        "avg_price": 12663.0
+      },
+      {
+        "dep_time": "02:15",
+        "arrival_time": "12:35",
+        "duration_mins": 620,
+        "duration_label": "10h 20m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 23,
+        "avg_price": 13231.0
+      },
+      {
+        "dep_time": "05:30",
+        "arrival_time": "04:25",
+        "duration_mins": 1375,
+        "duration_label": "22h 55m",
+        "total_stops": 2,
+        "route": "DEL \u2192 JAI \u2192 BOM \u2192 COK",
+        "sample_count": 23,
+        "avg_price": 12861.0
+      },
+      {
+        "dep_time": "05:30",
+        "arrival_time": "19:00",
+        "duration_mins": 810,
+        "duration_label": "13h 30m",
+        "total_stops": 2,
+        "route": "DEL \u2192 JAI \u2192 BOM \u2192 COK",
+        "sample_count": 23,
+        "avg_price": 12488.0
+      }
+    ],
+    "Cochin|Delhi|Jet Airways": [
+      {
+        "dep_time": "11:00",
+        "arrival_time": "14:15",
+        "duration_mins": 195,
+        "duration_label": "3h 15m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 30,
+        "avg_price": 7705.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:50",
+        "arrival_time": "04:25",
+        "duration_mins": 395,
+        "duration_label": "6h 35m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 13271.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:40",
+        "arrival_time": "12:35",
+        "duration_mins": 1615,
+        "duration_label": "26h 55m",
+        "total_stops": 2,
+        "route": "COK \u2192 BOM \u2192 JAI \u2192 DEL",
+        "sample_count": 24,
+        "avg_price": 12663.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "02:15",
+        "arrival_time": "12:35",
+        "duration_mins": 620,
+        "duration_label": "10h 20m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 23,
+        "avg_price": 13231.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:30",
+        "arrival_time": "04:25",
+        "duration_mins": 1375,
+        "duration_label": "22h 55m",
+        "total_stops": 2,
+        "route": "COK \u2192 BOM \u2192 JAI \u2192 DEL",
+        "sample_count": 23,
+        "avg_price": 12861.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:30",
+        "arrival_time": "19:00",
+        "duration_mins": 810,
+        "duration_label": "13h 30m",
+        "total_stops": 2,
+        "route": "COK \u2192 BOM \u2192 JAI \u2192 DEL",
+        "sample_count": 23,
+        "avg_price": 12488.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|Jet Airways Business": [
+      {
+        "dep_time": "20:05",
+        "arrival_time": "04:25",
+        "duration_mins": 500,
+        "duration_label": "8h 20m",
+        "total_stops": 2,
+        "route": "DEL \u2192 ATQ \u2192 BOM \u2192 COK",
+        "sample_count": 2,
+        "avg_price": 49388.0
+      }
+    ],
+    "Cochin|Delhi|Jet Airways Business": [
+      {
+        "dep_time": "20:05",
+        "arrival_time": "04:25",
+        "duration_mins": 500,
+        "duration_label": "8h 20m",
+        "total_stops": 2,
+        "route": "COK \u2192 BOM \u2192 ATQ \u2192 DEL",
+        "sample_count": 2,
+        "avg_price": 49388.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|Multiple carriers": [
+      {
+        "dep_time": "13:00",
+        "arrival_time": "21:00",
+        "duration_mins": 480,
+        "duration_label": "8h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 32,
+        "avg_price": 11157.0
+      },
+      {
+        "dep_time": "09:00",
+        "arrival_time": "21:00",
+        "duration_mins": 720,
+        "duration_label": "12h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 30,
+        "avg_price": 10963.0
+      },
+      {
+        "dep_time": "19:00",
+        "arrival_time": "01:30",
+        "duration_mins": 390,
+        "duration_label": "6h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 25,
+        "avg_price": 7608.0
+      },
+      {
+        "dep_time": "08:00",
+        "arrival_time": "21:00",
+        "duration_mins": 780,
+        "duration_label": "13h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 23,
+        "avg_price": 11391.0
+      },
+      {
+        "dep_time": "10:00",
+        "arrival_time": "01:30",
+        "duration_mins": 930,
+        "duration_label": "15h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 21,
+        "avg_price": 10466.0
+      },
+      {
+        "dep_time": "13:00",
+        "arrival_time": "01:30",
+        "duration_mins": 750,
+        "duration_label": "12h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 20,
+        "avg_price": 10350.0
+      }
+    ],
+    "Cochin|Delhi|Multiple carriers": [
+      {
+        "dep_time": "13:00",
+        "arrival_time": "21:00",
+        "duration_mins": 480,
+        "duration_label": "8h 0m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 32,
+        "avg_price": 11157.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:00",
+        "arrival_time": "21:00",
+        "duration_mins": 720,
+        "duration_label": "12h 0m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 30,
+        "avg_price": 10963.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:00",
+        "arrival_time": "01:30",
+        "duration_mins": 390,
+        "duration_label": "6h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 25,
+        "avg_price": 7608.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:00",
+        "arrival_time": "21:00",
+        "duration_mins": 780,
+        "duration_label": "13h 0m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 23,
+        "avg_price": 11391.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "10:00",
+        "arrival_time": "01:30",
+        "duration_mins": 930,
+        "duration_label": "15h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 21,
+        "avg_price": 10466.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "13:00",
+        "arrival_time": "01:30",
+        "duration_mins": 750,
+        "duration_label": "12h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 20,
+        "avg_price": 10350.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|Multiple carriers Premium economy": [
+      {
+        "dep_time": "06:00",
+        "arrival_time": "12:35",
+        "duration_mins": 395,
+        "duration_label": "6h 35m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 1,
+        "avg_price": 13369.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "13:20",
+        "duration_mins": 440,
+        "duration_label": "7h 20m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 1,
+        "avg_price": 11269.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "15:30",
+        "duration_mins": 570,
+        "duration_label": "9h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 1,
+        "avg_price": 11269.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "18:50",
+        "duration_mins": 770,
+        "duration_label": "12h 50m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 1,
+        "avg_price": 14629.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "21:00",
+        "duration_mins": 900,
+        "duration_label": "15h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 1,
+        "avg_price": 9845.0
+      },
+      {
+        "dep_time": "07:30",
+        "arrival_time": "15:30",
+        "duration_mins": 480,
+        "duration_label": "8h 0m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BOM \u2192 COK",
+        "sample_count": 1,
+        "avg_price": 11269.0
+      }
+    ],
+    "Cochin|Delhi|Multiple carriers Premium economy": [
+      {
+        "dep_time": "06:00",
+        "arrival_time": "12:35",
+        "duration_mins": 395,
+        "duration_label": "6h 35m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 13369.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "13:20",
+        "duration_mins": 440,
+        "duration_label": "7h 20m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 11269.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "15:30",
+        "duration_mins": 570,
+        "duration_label": "9h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 11269.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "18:50",
+        "duration_mins": 770,
+        "duration_label": "12h 50m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 14629.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "21:00",
+        "duration_mins": 900,
+        "duration_label": "15h 0m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 9845.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:30",
+        "arrival_time": "15:30",
+        "duration_mins": 480,
+        "duration_label": "8h 0m",
+        "total_stops": 1,
+        "route": "COK \u2192 BOM \u2192 DEL",
+        "sample_count": 1,
+        "avg_price": 11269.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|SpiceJet": [
+      {
+        "dep_time": "08:45",
+        "arrival_time": "13:15",
+        "duration_mins": 270,
+        "duration_label": "4h 30m",
+        "total_stops": 1,
+        "route": "DEL \u2192 PNQ \u2192 COK",
+        "sample_count": 30,
+        "avg_price": 5322.0
+      },
+      {
+        "dep_time": "17:55",
+        "arrival_time": "22:50",
+        "duration_mins": 295,
+        "duration_label": "4h 55m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 18,
+        "avg_price": 5319.0
+      },
+      {
+        "dep_time": "06:05",
+        "arrival_time": "11:20",
+        "duration_mins": 315,
+        "duration_label": "5h 15m",
+        "total_stops": 1,
+        "route": "DEL \u2192 MAA \u2192 COK",
+        "sample_count": 15,
+        "avg_price": 5746.0
+      },
+      {
+        "dep_time": "15:45",
+        "arrival_time": "22:05",
+        "duration_mins": 380,
+        "duration_label": "6h 20m",
+        "total_stops": 1,
+        "route": "DEL \u2192 MAA \u2192 COK",
+        "sample_count": 11,
+        "avg_price": 6470.0
+      },
+      {
+        "dep_time": "06:10",
+        "arrival_time": "11:20",
+        "duration_mins": 310,
+        "duration_label": "5h 10m",
+        "total_stops": 1,
+        "route": "DEL \u2192 MAA \u2192 COK",
+        "sample_count": 5,
+        "avg_price": 7859.0
+      },
+      {
+        "dep_time": "16:35",
+        "arrival_time": "22:50",
+        "duration_mins": 375,
+        "duration_label": "6h 15m",
+        "total_stops": 1,
+        "route": "DEL \u2192 BLR \u2192 COK",
+        "sample_count": 4,
+        "avg_price": 7738.0
+      }
+    ],
+    "Cochin|Delhi|SpiceJet": [
+      {
+        "dep_time": "08:45",
+        "arrival_time": "13:15",
+        "duration_mins": 270,
+        "duration_label": "4h 30m",
+        "total_stops": 1,
+        "route": "COK \u2192 PNQ \u2192 DEL",
+        "sample_count": 30,
+        "avg_price": 5322.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:55",
+        "arrival_time": "22:50",
+        "duration_mins": 295,
+        "duration_label": "4h 55m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 18,
+        "avg_price": 5319.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:05",
+        "arrival_time": "11:20",
+        "duration_mins": 315,
+        "duration_label": "5h 15m",
+        "total_stops": 1,
+        "route": "COK \u2192 MAA \u2192 DEL",
+        "sample_count": 15,
+        "avg_price": 5746.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:45",
+        "arrival_time": "22:05",
+        "duration_mins": 380,
+        "duration_label": "6h 20m",
+        "total_stops": 1,
+        "route": "COK \u2192 MAA \u2192 DEL",
+        "sample_count": 11,
+        "avg_price": 6470.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:10",
+        "arrival_time": "11:20",
+        "duration_mins": 310,
+        "duration_label": "5h 10m",
+        "total_stops": 1,
+        "route": "COK \u2192 MAA \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 7859.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "16:35",
+        "arrival_time": "22:50",
+        "duration_mins": 375,
+        "duration_label": "6h 15m",
+        "total_stops": 1,
+        "route": "COK \u2192 BLR \u2192 DEL",
+        "sample_count": 4,
+        "avg_price": 7738.0,
+        "mirrored": true
+      }
+    ],
+    "Delhi|Cochin|Vistara": [
+      {
+        "dep_time": "06:00",
+        "arrival_time": "09:10",
+        "duration_mins": 190,
+        "duration_label": "3h 10m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 22,
+        "avg_price": 6648.0
+      },
+      {
+        "dep_time": "14:40",
+        "arrival_time": "17:50",
+        "duration_mins": 190,
+        "duration_label": "3h 10m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 18,
+        "avg_price": 6228.0
+      },
+      {
+        "dep_time": "14:55",
+        "arrival_time": "17:50",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "DEL \u2192 COK",
+        "sample_count": 5,
+        "avg_price": 6520.0
+      }
+    ],
+    "Cochin|Delhi|Vistara": [
+      {
+        "dep_time": "06:00",
+        "arrival_time": "09:10",
+        "duration_mins": 190,
+        "duration_label": "3h 10m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 22,
+        "avg_price": 6648.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "14:40",
+        "arrival_time": "17:50",
+        "duration_mins": 190,
+        "duration_label": "3h 10m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 18,
+        "avg_price": 6228.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "14:55",
+        "arrival_time": "17:50",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "route": "COK \u2192 DEL",
+        "sample_count": 5,
+        "avg_price": 6520.0,
+        "mirrored": true
+      }
+    ],
+    "Kolkata|Banglore|Air Asia": [
+      {
+        "dep_time": "22:50",
+        "arrival_time": "01:20",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 30,
+        "avg_price": 4184.0
+      },
+      {
+        "dep_time": "10:20",
+        "arrival_time": "12:55",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 28,
+        "avg_price": 4526.0
+      },
+      {
+        "dep_time": "19:55",
+        "arrival_time": "22:25",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 24,
+        "avg_price": 4431.0
+      },
+      {
+        "dep_time": "06:50",
+        "arrival_time": "10:30",
+        "duration_mins": 220,
+        "duration_label": "3h 40m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BBI \u2192 BLR",
+        "sample_count": 12,
+        "avg_price": 5727.0
+      },
+      {
+        "dep_time": "07:35",
+        "arrival_time": "19:25",
+        "duration_mins": 710,
+        "duration_label": "11h 50m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 11,
+        "avg_price": 5739.0
+      },
+      {
+        "dep_time": "07:35",
+        "arrival_time": "23:30",
+        "duration_mins": 955,
+        "duration_label": "15h 55m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 11,
+        "avg_price": 5594.0
+      }
+    ],
+    "Banglore|Kolkata|Air Asia": [
+      {
+        "dep_time": "22:50",
+        "arrival_time": "01:20",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 30,
+        "avg_price": 4184.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "10:20",
+        "arrival_time": "12:55",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 28,
+        "avg_price": 4526.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:55",
+        "arrival_time": "22:25",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 24,
+        "avg_price": 4431.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:50",
+        "arrival_time": "10:30",
+        "duration_mins": 220,
+        "duration_label": "3h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BBI \u2192 CCU",
+        "sample_count": 12,
+        "avg_price": 5727.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:35",
+        "arrival_time": "19:25",
+        "duration_mins": 710,
+        "duration_label": "11h 50m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 11,
+        "avg_price": 5739.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:35",
+        "arrival_time": "23:30",
+        "duration_mins": 955,
+        "duration_label": "15h 55m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 11,
+        "avg_price": 5594.0,
+        "mirrored": true
+      }
+    ],
+    "Kolkata|Banglore|Air India": [
+      {
+        "dep_time": "14:15",
+        "arrival_time": "16:45",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 31,
+        "avg_price": 5853.0
+      },
+      {
+        "dep_time": "20:45",
+        "arrival_time": "23:20",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 30,
+        "avg_price": 5246.0
+      },
+      {
+        "dep_time": "09:25",
+        "arrival_time": "13:45",
+        "duration_mins": 1700,
+        "duration_label": "28h 20m",
+        "total_stops": 2,
+        "route": "CCU \u2192 BOM \u2192 COK \u2192 BLR",
+        "sample_count": 14,
+        "avg_price": 13117.0
+      },
+      {
+        "dep_time": "10:00",
+        "arrival_time": "05:25",
+        "duration_mins": 1165,
+        "duration_label": "19h 25m",
+        "total_stops": 2,
+        "route": "CCU \u2192 DEL \u2192 AMD \u2192 BLR",
+        "sample_count": 14,
+        "avg_price": 14064.0
+      },
+      {
+        "dep_time": "09:25",
+        "arrival_time": "18:30",
+        "duration_mins": 545,
+        "duration_label": "9h 5m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 12,
+        "avg_price": 8788.0
+      },
+      {
+        "dep_time": "19:00",
+        "arrival_time": "11:05",
+        "duration_mins": 965,
+        "duration_label": "16h 5m",
+        "total_stops": 1,
+        "route": "CCU \u2192 HYD \u2192 BLR",
+        "sample_count": 12,
+        "avg_price": 5704.0
+      }
+    ],
+    "Banglore|Kolkata|Air India": [
+      {
+        "dep_time": "14:15",
+        "arrival_time": "16:45",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 31,
+        "avg_price": 5853.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "20:45",
+        "arrival_time": "23:20",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 30,
+        "avg_price": 5246.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:25",
+        "arrival_time": "13:45",
+        "duration_mins": 1700,
+        "duration_label": "28h 20m",
+        "total_stops": 2,
+        "route": "BLR \u2192 COK \u2192 BOM \u2192 CCU",
+        "sample_count": 14,
+        "avg_price": 13117.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "10:00",
+        "arrival_time": "05:25",
+        "duration_mins": 1165,
+        "duration_label": "19h 25m",
+        "total_stops": 2,
+        "route": "BLR \u2192 AMD \u2192 DEL \u2192 CCU",
+        "sample_count": 14,
+        "avg_price": 14064.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:25",
+        "arrival_time": "18:30",
+        "duration_mins": 545,
+        "duration_label": "9h 5m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 12,
+        "avg_price": 8788.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:00",
+        "arrival_time": "11:05",
+        "duration_mins": 965,
+        "duration_label": "16h 5m",
+        "total_stops": 1,
+        "route": "BLR \u2192 HYD \u2192 CCU",
+        "sample_count": 12,
+        "avg_price": 5704.0,
+        "mirrored": true
+      }
+    ],
+    "Kolkata|Banglore|GoAir": [
+      {
+        "dep_time": "16:40",
+        "arrival_time": "00:15",
+        "duration_mins": 455,
+        "duration_label": "7h 35m",
+        "total_stops": 1,
+        "route": "CCU \u2192 AMD \u2192 BLR",
+        "sample_count": 10,
+        "avg_price": 8201.0
+      },
+      {
+        "dep_time": "23:30",
+        "arrival_time": "07:45",
+        "duration_mins": 495,
+        "duration_label": "8h 15m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 8,
+        "avg_price": 6861.0
+      },
+      {
+        "dep_time": "15:20",
+        "arrival_time": "17:55",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 3,
+        "avg_price": 3514.0
+      },
+      {
+        "dep_time": "16:25",
+        "arrival_time": "00:05",
+        "duration_mins": 460,
+        "duration_label": "7h 40m",
+        "total_stops": 1,
+        "route": "CCU \u2192 AMD \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 10198.0
+      },
+      {
+        "dep_time": "22:25",
+        "arrival_time": "07:40",
+        "duration_mins": 555,
+        "duration_label": "9h 15m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 10091.0
+      },
+      {
+        "dep_time": "06:35",
+        "arrival_time": "14:25",
+        "duration_mins": 470,
+        "duration_label": "7h 50m",
+        "total_stops": 1,
+        "route": "CCU \u2192 HYD \u2192 BLR",
+        "sample_count": 1,
+        "avg_price": 4773.0
+      }
+    ],
+    "Banglore|Kolkata|GoAir": [
+      {
+        "dep_time": "16:40",
+        "arrival_time": "00:15",
+        "duration_mins": 455,
+        "duration_label": "7h 35m",
+        "total_stops": 1,
+        "route": "BLR \u2192 AMD \u2192 CCU",
+        "sample_count": 10,
+        "avg_price": 8201.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "23:30",
+        "arrival_time": "07:45",
+        "duration_mins": 495,
+        "duration_label": "8h 15m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 8,
+        "avg_price": 6861.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:20",
+        "arrival_time": "17:55",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 3,
+        "avg_price": 3514.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "16:25",
+        "arrival_time": "00:05",
+        "duration_mins": 460,
+        "duration_label": "7h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 AMD \u2192 CCU",
+        "sample_count": 1,
+        "avg_price": 10198.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "22:25",
+        "arrival_time": "07:40",
+        "duration_mins": 555,
+        "duration_label": "9h 15m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 1,
+        "avg_price": 10091.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:35",
+        "arrival_time": "14:25",
+        "duration_mins": 470,
+        "duration_label": "7h 50m",
+        "total_stops": 1,
+        "route": "BLR \u2192 HYD \u2192 CCU",
+        "sample_count": 1,
+        "avg_price": 4773.0,
+        "mirrored": true
+      }
+    ],
+    "Kolkata|Banglore|IndiGo": [
+      {
+        "dep_time": "21:25",
+        "arrival_time": "00:05",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 30,
+        "avg_price": 4588.0
+      },
+      {
+        "dep_time": "17:15",
+        "arrival_time": "19:50",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 29,
+        "avg_price": 4666.0
+      },
+      {
+        "dep_time": "09:35",
+        "arrival_time": "12:20",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 27,
+        "avg_price": 4785.0
+      },
+      {
+        "dep_time": "22:15",
+        "arrival_time": "00:50",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 26,
+        "avg_price": 4723.0
+      },
+      {
+        "dep_time": "04:40",
+        "arrival_time": "07:15",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 25,
+        "avg_price": 4670.0
+      },
+      {
+        "dep_time": "14:25",
+        "arrival_time": "16:55",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 24,
+        "avg_price": 5084.0
+      }
+    ],
+    "Banglore|Kolkata|IndiGo": [
+      {
+        "dep_time": "21:25",
+        "arrival_time": "00:05",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 30,
+        "avg_price": 4588.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:15",
+        "arrival_time": "19:50",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 29,
+        "avg_price": 4666.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:35",
+        "arrival_time": "12:20",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 27,
+        "avg_price": 4785.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "22:15",
+        "arrival_time": "00:50",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 26,
+        "avg_price": 4723.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "04:40",
+        "arrival_time": "07:15",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 25,
+        "avg_price": 4670.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "14:25",
+        "arrival_time": "16:55",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 24,
+        "avg_price": 5084.0,
+        "mirrored": true
+      }
+    ],
+    "Kolkata|Banglore|Jet Airways": [
+      {
+        "dep_time": "06:30",
+        "arrival_time": "16:20",
+        "duration_mins": 590,
+        "duration_label": "9h 50m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 22,
+        "avg_price": 12352.0
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "04:40",
+        "duration_mins": 450,
+        "duration_label": "7h 30m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 22,
+        "avg_price": 11416.0
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "10:05",
+        "duration_mins": 775,
+        "duration_label": "12h 55m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 22,
+        "avg_price": 12063.0
+      },
+      {
+        "dep_time": "08:25",
+        "arrival_time": "18:15",
+        "duration_mins": 590,
+        "duration_label": "9h 50m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 21,
+        "avg_price": 12309.0
+      },
+      {
+        "dep_time": "08:25",
+        "arrival_time": "20:45",
+        "duration_mins": 740,
+        "duration_label": "12h 20m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 21,
+        "avg_price": 12345.0
+      },
+      {
+        "dep_time": "14:05",
+        "arrival_time": "23:35",
+        "duration_mins": 570,
+        "duration_label": "9h 30m",
+        "total_stops": 1,
+        "route": "CCU \u2192 BOM \u2192 BLR",
+        "sample_count": 21,
+        "avg_price": 12814.0
+      }
+    ],
+    "Banglore|Kolkata|Jet Airways": [
+      {
+        "dep_time": "06:30",
+        "arrival_time": "16:20",
+        "duration_mins": 590,
+        "duration_label": "9h 50m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 22,
+        "avg_price": 12352.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "04:40",
+        "duration_mins": 450,
+        "duration_label": "7h 30m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 22,
+        "avg_price": 11416.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:10",
+        "arrival_time": "10:05",
+        "duration_mins": 775,
+        "duration_label": "12h 55m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 22,
+        "avg_price": 12063.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:25",
+        "arrival_time": "18:15",
+        "duration_mins": 590,
+        "duration_label": "9h 50m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 21,
+        "avg_price": 12309.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:25",
+        "arrival_time": "20:45",
+        "duration_mins": 740,
+        "duration_label": "12h 20m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 21,
+        "avg_price": 12345.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "14:05",
+        "arrival_time": "23:35",
+        "duration_mins": 570,
+        "duration_label": "9h 30m",
+        "total_stops": 1,
+        "route": "BLR \u2192 BOM \u2192 CCU",
+        "sample_count": 21,
+        "avg_price": 12814.0,
+        "mirrored": true
+      }
+    ],
+    "Kolkata|Banglore|SpiceJet": [
+      {
+        "dep_time": "22:20",
+        "arrival_time": "00:40",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 58,
+        "avg_price": 4032.0
+      },
+      {
+        "dep_time": "06:55",
+        "arrival_time": "09:30",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 49,
+        "avg_price": 3862.0
+      },
+      {
+        "dep_time": "09:00",
+        "arrival_time": "11:25",
+        "duration_mins": 145,
+        "duration_label": "2h 25m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 49,
+        "avg_price": 3964.0
+      },
+      {
+        "dep_time": "17:10",
+        "arrival_time": "19:40",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 49,
+        "avg_price": 3979.0
+      },
+      {
+        "dep_time": "15:05",
+        "arrival_time": "20:20",
+        "duration_mins": 315,
+        "duration_label": "5h 15m",
+        "total_stops": 1,
+        "route": "CCU \u2192 MAA \u2192 BLR",
+        "sample_count": 13,
+        "avg_price": 4713.0
+      },
+      {
+        "dep_time": "06:55",
+        "arrival_time": "09:35",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "CCU \u2192 BLR",
+        "sample_count": 12,
+        "avg_price": 4235.0
+      }
+    ],
+    "Banglore|Kolkata|SpiceJet": [
+      {
+        "dep_time": "22:20",
+        "arrival_time": "00:40",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 58,
+        "avg_price": 4032.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:55",
+        "arrival_time": "09:30",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 49,
+        "avg_price": 3862.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:00",
+        "arrival_time": "11:25",
+        "duration_mins": 145,
+        "duration_label": "2h 25m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 49,
+        "avg_price": 3964.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:10",
+        "arrival_time": "19:40",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 49,
+        "avg_price": 3979.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:05",
+        "arrival_time": "20:20",
+        "duration_mins": 315,
+        "duration_label": "5h 15m",
+        "total_stops": 1,
+        "route": "BLR \u2192 MAA \u2192 CCU",
+        "sample_count": 13,
+        "avg_price": 4713.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:55",
+        "arrival_time": "09:35",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "route": "BLR \u2192 CCU",
+        "sample_count": 12,
+        "avg_price": 4235.0,
+        "mirrored": true
+      }
+    ],
+    "Kolkata|Banglore|Vistara": [
+      {
+        "dep_time": "07:10",
+        "arrival_time": "18:50",
+        "duration_mins": 700,
+        "duration_label": "11h 40m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 11,
+        "avg_price": 9006.0
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "20:20",
+        "duration_mins": 790,
+        "duration_label": "13h 10m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 11,
+        "avg_price": 8901.0
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "10:45",
+        "duration_mins": 1065,
+        "duration_label": "17h 45m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 11,
+        "avg_price": 9072.0
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "20:20",
+        "duration_mins": 1640,
+        "duration_label": "27h 20m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 11,
+        "avg_price": 8982.0
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "09:05",
+        "duration_mins": 1555,
+        "duration_label": "25h 55m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 10,
+        "avg_price": 8688.0
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "23:25",
+        "duration_mins": 975,
+        "duration_label": "16h 15m",
+        "total_stops": 1,
+        "route": "CCU \u2192 DEL \u2192 BLR",
+        "sample_count": 10,
+        "avg_price": 8804.0
+      }
+    ],
+    "Banglore|Kolkata|Vistara": [
+      {
+        "dep_time": "07:10",
+        "arrival_time": "18:50",
+        "duration_mins": 700,
+        "duration_label": "11h 40m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 11,
+        "avg_price": 9006.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "20:20",
+        "duration_mins": 790,
+        "duration_label": "13h 10m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 11,
+        "avg_price": 8901.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "10:45",
+        "duration_mins": 1065,
+        "duration_label": "17h 45m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 11,
+        "avg_price": 9072.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "20:20",
+        "duration_mins": 1640,
+        "duration_label": "27h 20m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 11,
+        "avg_price": 8982.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "09:05",
+        "duration_mins": 1555,
+        "duration_label": "25h 55m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 10,
+        "avg_price": 8688.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "23:25",
+        "duration_mins": 975,
+        "duration_label": "16h 15m",
+        "total_stops": 1,
+        "route": "BLR \u2192 DEL \u2192 CCU",
+        "sample_count": 10,
+        "avg_price": 8804.0,
+        "mirrored": true
+      }
+    ],
+    "Mumbai|Hyderabad|Air India": [
+      {
+        "dep_time": "19:30",
+        "arrival_time": "20:45",
+        "duration_mins": 75,
+        "duration_label": "1h 15m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 24,
+        "avg_price": 3944.0
+      },
+      {
+        "dep_time": "21:05",
+        "arrival_time": "22:25",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 23,
+        "avg_price": 3130.0
+      },
+      {
+        "dep_time": "13:55",
+        "arrival_time": "15:25",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 21,
+        "avg_price": 3600.0
+      },
+      {
+        "dep_time": "06:20",
+        "arrival_time": "07:40",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 20,
+        "avg_price": 3192.0
+      },
+      {
+        "dep_time": "15:00",
+        "arrival_time": "16:25",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 10,
+        "avg_price": 3189.0
+      },
+      {
+        "dep_time": "09:15",
+        "arrival_time": "09:15",
+        "duration_mins": 1440,
+        "duration_label": "24h 0m",
+        "total_stops": 1,
+        "route": "BOM \u2192 BLR \u2192 HYD",
+        "sample_count": 2,
+        "avg_price": 8800.0
+      }
+    ],
+    "Hyderabad|Mumbai|Air India": [
+      {
+        "dep_time": "19:30",
+        "arrival_time": "20:45",
+        "duration_mins": 75,
+        "duration_label": "1h 15m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 24,
+        "avg_price": 3944.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:05",
+        "arrival_time": "22:25",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 23,
+        "avg_price": 3130.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "13:55",
+        "arrival_time": "15:25",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 21,
+        "avg_price": 3600.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:20",
+        "arrival_time": "07:40",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 20,
+        "avg_price": 3192.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "15:00",
+        "arrival_time": "16:25",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 10,
+        "avg_price": 3189.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:15",
+        "arrival_time": "09:15",
+        "duration_mins": 1440,
+        "duration_label": "24h 0m",
+        "total_stops": 1,
+        "route": "HYD \u2192 BLR \u2192 BOM",
+        "sample_count": 2,
+        "avg_price": 8800.0,
+        "mirrored": true
+      }
+    ],
+    "Mumbai|Hyderabad|IndiGo": [
+      {
+        "dep_time": "16:55",
+        "arrival_time": "18:25",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 23,
+        "avg_price": 3820.0
+      },
+      {
+        "dep_time": "06:25",
+        "arrival_time": "07:55",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 21,
+        "avg_price": 4082.0
+      },
+      {
+        "dep_time": "09:10",
+        "arrival_time": "10:40",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 20,
+        "avg_price": 4922.0
+      },
+      {
+        "dep_time": "12:00",
+        "arrival_time": "13:30",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 17,
+        "avg_price": 2947.0
+      },
+      {
+        "dep_time": "19:05",
+        "arrival_time": "20:35",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 17,
+        "avg_price": 2927.0
+      },
+      {
+        "dep_time": "21:20",
+        "arrival_time": "22:50",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 17,
+        "avg_price": 2252.0
+      }
+    ],
+    "Hyderabad|Mumbai|IndiGo": [
+      {
+        "dep_time": "16:55",
+        "arrival_time": "18:25",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 23,
+        "avg_price": 3820.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "06:25",
+        "arrival_time": "07:55",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 21,
+        "avg_price": 4082.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "09:10",
+        "arrival_time": "10:40",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 20,
+        "avg_price": 4922.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "12:00",
+        "arrival_time": "13:30",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 17,
+        "avg_price": 2947.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:05",
+        "arrival_time": "20:35",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 17,
+        "avg_price": 2927.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "21:20",
+        "arrival_time": "22:50",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 17,
+        "avg_price": 2252.0,
+        "mirrored": true
+      }
+    ],
+    "Mumbai|Hyderabad|Jet Airways": [
+      {
+        "dep_time": "10:20",
+        "arrival_time": "11:50",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 47,
+        "avg_price": 6219.0
+      },
+      {
+        "dep_time": "19:35",
+        "arrival_time": "21:05",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 45,
+        "avg_price": 4272.0
+      },
+      {
+        "dep_time": "02:55",
+        "arrival_time": "04:20",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 37,
+        "avg_price": 4751.0
+      },
+      {
+        "dep_time": "07:05",
+        "arrival_time": "08:30",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 35,
+        "avg_price": 5939.0
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "08:35",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 11,
+        "avg_price": 7031.0
+      },
+      {
+        "dep_time": "02:55",
+        "arrival_time": "04:25",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 9,
+        "avg_price": 3886.0
+      }
+    ],
+    "Hyderabad|Mumbai|Jet Airways": [
+      {
+        "dep_time": "10:20",
+        "arrival_time": "11:50",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 47,
+        "avg_price": 6219.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "19:35",
+        "arrival_time": "21:05",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 45,
+        "avg_price": 4272.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "02:55",
+        "arrival_time": "04:20",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 37,
+        "avg_price": 4751.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:05",
+        "arrival_time": "08:30",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 35,
+        "avg_price": 5939.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "08:35",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 11,
+        "avg_price": 7031.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "02:55",
+        "arrival_time": "04:25",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 9,
+        "avg_price": 3886.0,
+        "mirrored": true
+      }
+    ],
+    "Mumbai|Hyderabad|SpiceJet": [
+      {
+        "dep_time": "13:15",
+        "arrival_time": "14:45",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 33,
+        "avg_price": 2079.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "07:15",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 31,
+        "avg_price": 2273.0
+      },
+      {
+        "dep_time": "22:45",
+        "arrival_time": "00:15",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 30,
+        "avg_price": 1995.0
+      },
+      {
+        "dep_time": "22:45",
+        "arrival_time": "00:10",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 10,
+        "avg_price": 3191.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "07:05",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 9,
+        "avg_price": 3923.0
+      },
+      {
+        "dep_time": "13:10",
+        "arrival_time": "14:30",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "BOM \u2192 HYD",
+        "sample_count": 7,
+        "avg_price": 2986.0
+      }
+    ],
+    "Hyderabad|Mumbai|SpiceJet": [
+      {
+        "dep_time": "13:15",
+        "arrival_time": "14:45",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 33,
+        "avg_price": 2079.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "07:15",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 31,
+        "avg_price": 2273.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "22:45",
+        "arrival_time": "00:15",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 30,
+        "avg_price": 1995.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "22:45",
+        "arrival_time": "00:10",
+        "duration_mins": 85,
+        "duration_label": "1h 25m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 10,
+        "avg_price": 3191.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "07:05",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 9,
+        "avg_price": 3923.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "13:10",
+        "arrival_time": "14:30",
+        "duration_mins": 80,
+        "duration_label": "1h 20m",
+        "total_stops": 0,
+        "route": "HYD \u2192 BOM",
+        "sample_count": 7,
+        "avg_price": 2986.0,
+        "mirrored": true
+      }
+    ],
+    "Mumbai|Hyderabad|Trujet": [
+      {
+        "dep_time": "13:05",
+        "arrival_time": "16:20",
+        "duration_mins": 195,
+        "duration_label": "3h 15m",
+        "total_stops": 1,
+        "route": "BOM \u2192 NDC \u2192 HYD",
+        "sample_count": 1,
+        "avg_price": 4140.0
+      }
+    ],
+    "Hyderabad|Mumbai|Trujet": [
+      {
+        "dep_time": "13:05",
+        "arrival_time": "16:20",
+        "duration_mins": 195,
+        "duration_label": "3h 15m",
+        "total_stops": 1,
+        "route": "HYD \u2192 NDC \u2192 BOM",
+        "sample_count": 1,
+        "avg_price": 4140.0,
+        "mirrored": true
+      }
+    ],
+    "Mumbai|Hyderabad|Vistara": [
+      {
+        "dep_time": "07:30",
+        "arrival_time": "09:25",
+        "duration_mins": 1555,
+        "duration_label": "25h 55m",
+        "total_stops": 1,
+        "route": "BOM \u2192 DEL \u2192 HYD",
+        "sample_count": 2,
+        "avg_price": 12238.0
+      },
+      {
+        "dep_time": "07:30",
+        "arrival_time": "19:55",
+        "duration_mins": 745,
+        "duration_label": "12h 25m",
+        "total_stops": 1,
+        "route": "BOM \u2192 DEL \u2192 HYD",
+        "sample_count": 2,
+        "avg_price": 12238.0
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "16:45",
+        "duration_mins": 480,
+        "duration_label": "8h 0m",
+        "total_stops": 1,
+        "route": "BOM \u2192 DEL \u2192 HYD",
+        "sample_count": 2,
+        "avg_price": 12238.0
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "22:55",
+        "duration_mins": 850,
+        "duration_label": "14h 10m",
+        "total_stops": 1,
+        "route": "BOM \u2192 DEL \u2192 HYD",
+        "sample_count": 2,
+        "avg_price": 12238.0
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "09:25",
+        "duration_mins": 1480,
+        "duration_label": "24h 40m",
+        "total_stops": 1,
+        "route": "BOM \u2192 DEL \u2192 HYD",
+        "sample_count": 1,
+        "avg_price": 12395.0
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "19:55",
+        "duration_mins": 670,
+        "duration_label": "11h 10m",
+        "total_stops": 1,
+        "route": "BOM \u2192 DEL \u2192 HYD",
+        "sample_count": 1,
+        "avg_price": 12395.0
+      }
+    ],
+    "Hyderabad|Mumbai|Vistara": [
+      {
+        "dep_time": "07:30",
+        "arrival_time": "09:25",
+        "duration_mins": 1555,
+        "duration_label": "25h 55m",
+        "total_stops": 1,
+        "route": "HYD \u2192 DEL \u2192 BOM",
+        "sample_count": 2,
+        "avg_price": 12238.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "07:30",
+        "arrival_time": "19:55",
+        "duration_mins": 745,
+        "duration_label": "12h 25m",
+        "total_stops": 1,
+        "route": "HYD \u2192 DEL \u2192 BOM",
+        "sample_count": 2,
+        "avg_price": 12238.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "16:45",
+        "duration_mins": 480,
+        "duration_label": "8h 0m",
+        "total_stops": 1,
+        "route": "HYD \u2192 DEL \u2192 BOM",
+        "sample_count": 2,
+        "avg_price": 12238.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "22:55",
+        "duration_mins": 850,
+        "duration_label": "14h 10m",
+        "total_stops": 1,
+        "route": "HYD \u2192 DEL \u2192 BOM",
+        "sample_count": 2,
+        "avg_price": 12238.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "09:25",
+        "duration_mins": 1480,
+        "duration_label": "24h 40m",
+        "total_stops": 1,
+        "route": "HYD \u2192 DEL \u2192 BOM",
+        "sample_count": 1,
+        "avg_price": 12395.0,
+        "mirrored": true
+      },
+      {
+        "dep_time": "08:45",
+        "arrival_time": "19:55",
+        "duration_mins": 670,
+        "duration_label": "11h 10m",
+        "total_stops": 1,
+        "route": "HYD \u2192 DEL \u2192 BOM",
+        "sample_count": 1,
+        "avg_price": 12395.0,
+        "mirrored": true
+      }
+    ]
+  },
+  "default_schedules_by_airline": {
+    "Air Asia": [
+      {
+        "dep_time": "22:50",
+        "arrival_time": "01:20",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "sample_count": 30,
+        "avg_price": 4184.0
+      },
+      {
+        "dep_time": "10:20",
+        "arrival_time": "12:55",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "sample_count": 28,
+        "avg_price": 4526.0
+      },
+      {
+        "dep_time": "23:55",
+        "arrival_time": "02:45",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 25,
+        "avg_price": 4569.0
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "13:55",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "sample_count": 24,
+        "avg_price": 3796.0
+      }
+    ],
+    "Air India": [
+      {
+        "dep_time": "10:00",
+        "arrival_time": "12:45",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "sample_count": 33,
+        "avg_price": 6533.0
+      },
+      {
+        "dep_time": "13:20",
+        "arrival_time": "16:10",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 32,
+        "avg_price": 6684.0
+      },
+      {
+        "dep_time": "14:15",
+        "arrival_time": "16:45",
+        "duration_mins": 150,
+        "duration_label": "2h 30m",
+        "total_stops": 0,
+        "sample_count": 31,
+        "avg_price": 5853.0
+      },
+      {
+        "dep_time": "20:45",
+        "arrival_time": "23:20",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "sample_count": 30,
+        "avg_price": 5246.0
+      }
+    ],
+    "GoAir": [
+      {
+        "dep_time": "07:45",
+        "arrival_time": "10:40",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "sample_count": 33,
+        "avg_price": 4788.0
+      },
+      {
+        "dep_time": "20:55",
+        "arrival_time": "23:40",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "sample_count": 25,
+        "avg_price": 3930.0
+      },
+      {
+        "dep_time": "11:40",
+        "arrival_time": "14:30",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 18,
+        "avg_price": 3924.0
+      },
+      {
+        "dep_time": "07:25",
+        "arrival_time": "13:35",
+        "duration_mins": 370,
+        "duration_label": "6h 10m",
+        "total_stops": 1,
+        "sample_count": 17,
+        "avg_price": 5479.0
+      }
+    ],
+    "IndiGo": [
+      {
+        "dep_time": "23:30",
+        "arrival_time": "02:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 35,
+        "avg_price": 4907.0
+      },
+      {
+        "dep_time": "01:30",
+        "arrival_time": "04:15",
+        "duration_mins": 165,
+        "duration_label": "2h 45m",
+        "total_stops": 0,
+        "sample_count": 33,
+        "avg_price": 4330.0
+      },
+      {
+        "dep_time": "04:00",
+        "arrival_time": "06:50",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 32,
+        "avg_price": 4432.0
+      },
+      {
+        "dep_time": "07:10",
+        "arrival_time": "10:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "sample_count": 32,
+        "avg_price": 5443.0
+      }
+    ],
+    "Jet Airways": [
+      {
+        "dep_time": "18:55",
+        "arrival_time": "22:00",
+        "duration_mins": 185,
+        "duration_label": "3h 5m",
+        "total_stops": 0,
+        "sample_count": 50,
+        "avg_price": 6499.0
+      },
+      {
+        "dep_time": "08:20",
+        "arrival_time": "11:20",
+        "duration_mins": 180,
+        "duration_label": "3h 0m",
+        "total_stops": 0,
+        "sample_count": 47,
+        "avg_price": 6393.0
+      },
+      {
+        "dep_time": "10:20",
+        "arrival_time": "11:50",
+        "duration_mins": 90,
+        "duration_label": "1h 30m",
+        "total_stops": 0,
+        "sample_count": 47,
+        "avg_price": 6219.0
+      },
+      {
+        "dep_time": "11:10",
+        "arrival_time": "14:05",
+        "duration_mins": 175,
+        "duration_label": "2h 55m",
+        "total_stops": 0,
+        "sample_count": 47,
+        "avg_price": 6325.0
+      }
+    ],
+    "Jet Airways Business": [
+      {
+        "dep_time": "20:05",
+        "arrival_time": "04:25",
+        "duration_mins": 500,
+        "duration_label": "8h 20m",
+        "total_stops": 2,
+        "sample_count": 2,
+        "avg_price": 49388.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "10:45",
+        "duration_mins": 300,
+        "duration_label": "5h 0m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 52229.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "11:25",
+        "duration_mins": 340,
+        "duration_label": "5h 40m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 79512.0
+      },
+      {
+        "dep_time": "05:45",
+        "arrival_time": "12:25",
+        "duration_mins": 400,
+        "duration_label": "6h 40m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 62427.0
+      }
+    ],
+    "Multiple carriers": [
+      {
+        "dep_time": "13:00",
+        "arrival_time": "21:00",
+        "duration_mins": 480,
+        "duration_label": "8h 0m",
+        "total_stops": 1,
+        "sample_count": 32,
+        "avg_price": 11157.0
+      },
+      {
+        "dep_time": "09:00",
+        "arrival_time": "21:00",
+        "duration_mins": 720,
+        "duration_label": "12h 0m",
+        "total_stops": 1,
+        "sample_count": 30,
+        "avg_price": 10963.0
+      },
+      {
+        "dep_time": "19:00",
+        "arrival_time": "01:30",
+        "duration_mins": 390,
+        "duration_label": "6h 30m",
+        "total_stops": 1,
+        "sample_count": 25,
+        "avg_price": 7608.0
+      },
+      {
+        "dep_time": "08:00",
+        "arrival_time": "21:00",
+        "duration_mins": 780,
+        "duration_label": "13h 0m",
+        "total_stops": 1,
+        "sample_count": 23,
+        "avg_price": 11391.0
+      }
+    ],
+    "Multiple carriers Premium economy": [
+      {
+        "dep_time": "06:00",
+        "arrival_time": "12:35",
+        "duration_mins": 395,
+        "duration_label": "6h 35m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 13369.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "13:20",
+        "duration_mins": 440,
+        "duration_label": "7h 20m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 11269.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "15:30",
+        "duration_mins": 570,
+        "duration_label": "9h 30m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 11269.0
+      },
+      {
+        "dep_time": "06:00",
+        "arrival_time": "18:50",
+        "duration_mins": 770,
+        "duration_label": "12h 50m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 14629.0
+      }
+    ],
+    "SpiceJet": [
+      {
+        "dep_time": "22:20",
+        "arrival_time": "00:40",
+        "duration_mins": 140,
+        "duration_label": "2h 20m",
+        "total_stops": 0,
+        "sample_count": 58,
+        "avg_price": 4032.0
+      },
+      {
+        "dep_time": "06:55",
+        "arrival_time": "09:30",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "sample_count": 49,
+        "avg_price": 3862.0
+      },
+      {
+        "dep_time": "09:00",
+        "arrival_time": "11:25",
+        "duration_mins": 145,
+        "duration_label": "2h 25m",
+        "total_stops": 0,
+        "sample_count": 49,
+        "avg_price": 3964.0
+      },
+      {
+        "dep_time": "09:30",
+        "arrival_time": "12:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 49,
+        "avg_price": 4232.0
+      }
+    ],
+    "Trujet": [
+      {
+        "dep_time": "13:05",
+        "arrival_time": "16:20",
+        "duration_mins": 195,
+        "duration_label": "3h 15m",
+        "total_stops": 1,
+        "sample_count": 1,
+        "avg_price": 4140.0
+      }
+    ],
+    "Vistara": [
+      {
+        "dep_time": "07:00",
+        "arrival_time": "09:40",
+        "duration_mins": 160,
+        "duration_label": "2h 40m",
+        "total_stops": 0,
+        "sample_count": 32,
+        "avg_price": 5780.0
+      },
+      {
+        "dep_time": "07:05",
+        "arrival_time": "09:20",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "sample_count": 24,
+        "avg_price": 4282.0
+      },
+      {
+        "dep_time": "09:45",
+        "arrival_time": "12:35",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 24,
+        "avg_price": 5009.0
+      },
+      {
+        "dep_time": "17:00",
+        "arrival_time": "19:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "sample_count": 24,
+        "avg_price": 5123.0
+      }
+    ],
+    "Vistara Premium economy": [
+      {
+        "dep_time": "07:05",
+        "arrival_time": "09:20",
+        "duration_mins": 135,
+        "duration_label": "2h 15m",
+        "total_stops": 0,
+        "sample_count": 1,
+        "avg_price": 9125.0
+      },
+      {
+        "dep_time": "11:30",
+        "arrival_time": "14:20",
+        "duration_mins": 170,
+        "duration_label": "2h 50m",
+        "total_stops": 0,
+        "sample_count": 1,
+        "avg_price": 5969.0
+      },
+      {
+        "dep_time": "16:00",
+        "arrival_time": "18:35",
+        "duration_mins": 155,
+        "duration_label": "2h 35m",
+        "total_stops": 0,
+        "sample_count": 1,
+        "avg_price": 11793.0
       }
     ]
   }

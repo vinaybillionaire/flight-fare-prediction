@@ -483,12 +483,11 @@ async def compare_flexible_dates(payload: FlightPredictionRequest):
 
 @app.post("/api/compare-airlines")
 async def compare_airlines(payload: FlightPredictionRequest):
-    """Compare predicted fares across major Indian domestic airlines for the exact itinerary."""
+    """Compare predicted fares and fixed airline schedules across major domestic carriers."""
     _validate_trip_pair(payload.source, payload.destination)
-    duration_mins = calculate_duration_minutes(payload.dep_time, payload.arrival_time)
-    resolved_route = resolve_route_string(
-        payload.source, payload.destination, payload.total_stops, payload.route, route_catalog
-    )
+    norm_src = "Delhi" if payload.source == "New Delhi" else payload.source
+    schedules_map = route_catalog.get("schedules_by_pair", {})
+    default_sched_map = route_catalog.get("default_schedules_by_airline", {})
 
     airlines_to_compare = [
         "Air Asia",
@@ -504,37 +503,85 @@ async def compare_airlines(payload: FlightPredictionRequest):
         airlines_to_compare.append(payload.airline)
 
     rows = []
+    meta_list = []
     for carrier in airlines_to_compare:
-        df_row, _, _ = build_inference_dataframe(
+        if carrier == payload.airline:
+            c_dep = payload.dep_time
+            c_arr = payload.arrival_time
+            c_stops = int(payload.total_stops)
+            c_route = payload.route
+            c_dur = calculate_duration_minutes(c_dep, c_arr)
+        else:
+            pair_scheds = (
+                schedules_map.get(f"{payload.source}|{payload.destination}|{carrier}")
+                or schedules_map.get(f"{norm_src}|{payload.destination}|{carrier}")
+                or []
+            )
+            # Prefer a schedule matching the selected stop count if available, else top primary slot
+            chosen = next((s for s in pair_scheds if s["total_stops"] == payload.total_stops), None)
+            if not chosen and pair_scheds:
+                chosen = pair_scheds[0]
+            if not chosen:
+                fallback = default_sched_map.get(carrier, [])
+                chosen = fallback[0] if fallback else None
+
+            if chosen:
+                c_dep = chosen["dep_time"]
+                c_arr = chosen["arrival_time"]
+                c_stops = int(chosen["total_stops"])
+                c_route = chosen.get("route") or "auto"
+                c_dur = int(chosen["duration_mins"])
+            else:
+                c_dep = payload.dep_time
+                c_arr = payload.arrival_time
+                c_stops = int(payload.total_stops)
+                c_route = payload.route
+                c_dur = calculate_duration_minutes(c_dep, c_arr)
+
+        df_row, resolved_route, dur_mins = build_inference_dataframe(
             airline=carrier,
             source=payload.source,
             destination=payload.destination,
             journey_date=payload.journey_date,
-            dep_time=payload.dep_time,
-            arrival_time=payload.arrival_time,
-            total_stops=payload.total_stops,
-            route=resolved_route,
+            dep_time=c_dep,
+            arrival_time=c_arr,
+            total_stops=c_stops,
+            route=c_route,
             additional_info=payload.additional_info,
-            duration_override_mins=duration_mins,
+            duration_override_mins=c_dur,
             route_catalog=route_catalog,
         )
         rows.append(df_row)
+        hrs, mins = dur_mins // 60, dur_mins % 60
+        meta_list.append(
+            {
+                "airline": carrier,
+                "dep_time": c_dep,
+                "arrival_time": c_arr,
+                "duration_mins": dur_mins,
+                "duration": f"{hrs}h {mins}m" if hrs > 0 else f"{mins}m",
+                "total_stops": c_stops,
+                "stops_label": "Non-stop" if c_stops == 0 else f"{c_stops} stop(s)",
+                "resolved_route": resolved_route,
+            }
+        )
 
     batch_df = pd.concat(rows, ignore_index=True)
     preds = model_pipeline.predict(batch_df)
     comparisons = []
-    for carrier, raw_pred in zip(airlines_to_compare, preds):
+    for meta, raw_pred in zip(meta_list, preds):
         fare = round(max(1750.0, float(raw_pred)) * payload.inflation_factor, 2)
         comparisons.append(
             {
-                "airline": carrier,
+                **meta,
                 "predicted_fare": fare,
                 "fare_category": _categorize_fare(fare),
-                "is_selected": carrier == payload.airline,
+                "is_selected": meta["airline"] == payload.airline,
             }
         )
     comparisons.sort(key=lambda x: x["predicted_fare"])
-    return {"comparisons": comparisons, "resolved_route": resolved_route}
+    selected_meta = next((c for c in comparisons if c["is_selected"]), comparisons[0])
+    return {"comparisons": comparisons, "resolved_route": selected_meta["resolved_route"]}
 
 
 # ---------------------- History & Prediction CRUD ----------------------

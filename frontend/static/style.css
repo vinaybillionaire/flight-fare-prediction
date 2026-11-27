@@ -822,6 +822,100 @@ input:focus, select:focus, textarea:focus {
   border-top: 1px solid var(--border-subtle);
 }
 
+/* Fixed Airline Schedule Picker & Detailed Comparison Rows */
+.schedule-picker-box {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.schedule-picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.schedule-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.schedule-chip {
+  text-align: left;
+  background: #FFFFFF;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 140ms ease;
+}
+
+.schedule-chip:hover {
+  border-color: var(--brand-primary);
+}
+
+.schedule-chip.active {
+  border-color: var(--brand-primary);
+  background: var(--brand-tint);
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.14);
+}
+
+.schedule-chip .s-time {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+}
+
+.schedule-chip .s-meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.airline-compare-item {
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  padding: 9px 11px;
+  cursor: pointer;
+  background: #FFFFFF;
+  transition: all 130ms ease;
+}
+
+.airline-compare-item:hover {
+  border-color: var(--brand-primary);
+  background: #F8FAFF;
+}
+
+.airline-compare-item.selected {
+  border-color: var(--emerald);
+  background: var(--emerald-bg);
+}
+
+.airline-compare-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+@media (max-width: 640px) {
+  .schedule-presets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .toast {
   position: fixed;
   bottom: 24px;

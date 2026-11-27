@@ -35,6 +35,7 @@ from models.features import (
     FEATURE_COLUMNS,
     NUMERICAL_COLUMNS,
     preprocess_raw_dataframe,
+    reverse_route_string,
 )
 
 MODELS_DIR = os.path.join(BASE_DIR, "models")
@@ -95,7 +96,7 @@ def build_grouped_feature_importance(pipeline: Pipeline) -> List[Dict[str, float
 
 
 def export_route_catalog(df: pd.DataFrame) -> Dict:
-    """Export valid airlines, cities, additional_info tags, and route lookup catalog."""
+    """Export valid airlines, cities, additional_info tags, routes, and fixed airline schedules."""
     routes_by_trip: Dict[str, List[Dict]] = {}
     grouped = (
         df.groupby(["Source", "Destination", "Total_Stops", "Route"])["Price"]
@@ -105,13 +106,112 @@ def export_route_catalog(df: pd.DataFrame) -> Dict:
     )
     for _, row in grouped.iterrows():
         key = f"{row['Source']}|{row['Destination']}|{int(row['Total_Stops'])}"
-        routes_by_trip.setdefault(key, []).append(
-            {
-                "route": row["Route"],
-                "sample_count": int(row["count"]),
-                "avg_historical_price": round(float(row["mean"]), 0),
-            }
-        )
+        entry = {
+            "route": row["Route"],
+            "sample_count": int(row["count"]),
+            "avg_historical_price": round(float(row["mean"]), 0),
+        }
+        routes_by_trip.setdefault(key, []).append(entry)
+
+        # Mirror reverse corridor routes (e.g., Cochin|Delhi|1 from Delhi|Cochin|1)
+        rev_key = f"{row['Destination']}|{row['Source']}|{int(row['Total_Stops'])}"
+        if rev_key not in routes_by_trip:
+            routes_by_trip.setdefault(rev_key, [])
+        rev_route = reverse_route_string(row["Route"])
+        if not any(x["route"] == rev_route for x in routes_by_trip[rev_key]):
+            routes_by_trip[rev_key].append(
+                {
+                    "route": rev_route,
+                    "sample_count": int(row["count"]),
+                    "avg_historical_price": round(float(row["mean"]), 0),
+                    "mirrored": True,
+                }
+            )
+
+    # Fixed flight schedules per (Source, Destination, Airline)
+    sched_df = df.copy()
+    sched_df["Dep_Str"] = (
+        sched_df["Dep_Hour"].astype(int).astype(str).str.zfill(2)
+        + ":"
+        + sched_df["Dep_Minute"].astype(int).astype(str).str.zfill(2)
+    )
+    sched_df["Arr_Str"] = (
+        sched_df["Arrival_Hour"].astype(int).astype(str).str.zfill(2)
+        + ":"
+        + sched_df["Arrival_Minute"].astype(int).astype(str).str.zfill(2)
+    )
+    sched_grouped = (
+        sched_df.groupby(
+            ["Source", "Destination", "Airline", "Total_Stops", "Route", "Dep_Str", "Arr_Str", "Duration"]
+        )["Price"]
+        .agg(["count", "mean"])
+        .reset_index()
+        .sort_values(["Source", "Destination", "Airline", "count"], ascending=[True, True, True, False])
+    )
+
+    schedules_by_pair: Dict[str, List[Dict]] = {}
+    for _, row in sched_grouped.iterrows():
+        dur_m = int(row["Duration"])
+        dur_lbl = f"{dur_m // 60}h {dur_m % 60}m" if dur_m >= 60 else f"{dur_m}m"
+        item = {
+            "dep_time": row["Dep_Str"],
+            "arrival_time": row["Arr_Str"],
+            "duration_mins": dur_m,
+            "duration_label": dur_lbl,
+            "total_stops": int(row["Total_Stops"]),
+            "route": row["Route"],
+            "sample_count": int(row["count"]),
+            "avg_price": round(float(row["mean"]), 0),
+        }
+        s_key = f"{row['Source']}|{row['Destination']}|{row['Airline']}"
+        bucket = schedules_by_pair.setdefault(s_key, [])
+        if len(bucket) < 6 and not any(
+            b["dep_time"] == item["dep_time"] and b["arrival_time"] == item["arrival_time"] and b["total_stops"] == item["total_stops"]
+            for b in bucket
+        ):
+            bucket.append(item)
+
+        # Mirror reverse schedules for reverse corridors (e.g., Cochin|Delhi|IndiGo)
+        rev_s_key = f"{row['Destination']}|{row['Source']}|{row['Airline']}"
+        rev_bucket = schedules_by_pair.setdefault(rev_s_key, [])
+        rev_item = {
+            **item,
+            "route": reverse_route_string(row["Route"]),
+            "mirrored": True,
+        }
+        if len(rev_bucket) < 6 and not any(
+            b["dep_time"] == rev_item["dep_time"] and b["arrival_time"] == rev_item["arrival_time"] and b["total_stops"] == rev_item["total_stops"]
+            for b in rev_bucket
+        ):
+            rev_bucket.append(rev_item)
+
+    # Also build airline-level default schedules for any cross-corridor combination
+    default_schedules_by_airline: Dict[str, List[Dict]] = {}
+    airline_sched = (
+        sched_df.groupby(["Airline", "Total_Stops", "Dep_Str", "Arr_Str", "Duration"])["Price"]
+        .agg(["count", "mean"])
+        .reset_index()
+        .sort_values(["Airline", "count"], ascending=[True, False])
+    )
+    for _, row in airline_sched.iterrows():
+        dur_m = int(row["Duration"])
+        dur_lbl = f"{dur_m // 60}h {dur_m % 60}m" if dur_m >= 60 else f"{dur_m}m"
+        a_bucket = default_schedules_by_airline.setdefault(row["Airline"], [])
+        if len(a_bucket) < 4 and not any(
+            b["dep_time"] == row["Dep_Str"] and b["arrival_time"] == row["Arr_Str"]
+            for b in a_bucket
+        ):
+            a_bucket.append(
+                {
+                    "dep_time": row["Dep_Str"],
+                    "arrival_time": row["Arr_Str"],
+                    "duration_mins": dur_m,
+                    "duration_label": dur_lbl,
+                    "total_stops": int(row["Total_Stops"]),
+                    "sample_count": int(row["count"]),
+                    "avg_price": round(float(row["mean"]), 0),
+                }
+            )
 
     return {
         "airlines": sorted(df["Airline"].unique().tolist()),
@@ -122,6 +222,8 @@ def export_route_catalog(df: pd.DataFrame) -> Dict:
         ),
         "airport_codes": AIRPORT_CODES,
         "routes_by_trip": routes_by_trip,
+        "schedules_by_pair": schedules_by_pair,
+        "default_schedules_by_airline": default_schedules_by_airline,
     }
 
 
