@@ -18,14 +18,24 @@ async def app(scope, receive, send):
     """
     if scope["type"] == "http":
         headers = dict(scope.get("headers", []))
-        matched_path = headers.get(b"x-matched-path")
+        # Vercel provides original client pathname in x-pathname or x-forwarded-uri
+        raw_path = headers.get(b"x-pathname") or headers.get(b"x-forwarded-uri")
+        if not raw_path:
+            mp = headers.get(b"x-matched-path")
+            if mp and mp != b"/api/index.py" and mp != b"/api":
+                raw_path = mp
         
-        if matched_path and matched_path != b"/api/index.py" and matched_path != b"/api":
-            clean_path = matched_path.decode("utf-8")
+        if raw_path:
+            clean_path = raw_path.decode("utf-8")
             if "?" in clean_path:
                 clean_path = clean_path.split("?")[0]
-            scope["path"] = clean_path
-        elif scope["path"] in ["/api/index.py", "/api", "/api/"]:
+            if clean_path and clean_path not in ["/api/index.py", "/api", "/api/"]:
+                scope["path"] = clean_path
+            elif scope.get("method") == "POST":
+                scope["path"] = "/api/predict"
+            else:
+                scope["path"] = "/"
+        elif scope.get("path") in ["/api/index.py", "/api", "/api/"]:
             if scope.get("method") == "POST":
                 scope["path"] = "/api/predict"
             else:
