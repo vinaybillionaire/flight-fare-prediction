@@ -248,6 +248,31 @@ def test_auth_rbac_and_full_crud_lifecycle():
     assert len(users_resp.json()["users"]) >= 3
 
 
+def test_vercel_entrypoint_preserves_routes():
+    from api.index import app as vercel_app
+
+    vercel_client = TestClient(vercel_app)
+    # Simulate Vercel passing x-matched-path: / while scope['path'] is the real route
+    h = {"x-matched-path": "/"}
+    assert vercel_client.get("/health", headers=h).json()["status"] == "healthy"
+    assert "catalog" in vercel_client.get("/api/catalog", headers=h).json()
+    pred = vercel_client.post(
+        "/api/predict",
+        headers=h,
+        json={
+            "airline": "IndiGo",
+            "source": "Banglore",
+            "destination": "Delhi",
+            "journey_date": "2026-12-04",
+            "dep_time": "08:30",
+            "arrival_time": "11:20",
+            "total_stops": 0,
+        },
+    )
+    assert pred.status_code == 200
+    assert pred.json()["predicted_fare"] > 1800
+
+
 if __name__ == "__main__":
     test_model_artifacts_and_accuracy()
     test_health_and_analytics_endpoints()
