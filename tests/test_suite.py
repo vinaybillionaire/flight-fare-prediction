@@ -252,13 +252,20 @@ def test_vercel_entrypoint_preserves_routes():
     from api.index import app as vercel_app
 
     vercel_client = TestClient(vercel_app)
-    # Simulate Vercel passing x-matched-path: / while scope['path'] is the real route
+    # 1. Direct path with x-matched-path: / header
     h = {"x-matched-path": "/"}
     assert vercel_client.get("/health", headers=h).json()["status"] == "healthy"
     assert "catalog" in vercel_client.get("/api/catalog", headers=h).json()
+
+    # 2. Rewrite with __vpath query param (Vercel /:path* -> /api/index.py?__vpath=:path*)
+    assert vercel_client.get("/api/index.py?__vpath=").status_code == 200
+    assert vercel_client.get("/api/index.py?__vpath=health").json()["status"] == "healthy"
+    hist = vercel_client.get("/api/index.py?__vpath=api/history&limit=5")
+    assert hist.status_code == 200
+    assert "history" in hist.json()
+
     pred = vercel_client.post(
-        "/api/predict",
-        headers=h,
+        "/api/index.py?__vpath=api/predict",
         json={
             "airline": "IndiGo",
             "source": "Banglore",
