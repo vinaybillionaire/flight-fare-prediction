@@ -13,9 +13,14 @@ import json
 import os
 import sys
 import uuid
+from datetime import datetime, timedelta, timezone
 
 import joblib
 from fastapi.testclient import TestClient
+
+IST_TODAY = datetime.now(timezone(timedelta(hours=5, minutes=30))).date()
+FUTURE_DATE_1 = (IST_TODAY + timedelta(days=7)).isoformat()
+FUTURE_DATE_2 = (IST_TODAY + timedelta(days=11)).isoformat()
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
@@ -53,7 +58,7 @@ def test_model_artifacts_and_accuracy():
         airline="IndiGo",
         source="Banglore",
         destination="Delhi",
-        journey_date="2026-12-04",
+        journey_date=FUTURE_DATE_1,
         dep_time="10:00",
         arrival_time="12:50",
         total_stops=0,
@@ -93,7 +98,7 @@ def test_prediction_validation_and_batch_comparisons():
             "airline": "IndiGo",
             "source": "Delhi",
             "destination": "New Delhi",
-            "journey_date": "2026-12-04",
+            "journey_date": FUTURE_DATE_1,
             "dep_time": "10:00",
             "arrival_time": "12:50",
             "total_stops": 0,
@@ -101,11 +106,25 @@ def test_prediction_validation_and_batch_comparisons():
     )
     assert bad.status_code == 422
 
+    # Reject completed / past departure dates across predict and batch comparison routes
+    past_payload = {
+        "airline": "IndiGo",
+        "source": "Banglore",
+        "destination": "Delhi",
+        "journey_date": "2025-02-28",
+        "dep_time": "10:00",
+        "arrival_time": "12:50",
+        "total_stops": 0,
+    }
+    assert client.post("/api/predict", json=past_payload).status_code == 422
+    assert client.post("/api/compare-dates", json=past_payload).status_code == 422
+    assert client.post("/api/compare-airlines", json=past_payload).status_code == 422
+
     payload = {
         "airline": "Jet Airways",
         "source": "Delhi",
         "destination": "Cochin",
-        "journey_date": "2026-12-04",
+        "journey_date": FUTURE_DATE_1,
         "dep_time": "09:25",
         "arrival_time": "19:00",
         "total_stops": 1,
@@ -124,6 +143,33 @@ def test_prediction_validation_and_batch_comparisons():
     assert flex.status_code == 200
     assert len(flex.json()["dates"]) == 7
 
+    # Today's date should succeed and 7-day calendar should never emit past dates
+    today_str = IST_TODAY.isoformat()
+    today_flex = client.post(
+        "/api/compare-dates",
+        json={**payload, "journey_date": today_str, "total_stops": 2},
+    )
+    assert today_flex.status_code == 200
+    assert all(d["date"] >= today_str for d in today_flex.json()["dates"])
+
+    # Multi-stop requests preserve stop counts and resolve matching hub paths
+    two_stop = client.post(
+        "/api/predict",
+        json={
+            "airline": "IndiGo",
+            "source": "Banglore",
+            "destination": "Delhi",
+            "journey_date": FUTURE_DATE_1,
+            "dep_time": "08:30",
+            "arrival_time": "15:10",
+            "total_stops": 2,
+        },
+    )
+    assert two_stop.status_code == 200
+    two_data = two_stop.json()
+    assert two_data["flight_details"]["stops"] == "2 stop(s)"
+    assert two_data["flight_details"]["resolved_route_path"].count("→") == 3
+
     airlines = client.post("/api/compare-airlines", json=payload)
     assert airlines.status_code == 200
     comps = airlines.json()["comparisons"]
@@ -137,7 +183,7 @@ def test_prediction_validation_and_batch_comparisons():
             "airline": "IndiGo",
             "source": "Cochin",
             "destination": "Delhi",
-            "journey_date": "2026-12-04",
+            "journey_date": FUTURE_DATE_1,
             "dep_time": "05:35",
             "arrival_time": "08:50",
             "total_stops": 0,
@@ -180,7 +226,7 @@ def test_auth_rbac_and_full_crud_lifecycle():
             "airline": "IndiGo",
             "source": "Banglore",
             "destination": "Delhi",
-            "journey_date": "2026-12-08",
+            "journey_date": FUTURE_DATE_2,
             "dep_time": "10:00",
             "arrival_time": "12:50",
             "total_stops": 0,
@@ -209,7 +255,7 @@ def test_auth_rbac_and_full_crud_lifecycle():
             "airline": "IndiGo",
             "source": "Banglore",
             "destination": "Delhi",
-            "journey_date": "2026-12-08",
+            "journey_date": FUTURE_DATE_2,
             "target_price": round(est_fare * 0.85, 2),
             "estimated_price": est_fare,
             "notes": "Watch drop",
@@ -270,7 +316,7 @@ def test_vercel_entrypoint_preserves_routes():
             "airline": "IndiGo",
             "source": "Banglore",
             "destination": "Delhi",
-            "journey_date": "2026-12-04",
+            "journey_date": FUTURE_DATE_1,
             "dep_time": "08:30",
             "arrival_time": "11:20",
             "total_stops": 0,

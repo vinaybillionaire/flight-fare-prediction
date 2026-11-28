@@ -127,6 +127,19 @@ class LoginRequest(BaseModel):
     password: str
 
 
+IST_TZ = timezone(timedelta(hours=5, minutes=30))
+
+
+def _validate_upcoming_journey_date(value: str) -> str:
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        raise ValueError("journey_date must follow YYYY-MM-DD format.")
+    if parsed < datetime.now(IST_TZ).date():
+        raise ValueError("Departure date cannot be in the past. Please select today or a future date.")
+    return value
+
+
 class FlightPredictionRequest(BaseModel):
     airline: str = Field(..., min_length=2, max_length=80)
     source: str = Field(..., min_length=2, max_length=60)
@@ -143,11 +156,7 @@ class FlightPredictionRequest(BaseModel):
     @field_validator("journey_date")
     @classmethod
     def validate_date(cls, v: str) -> str:
-        try:
-            datetime.strptime(v, "%Y-%m-%d")
-        except ValueError:
-            raise ValueError("journey_date must follow YYYY-MM-DD format.")
-        return v
+        return _validate_upcoming_journey_date(v)
 
     @field_validator("dep_time", "arrival_time")
     @classmethod
@@ -172,6 +181,11 @@ class FareAlertCreateRequest(BaseModel):
     target_price: float = Field(..., gt=0, le=500000)
     estimated_price: float = Field(..., gt=0, le=500000)
     notes: str = Field(default="", max_length=255)
+
+    @field_validator("journey_date")
+    @classmethod
+    def validate_alert_date(cls, v: str) -> str:
+        return _validate_upcoming_journey_date(v)
 
 
 class FareAlertUpdateRequest(BaseModel):
@@ -439,8 +453,10 @@ async def compare_flexible_dates(payload: FlightPredictionRequest):
 
     rows = []
     dates_meta = []
-    for offset in range(-3, 4):
-        d = base_dt + timedelta(days=offset)
+    today_dt = datetime.combine(datetime.now(IST_TZ).date(), datetime.min.time())
+    start_dt = max(today_dt, base_dt - timedelta(days=3))
+    for offset in range(7):
+        d = start_dt + timedelta(days=offset)
         df_row, _, _ = build_inference_dataframe(
             airline=payload.airline,
             source=payload.source,
@@ -459,7 +475,7 @@ async def compare_flexible_dates(payload: FlightPredictionRequest):
             {
                 "date": d.strftime("%Y-%m-%d"),
                 "label": d.strftime("%d %b (%a)"),
-                "is_selected": offset == 0,
+                "is_selected": d.date() == base_dt.date(),
             }
         )
 

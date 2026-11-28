@@ -86,7 +86,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const isJson = (resp.headers.get("content-type") || "").includes("application/json");
     const data = isJson ? await resp.json() : await resp.text();
     if (!resp.ok) {
-      const errMsg = typeof data === "object" && data.detail ? data.detail : `HTTP ${resp.status}`;
+      let errMsg = `HTTP ${resp.status}`;
+      if (typeof data === "object" && data && data.detail) {
+        if (Array.isArray(data.detail)) {
+          errMsg = data.detail
+            .map((item) => String(item?.msg || item).replace(/^Value error,\s*/i, ""))
+            .join("; ");
+        } else {
+          errMsg = String(data.detail);
+        }
+      }
       throw new Error(errMsg);
     }
     return data;
@@ -244,9 +253,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ---------------------- Form & Route Sync ----------------------
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  dateEl.value = tomorrow.toISOString().split("T")[0];
+  function getLocalDateStr(offsetDays = 0) {
+    const d = new Date();
+    d.setDate(d.getDate() + offsetDays);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+  }
+
+  dateEl.min = getLocalDateStr(0);
+  dateEl.value = getLocalDateStr(1);
+
+  dateEl.addEventListener("input", () => {
+    if (!dateEl.value || dateEl.value >= getLocalDateStr(0)) {
+      dateEl.setCustomValidity("");
+    }
+  });
+
+  dateEl.addEventListener("change", () => {
+    const todayStr = getLocalDateStr(0);
+    if (dateEl.value && dateEl.value < todayStr) {
+      const msg = "Departure date cannot be in the past. Please choose today or an upcoming date.";
+      dateEl.setCustomValidity(msg);
+      dateEl.reportValidity();
+      showToast(msg, true);
+    } else {
+      dateEl.setCustomValidity("");
+    }
+  });
 
   function updateDuration() {
     if (!depEl.value || !arrEl.value) return;
@@ -299,17 +334,29 @@ document.addEventListener("DOMContentLoaded", () => {
     lbl.textContent = airlineEl.value;
 
     const schedules = getSchedulesForPair(sourceEl.value, destEl.value, airlineEl.value);
-    if (autoSelect && schedules.length) {
-      let chosen = schedules[0];
-      if (preferredStops !== null) {
-        const stopMatch = schedules.find((s) => Number(s.total_stops) === Number(preferredStops));
-        if (stopMatch) chosen = stopMatch;
+    const filterStops = preferredStops !== null ? Number(preferredStops) : null;
+    let displaySchedules = schedules.slice(0, 6);
+    if (filterStops !== null) {
+      const matched = schedules.filter((s) => Number(s.total_stops) === filterStops);
+      if (matched.length) {
+        const rest = schedules.filter((s) => Number(s.total_stops) !== filterStops);
+        displaySchedules = [...matched, ...rest].slice(0, 6);
       }
-      applyScheduleSlot(chosen);
     }
 
-    grid.innerHTML = schedules
-      .slice(0, 6)
+    if (autoSelect && schedules.length) {
+      if (filterStops !== null) {
+        const stopMatch = schedules.find((s) => Number(s.total_stops) === filterStops);
+        if (stopMatch) {
+          applyScheduleSlot(stopMatch);
+        }
+        // Keep user-selected Stops untouched when no preset schedule matches filterStops.
+      } else {
+        applyScheduleSlot(schedules[0]);
+      }
+    }
+
+    grid.innerHTML = displaySchedules
       .map((s, idx) => {
         const isActive =
           s.dep_time === depEl.value &&
@@ -326,7 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     grid.querySelectorAll(".schedule-chip").forEach((chip) => {
       chip.addEventListener("click", () => {
-        const slot = schedules[Number(chip.dataset.idx)];
+        const slot = displaySchedules[Number(chip.dataset.idx)];
         applyScheduleSlot(slot);
         renderSchedulePresets(false);
       });
@@ -356,9 +403,12 @@ document.addEventListener("DOMContentLoaded", () => {
       opt.textContent = `${item.route} (${item.sample_count} historical flights)`;
       routeEl.appendChild(opt);
     });
+    const stopsNum = Number(stopsEl.value);
     document.getElementById("route-hint-text").textContent = matches.length
       ? `${matches.length} layover paths available`
-      : "Direct/standard path";
+      : stopsNum === 0
+      ? "Direct/standard path"
+      : `Auto-generated ${stopsNum}-stop path`;
   }
 
   sourceEl.addEventListener("change", () => updateRouteVisualizer(true));
@@ -403,6 +453,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function runPredictionAndComparisons() {
     const payload = currentPayload();
+    const todayStr = getLocalDateStr(0);
+    if (!payload.journey_date || payload.journey_date < todayStr) {
+      const msg = "Departure date cannot be in the past. Please choose today or an upcoming date.";
+      dateEl.setCustomValidity(msg);
+      dateEl.reportValidity();
+      showToast(msg, true);
+      return;
+    }
+    dateEl.setCustomValidity("");
     if ((airportCodes[payload.source]?.code || payload.source) === (airportCodes[payload.destination]?.code || payload.destination)) {
       showToast("Origin and destination refer to the same city. Choose two different airports.", true);
       return;

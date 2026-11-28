@@ -113,33 +113,35 @@ def resolve_route_string(
     requested_route: Optional[str],
     route_catalog: Dict,
 ) -> str:
-    """Resolve an explicit route or look up the most common historical route for the pair."""
+    """Resolve an explicit route or look up a stop-consistent historical/synthetic route."""
     if requested_route and requested_route.strip() and requested_route.strip().lower() != "auto":
         return requested_route.strip()
 
+    stops = max(0, int(total_stops))
     norm_src = "Delhi" if source == "New Delhi" else source
-    key = f"{norm_src}|{destination}|{int(total_stops)}"
     routes_map = route_catalog.get("routes_by_trip", {})
+
+    # 1. Exact stop-count historical route (includes mirrored pairs from catalog)
+    key = f"{norm_src}|{destination}|{stops}"
     candidates = routes_map.get(key)
     if candidates:
         return candidates[0]["route"]
 
-    # Check any stop count for this pair
-    pair_prefix = f"{norm_src}|{destination}|"
-    for k, items in routes_map.items():
-        if k.startswith(pair_prefix) and items:
-            return items[0]["route"]
-
-    # Check reverse corridor
-    rev_key = f"{destination}|{norm_src}|{int(total_stops)}"
+    # 2. Reverse corridor with identical stop count
+    norm_dst = "Delhi" if destination == "New Delhi" else destination
+    rev_key = f"{norm_dst}|{norm_src}|{stops}"
     if routes_map.get(rev_key):
         return reverse_route_string(routes_map[rev_key][0]["route"])
 
+    # 3. Construct exact-stop fallback path avoiding origin/destination hubs
     src_code = AIRPORT_CODES.get(source, {}).get("code", source[:3].upper())
     dst_code = AIRPORT_CODES.get(destination, {}).get("code", destination[:3].upper())
-    if int(total_stops) == 0:
+    if stops == 0:
         return f"{src_code} → {dst_code}"
-    return f"{src_code} → BOM → {dst_code}"
+
+    hub_pool = [h for h in ("BOM", "DEL", "BLR", "HYD", "CCU", "MAA") if h not in {src_code, dst_code}]
+    selected_hubs = hub_pool[:stops]
+    return " → ".join([src_code, *selected_hubs, dst_code])
 
 
 def build_inference_dataframe(
